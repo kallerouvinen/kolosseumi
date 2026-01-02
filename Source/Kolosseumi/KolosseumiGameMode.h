@@ -7,6 +7,7 @@
 #include "KolosseumiGameMode.generated.h"
 
 class AGladiator;
+class UMainUIWidget;
 
 /**
  *
@@ -22,7 +23,19 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+public:
+	void StartNextMatch();
+
 private:
+	void SpawnGladiatorsAtSpawnPoints();
+	void AssignAIControllersTargets();
+
 	UPROPERTY()
 	TSubclassOf<AGladiator> GladiatorClass;
+
+	UPROPERTY()
+	TSubclassOf<UMainUIWidget> MainUIWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UMainUIWidget> MainUIWidget;
 };
