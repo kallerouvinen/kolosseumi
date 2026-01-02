@@ -9,3 +9,7 @@ Päivä 1/4
 ☑ AI Controller
 ☑ Liikkuminen
 ☑ Hyökkääminen
+☑ Vahinko
+☑ Tajuttomuus
+☐ Käyttöliittymä
+  ☐ Nappi ottelun aloittamiselle

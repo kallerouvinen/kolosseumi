@@ -14,18 +14,19 @@
 ☑ Hyökkääminen
 ☑ Vahinko
 ☑ Tajuttomuus
+☐ Käyttöliittymä
+  ☐ Nappi ottelun aloittamiselle
 
 ### Päivä 2/4
 
-☐ Käyttöliittymä
-  ☐ Nappi ottelun aloittamiselle
-  ☐ Rosterin tarkastelu
-  ☐ Gladiaattoreiden palkkaaminen (majatalo)
-  ☐ Gladiaattorin taktiikan valinta
+☐ Hahmojen paikkojen valinta ottelun alussa
 ☐ Hahmojen rodut
 ☐ Hahmojen nimet
 ☐ Datan generointi
-☐ Hahmojen paikkojen valinta ottelun alussa?
+☐ Käyttöliittymä jatkuu
+  ☐ Rosterin tarkastelu
+  ☐ Gladiaattoreiden palkkaaminen (majatalo)
+  ☐ Gladiaattorin taktiikan valinta
 
 ### Päivä 3/4
 
