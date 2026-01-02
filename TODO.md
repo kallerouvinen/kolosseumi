@@ -14,8 +14,10 @@
 ☑ Hyökkääminen
 ☑ Vahinko
 ☑ Tajuttomuus
-☐ Käyttöliittymä
-  ☐ Nappi ottelun aloittamiselle
+☑ Käyttöliittymä
+☑ Nappi ottelun aloittamiselle
+☐ Ottelun päättyminen
+☐ Ruutu ottelun tuloksille
 
 ### Päivä 2/4
 
@@ -24,14 +26,12 @@
 ☐ Hahmojen nimet
 ☐ Datan generointi
 ☐ Käyttöliittymä jatkuu
-  ☐ Rosterin tarkastelu
-  ☐ Gladiaattoreiden palkkaaminen (majatalo)
-  ☐ Gladiaattorin taktiikan valinta
+☐ Rosterin tarkastelu
+☐ Gladiaattoreiden palkkaaminen (majatalo)
+☐ Gladiaattorin taktiikan valinta
 
 ### Päivä 3/4
 
-☐ Ottelun päättyminen
-☐ Ruutu ottelun tuloksille
 ☐ Raha
 ☐ Rahapalkinto ottelun jälkeen
 ☐ Huutelu ("Lyökää sitä kääpiötä!")

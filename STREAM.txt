@@ -11,5 +11,7 @@ Päivä 1/4
 ☑ Hyökkääminen
 ☑ Vahinko
 ☑ Tajuttomuus
-☐ Käyttöliittymä
-  ☐ Nappi ottelun aloittamiselle
+☑ Käyttöliittymä
+☑ Nappi ottelun aloittamiselle
+☐ Ottelun päättyminen
+☐ Ruutu ottelun tuloksille
