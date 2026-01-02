@@ -1,0 +1,73 @@
+StatementMacros:
+  [
+    "UPROPERTY",
+    "UFUNCTION",
+    "UCLASS",
+    "USTRUCT",
+    "UENUM",
+    "UINTERFACE",
+    "GENERATED_BODY",
+  ]
+Language: Cpp
+BasedOnStyle: LLVM
+
+AccessModifierOffset: -2
+AlignAfterOpenBracket: DontAlign
+AlignConsecutiveDeclarations: false
+AlignEscapedNewlines: Left
+AlignOperands: DontAlign
+AlignTrailingComments: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortLambdasOnASingleLine: All
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeWhile: true
+  IndentBraces: false
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Custom
+BreakInheritanceList: AfterColon
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+BreakStringLiterals: false
+ColumnLimit: 0
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+Cpp11BracedListStyle: false
+EmptyLineBeforeAccessModifier: LogicalBlock
+IndentCaseBlocks: false
+IndentCaseLabels: true
+IndentPPDirectives: BeforeHash
+IndentWidth: 2
+InsertNewlineAtEOF: true
+NamespaceIndentation: All
+PointerAlignment: Left
+SortIncludes: true
+IncludeBlocks: Merge
+IncludeCategories:
+  - Regex: '^"Kolosseumi/' # Your project includes (modify based on your project's root namespace)
+    Priority: 1
+  - Regex: '\.generated\.h"$' # Matches includes ending with .generated.h
+    Priority: 3
+  - Regex: '^"CoreMinimal\.h"$' # CoreMinimal-includes
+    Priority: 2
+    SortPriority: 1
+  - Regex: '^".*"' # System and Unreal Engine includes
+    Priority: 2
+    SortPriority: 0
+SpaceBeforeCaseColon: false
+TabWidth: 2
+UseTab: Always

@@ -1,0 +1,11 @@
+Päivä 1/4
+
+☑ Hahmot (mesh + animaatiot)
+☑ Kenttä
+☑ Kamera
+☑ Hahmojen spawnaaminen
+☐ Hahmojen HP
+☐ Faction (friendly/enemy)
+☐ AI Controller
+☐ Liikkuminen
+☐ Hyökkääminen
