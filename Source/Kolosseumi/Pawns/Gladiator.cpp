@@ -42,7 +42,66 @@ void AGladiator::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void AGladiator::SetHealth(int32 NewHealth)
+{
+	Health = FMath::Clamp(NewHealth, 0, MaxHealth);
+
+	if (Health <= 0)
+	{
+		bIsKnockedOut = true;
+		// TODO: Stop any ongoing actions and prevent further actions
+	}
+
+	RefreshHealthBar();
+}
+
+void AGladiator::SetMaxHealth(int32 NewMaxHealth)
+{
+	MaxHealth = FMath::Max(1, NewMaxHealth);
+	Health = FMath::Clamp(Health, 0, MaxHealth);
+
+	RefreshHealthBar();
+}
+
 // void AGladiator::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 // {
 // 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 // }
+
+void AGladiator::Attack(AGladiator* TargetGladiator)
+{
+	if (bIsAttacking) return;
+
+	bIsAttacking = true;
+
+	if (TargetGladiator)
+	{
+		FTimerHandle DamageTimerHandle;
+		GetWorldTimerManager().SetTimer(
+				DamageTimerHandle,
+				[this, TargetGladiator]() {
+					float DamageAmount = 10.0f;
+					TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
+				},
+				0.5f,
+				false);
+	}
+
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(
+			TimerHandle,
+			[this]() { bIsAttacking = false; },
+			AttackDuration,
+			false);
+}
+
+void AGladiator::RefreshHealthBar()
+{
+	if (UUserWidget* Widget = HealthBarWidgetComponent->GetWidget())
+	{
+		if (UHealthBarWidget* HealthBarWidget = Cast<UHealthBarWidget>(Widget))
+		{
+			HealthBarWidget->SetHealthPercent(static_cast<float>(Health) / static_cast<float>(MaxHealth));
+		}
+	}
+}
