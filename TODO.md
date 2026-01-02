@@ -8,7 +8,7 @@
 ☐ Kamera
 ☐ Hahmojen spawnaaminen
 ☐ Hahmojen HP
-☐ Faction (friendly/enemy)
+☐ Faction (player/opponent)
 ☐ AI Controller
 ☐ Liikkuminen
 ☐ Hyökkääminen

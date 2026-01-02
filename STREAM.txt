@@ -4,8 +4,8 @@ Päivä 1/4
 ☑ Kenttä
 ☑ Kamera
 ☑ Hahmojen spawnaaminen
-☐ Hahmojen HP
-☐ Faction (friendly/enemy)
+☑ Faction (player/opponent)
+☑ Hahmojen HP
 ☐ AI Controller
 ☐ Liikkuminen
 ☐ Hyökkääminen
