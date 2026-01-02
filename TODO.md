@@ -12,26 +12,28 @@
 ☑ AI Controller
 ☑ Liikkuminen
 ☑ Hyökkääminen
+☑ Vahinko
+☑ Tajuttomuus
 
 ### Päivä 2/4
 
-☑ Vahinko
-☑ Tajuttomuus
+☐ Käyttöliittymä
+  ☐ Nappi ottelun aloittamiselle
+  ☐ Rosterin tarkastelu
+  ☐ Gladiaattoreiden palkkaaminen (majatalo)
+  ☐ Gladiaattorin taktiikan valinta
+☐ Hahmojen rodut
+☐ Hahmojen nimet
+☐ Datan generointi
+☐ Hahmojen paikkojen valinta ottelun alussa?
+
+### Päivä 3/4
+
 ☐ Ottelun päättyminen
 ☐ Ruutu ottelun tuloksille
 ☐ Raha
 ☐ Rahapalkinto ottelun jälkeen
 ☐ Huutelu ("Lyökää sitä kääpiötä!")
-
-### Päivä 3/4
-
-☐ Hahmojen nimet
-☐ Hahmojen rodut
-☐ Datan generointi
-☐ Käyttöliittymä
-  ☐ Nappi seuraavalle ottelulle
-  ☐ Rosterin tarkastelu
-  ☐ Gladiaattoreiden palkkaaminen (majatalo)
 
 ### Päivä 4/4
 
