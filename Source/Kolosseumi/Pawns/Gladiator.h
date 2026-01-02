@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kolosseumi/Libraries/EnumLibrary.h"
 #include "GameFramework/Character.h"
 #include "Gladiator.generated.h"
 
@@ -33,6 +34,9 @@ public:
 		Health = FMath::Clamp(Health, 0, MaxHealth);
 	}
 
+	void SetFaction(EFaction NewFaction) { Faction = NewFaction; }
+	EFaction GetFaction() const { return Faction; }
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
 	TObjectPtr<UWidgetComponent> HealthBarWidgetComponent;
@@ -40,4 +44,6 @@ protected:
 private:
 	int32 MaxHealth = 100;
 	int32 Health = 60;
+
+	EFaction Faction = EFaction::Player;
 };

@@ -2,6 +2,7 @@
 
 #include "Kolosseumi/KolosseumiGameMode.h"
 #include "Kolosseumi/Actors/SpawnPoint.h"
+#include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/Pawns/CameraPawn.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Kismet/GameplayStatics.h"
@@ -30,13 +31,26 @@ void AKolosseumiGameMode::BeginPlay()
 	{
 		if (ASpawnPoint* SpawnPoint = Cast<ASpawnPoint>(Actor))
 		{
-			EFaction Faction = SpawnPoint->GetFaction();
+			FTransform SpawnTransform = SpawnPoint->GetActorTransform();
 
-			if (AGladiator* SpawnedGladiator = GetWorld()->SpawnActor<AGladiator>(GladiatorClass))
+			if (AGladiator* SpawnedGladiator = GetWorld()->SpawnActorDeferred<AGladiator>(
+							GladiatorClass,
+							SpawnTransform))
 			{
-				SpawnedGladiator->SetActorLocation(SpawnPoint->GetActorLocation());
-				SpawnedGladiator->SetActorRotation(SpawnPoint->GetActorRotation());
+				SpawnedGladiator->SetFaction(SpawnPoint->GetFaction());
+				SpawnedGladiator->FinishSpawning(SpawnTransform);
 			}
+		}
+	}
+
+	TArray<AActor*> AIControllers;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGladiatorAIController::StaticClass(), AIControllers);
+
+	for (AActor* Actor : AIControllers)
+	{
+		if (AGladiatorAIController* AIController = Cast<AGladiatorAIController>(Actor))
+		{
+			AIController->SetAttackTargetToClosest();
 		}
 	}
 }

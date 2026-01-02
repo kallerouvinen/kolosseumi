@@ -1,6 +1,7 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
 #include "Kolosseumi/Pawns/Gladiator.h"
+#include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/UI/HealthBarWidget.h"
 #include "Components/WidgetComponent.h"
 
@@ -17,6 +18,9 @@ AGladiator::AGladiator()
 	HealthBarWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 	HealthBarWidgetComponent->SetDrawAtDesiredSize(true);
 	HealthBarWidgetComponent->SetupAttachment(RootComponent);
+
+	AIControllerClass = AGladiatorAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 void AGladiator::BeginPlay()
@@ -27,8 +31,7 @@ void AGladiator::BeginPlay()
 	{
 		if (UHealthBarWidget* HealthBarWidget = Cast<UHealthBarWidget>(Widget))
 		{
-			// TODO: This requires deferred spawning to initialize faction properly in game mode
-			// HealthBarWidget->Init(EFaction::Opponent);
+			HealthBarWidget->Init(Faction);
 			HealthBarWidget->SetHealthPercent(static_cast<float>(Health) / static_cast<float>(MaxHealth));
 		}
 	}
