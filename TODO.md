@@ -3,20 +3,20 @@
 
 ### Päivä 1/4
 
-☐ Hahmot (mesh + animaatio)
-☐ Kenttä
-☐ Kamera
-☐ Hahmojen spawnaaminen
-☐ Hahmojen HP
-☐ Faction (player/opponent)
-☐ AI Controller
-☐ Liikkuminen
-☐ Hyökkääminen
+☑ Hahmot (mesh + animaatio)
+☑ Kenttä
+☑ Kamera
+☑ Hahmojen spawnaaminen
+☑ Hahmojen HP
+☑ Faction (player/opponent)
+☑ AI Controller
+☑ Liikkuminen
+☑ Hyökkääminen
 
 ### Päivä 2/4
 
-☐ Vahinko
-☐ Tajuttomuus
+☑ Vahinko
+☑ Tajuttomuus
 ☐ Ottelun päättyminen
 ☐ Ruutu ottelun tuloksille
 ☐ Raha

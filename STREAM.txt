@@ -6,6 +6,6 @@ Päivä 1/4
 ☑ Hahmojen spawnaaminen
 ☑ Faction (player/opponent)
 ☑ Hahmojen HP
-☐ AI Controller
-☐ Liikkuminen
-☐ Hyökkääminen
+☑ AI Controller
+☑ Liikkuminen
+☑ Hyökkääminen
