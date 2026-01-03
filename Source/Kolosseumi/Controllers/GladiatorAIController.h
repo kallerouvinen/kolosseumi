@@ -38,4 +38,7 @@ private:
 	UFUNCTION()
 	void OnGladiatorKnockedOut(FGameplayTag Channel, const FGladiatorKnockedOutMessage& Message);
 	FGameplayMessageListenerHandle GladiatorKnockedOutListenerHandle;
+	UFUNCTION()
+	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
+	FGameplayMessageListenerHandle MatchEndListenerHandle;
 };

@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
+#include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "Gladiator.generated.h"
 
 class UWidgetComponent;
@@ -19,6 +22,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -37,6 +41,8 @@ public:
 	bool IsAttacking() const { return bIsAttacking; }
 	UFUNCTION(BlueprintCallable)
 	bool IsKnockedOut() const { return bIsKnockedOut; }
+	UFUNCTION(BlueprintCallable)
+	bool IsCheering() const { return bIsCheering; }
 
 	void Attack(AGladiator* TargetGladiator);
 
@@ -55,4 +61,9 @@ private:
 	bool bIsAttacking = false;
 	float AttackDuration = 1.0f;
 	bool bIsKnockedOut = false;
+	bool bIsCheering = false;
+
+	UFUNCTION()
+	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
+	FGameplayMessageListenerHandle MatchEndListenerHandle;
 };

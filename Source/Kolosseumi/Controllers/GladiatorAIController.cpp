@@ -27,6 +27,10 @@ void AGladiatorAIController::BeginPlay()
 			KolosseumiTags::Message_GladiatorKnockedOut,
 			this,
 			&ThisClass::OnGladiatorKnockedOut);
+	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_MatchEnd,
+			this,
+			&ThisClass::OnMatchEnd);
 
 	if (!ensureMsgf(AIBehaviorTree, TEXT("AIBehaviorTree is not found in GladiatorAIController")))
 	{
@@ -89,4 +93,9 @@ void AGladiatorAIController::OnGladiatorKnockedOut(FGameplayTag Channel, const F
 	{
 		SetAttackTargetToClosest();
 	}
+}
+
+void AGladiatorAIController::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
+{
+	GetBlackboardComponent()->SetValueAsObject(TEXT("AttackTarget"), nullptr);
 }

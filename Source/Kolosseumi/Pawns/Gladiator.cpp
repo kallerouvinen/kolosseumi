@@ -39,6 +39,20 @@ void AGladiator::BeginPlay()
 			HealthBarWidget->SetHealthPercent(static_cast<float>(Health) / static_cast<float>(MaxHealth));
 		}
 	}
+
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_MatchEnd,
+			this,
+			&ThisClass::OnMatchEnd);
+}
+
+void AGladiator::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
+
+	Super::EndPlay(EndPlayReason);
 }
 
 void AGladiator::Tick(float DeltaTime)
@@ -114,5 +128,13 @@ void AGladiator::RefreshHealthBar()
 		{
 			HealthBarWidget->SetHealthPercent(static_cast<float>(Health) / static_cast<float>(MaxHealth));
 		}
+	}
+}
+
+void AGladiator::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
+{
+	if (Message.WinningFaction == Faction && !bIsKnockedOut)
+	{
+		bIsCheering = true;
 	}
 }
