@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kolosseumi/Libraries/EnumLibrary.h"
 #include "GameFramework/GameModeBase.h"
 #include "KolosseumiGameMode.generated.h"
 
@@ -25,10 +26,12 @@ protected:
 
 public:
 	void StartNextMatch();
+	void EndMatch(EFaction WinningFaction);
 
 private:
 	void SpawnGladiatorsAtSpawnPoints();
 	void AssignAIControllersTargets();
+	void RemoveAllGladiatorsFromWorld();
 
 	UPROPERTY()
 	TSubclassOf<AGladiator> GladiatorClass;

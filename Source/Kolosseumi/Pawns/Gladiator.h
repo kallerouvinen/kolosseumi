@@ -48,7 +48,9 @@ private:
 	void RefreshHealthBar();
 
 	int32 MaxHealth = 100;
-	int32 Health = 60;
+	int32 Health = 100;
+
+	int32 AttackDamage = 20;
 
 	EFaction Faction = EFaction::Player;
 

@@ -41,9 +41,6 @@ void AGladiatorAIController::SetAttackTargetToClosest()
 
 		TArray<AActor*> Gladiators;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGladiator::StaticClass(), Gladiators);
-		UE_LOG(LogTemp, Warning, TEXT("GladiatorAIController possessed pawn"));
-		UE_LOG(LogTemp, Warning, TEXT("Found %d gladiators in the world"), Gladiators.Num());
-
 		for (AActor* Actor : Gladiators)
 		{
 			if (AGladiator* Gladiator = Cast<AGladiator>(Actor))

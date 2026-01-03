@@ -4,6 +4,7 @@
 #include "Kolosseumi/Actors/SpawnPoint.h"
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/Controllers/KolosseumiPlayerController.h"
+#include "Kolosseumi/KolosseumiGameState.h"
 #include "Kolosseumi/Pawns/CameraPawn.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Kolosseumi/UI/MainUIWidget.h"
@@ -13,6 +14,7 @@ AKolosseumiGameMode::AKolosseumiGameMode()
 {
 	DefaultPawnClass = ACameraPawn::StaticClass();
 	// HUDClass = nullptr;
+	GameStateClass = AKolosseumiGameState::StaticClass();
 	PlayerControllerClass = AKolosseumiPlayerController::StaticClass();
 
 	static ConstructorHelpers::FClassFinder<AGladiator> GladiatorClassFinder(TEXT("/Game/Characters/BP_Gladiator"));
@@ -53,10 +55,23 @@ void AKolosseumiGameMode::StartNextMatch()
 	AssignAIControllersTargets();
 }
 
+void AKolosseumiGameMode::EndMatch(EFaction WinningFaction)
+{
+	RemoveAllGladiatorsFromWorld();
+
+	if (MainUIWidget)
+	{
+		MainUIWidget->SetVisibility(ESlateVisibility::Visible);
+		// MainUIWidget->ShowMatchResult(WinningFaction);
+	}
+}
+
 void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
 {
 	TArray<AActor*> SpawnPoints;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnPoint::StaticClass(), SpawnPoints);
+
+	TArray<TWeakObjectPtr<AGladiator>> AliveGladiators;
 
 	for (AActor* Actor : SpawnPoints)
 	{
@@ -70,8 +85,15 @@ void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
 			{
 				SpawnedGladiator->SetFaction(SpawnPoint->GetFaction());
 				SpawnedGladiator->FinishSpawning(SpawnTransform);
+
+				AliveGladiators.Add(SpawnedGladiator);
 			}
 		}
+	}
+
+	if (AKolosseumiGameState* KolosseumiGameState = Cast<AKolosseumiGameState>(GameState))
+	{
+		KolosseumiGameState->InitAliveGladiators(AliveGladiators);
 	}
 }
 
@@ -85,6 +107,20 @@ void AKolosseumiGameMode::AssignAIControllersTargets()
 		if (AGladiatorAIController* AIController = Cast<AGladiatorAIController>(Actor))
 		{
 			AIController->SetAttackTargetToClosest();
+		}
+	}
+}
+
+void AKolosseumiGameMode::RemoveAllGladiatorsFromWorld()
+{
+	TArray<AActor*> Gladiators;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGladiator::StaticClass(), Gladiators);
+
+	for (AActor* Actor : Gladiators)
+	{
+		if (AGladiator* Gladiator = Cast<AGladiator>(Actor))
+		{
+			Gladiator->Destroy();
 		}
 	}
 }

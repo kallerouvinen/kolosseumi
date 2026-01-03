@@ -2,6 +2,7 @@
 
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
+#include "Kolosseumi/KolosseumiGameState.h"
 #include "Kolosseumi/UI/HealthBarWidget.h"
 #include "Components/WidgetComponent.h"
 
@@ -50,6 +51,14 @@ void AGladiator::SetHealth(int32 NewHealth)
 	{
 		bIsKnockedOut = true;
 		// TODO: Stop any ongoing actions and prevent further actions
+
+		UE_LOG(LogTemp, Warning, TEXT("Gladiator %s knocked out!"), *GetName());
+
+		if (AKolosseumiGameState* GameState = Cast<AKolosseumiGameState>(GetWorld()->GetGameState()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Notifying GameState about knockout of %s"), *GetName());
+			GameState->OnGladiatorKnockedOut(this);
+		}
 	}
 
 	RefreshHealthBar();
@@ -70,7 +79,7 @@ void AGladiator::SetMaxHealth(int32 NewMaxHealth)
 
 void AGladiator::Attack(AGladiator* TargetGladiator)
 {
-	if (bIsAttacking) return;
+	if (bIsAttacking || bIsKnockedOut) return;
 
 	bIsAttacking = true;
 
@@ -80,7 +89,7 @@ void AGladiator::Attack(AGladiator* TargetGladiator)
 		GetWorldTimerManager().SetTimer(
 				DamageTimerHandle,
 				[this, TargetGladiator]() {
-					float DamageAmount = 10.0f;
+					float DamageAmount = AttackDamage + FMath::RandRange(-20, 20);
 					TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
 				},
 				0.5f,
