@@ -1,11 +1,11 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
-#include "Kolosseumi/KolosseumiGameState.h"
-#include "Kolosseumi/KolosseumiGameMode.h"
+#include "Kolosseumi/States/KolosseumiGameState.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
+#include "Kolosseumi/States/KolosseumiGameMode.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 
 void AKolosseumiGameState::BeginPlay()

@@ -2,9 +2,9 @@
 
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
-#include "Kolosseumi/KolosseumiGameState.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
+#include "Kolosseumi/States/KolosseumiGameState.h"
 #include "Kolosseumi/UI/HealthBarWidget.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/GameplayMessageSubsystem.h"

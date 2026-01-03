@@ -1,14 +1,14 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
-#include "Kolosseumi/KolosseumiGameMode.h"
+#include "Kolosseumi/States/KolosseumiGameMode.h"
 #include "Kolosseumi/Actors/SpawnPoint.h"
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/Controllers/KolosseumiPlayerController.h"
-#include "Kolosseumi/KolosseumiGameState.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Kolosseumi/Pawns/CameraPawn.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
+#include "Kolosseumi/States/KolosseumiGameState.h"
 #include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Kolosseumi/UI/KolosseumiHUD.h"
 #include "Kismet/GameplayStatics.h"
@@ -63,6 +63,8 @@ void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
 	{
 		if (ASpawnPoint* SpawnPoint = Cast<ASpawnPoint>(Actor))
 		{
+			if (SpawnPoint->IsAtSidelines()) continue;
+
 			FTransform SpawnTransform = SpawnPoint->GetActorTransform();
 
 			if (AGladiator* SpawnedGladiator = GetWorld()->SpawnActorDeferred<AGladiator>(
