@@ -1,17 +1,8 @@
-Päivä 1/4
+Päivä 2/4
 
-☑ Hahmot (mesh + animaatiot)
-☑ Kenttä
-☑ Kamera
-☑ Hahmojen spawnaaminen
-☑ Faction (player/opponent)
-☑ Hahmojen HP
-☑ AI Controller
-☑ Liikkuminen
-☑ Hyökkääminen
-☑ Vahinko
-☑ Tajuttomuus
-☑ Käyttöliittymä
-☑ Nappi ottelun aloittamiselle
+☐ Viestintä koodin sisällä
 ☐ Ottelun päättyminen
 ☐ Ruutu ottelun tuloksille
+☐ Joukkueen kokoonpano
+☐ Pelaajan vaikutusmahdollisuuksien lisääminen
+☐ Hahmojen paikkojen valinta ottelun alussa

@@ -16,22 +16,23 @@
 ☑ Tajuttomuus
 ☑ Käyttöliittymä
 ☑ Nappi ottelun aloittamiselle
-☐ Ottelun päättyminen
-☐ Ruutu ottelun tuloksille
 
 ### Päivä 2/4
 
+☐ Viestintä koodin sisällä
+☐ Ottelun päättyminen
+☐ Ruutu ottelun tuloksille
+☐ Joukkueen kokoonpano
+☐ Pelaajan vaikutusmahdollisuuksien lisääminen
 ☐ Hahmojen paikkojen valinta ottelun alussa
-☐ Hahmojen rodut
-☐ Hahmojen nimet
-☐ Datan generointi
-☐ Käyttöliittymä jatkuu
-☐ Rosterin tarkastelu
-☐ Gladiaattoreiden palkkaaminen (majatalo)
-☐ Gladiaattorin taktiikan valinta
 
 ### Päivä 3/4
 
+☐ Hahmojen rodut
+☐ Hahmojen nimet
+☐ Datan generointi
+☐ Gladiaattoreiden palkkaaminen (majatalo)
+☐ Gladiaattorin taktiikan valinta
 ☐ Raha
 ☐ Rahapalkinto ottelun jälkeen
 ☐ Huutelu ("Lyökää sitä kääpiötä!")
