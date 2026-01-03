@@ -19,8 +19,8 @@
 
 ### Päivä 2/4
 
-☐ Viestintä koodin sisällä
-☐ Ottelun päättyminen
+☑ Viestintä koodin sisällä
+☑ Ottelun päättyminen
 ☐ Ruutu ottelun tuloksille
 ☐ Joukkueen kokoonpano
 ☐ Pelaajan vaikutusmahdollisuuksien lisääminen
