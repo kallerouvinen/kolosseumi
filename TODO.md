@@ -21,7 +21,7 @@
 
 ☑ Viestintä koodin sisällä
 ☑ Ottelun päättyminen
-☐ Ruutu ottelun tuloksille
+☑ Ruutu ottelun tuloksille
 ☐ Joukkueen kokoonpano
 ☐ Pelaajan vaikutusmahdollisuuksien lisääminen
 ☐ Hahmojen paikkojen valinta ottelun alussa
