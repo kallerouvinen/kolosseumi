@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
+#include "Kolosseumi/Libraries/StructLibrary.h"
 #include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Kolosseumi/Messages/StartMatchMessage.h"
 #include "GameFramework/GameModeBase.h"
@@ -12,6 +13,7 @@
 #include "KolosseumiGameMode.generated.h"
 
 class AGladiator;
+class AKolosseumiPlayerState;
 
 /**
  *
@@ -29,9 +31,9 @@ protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
-	void SpawnGladiatorsAtSpawnPoints();
-	void AssignAIControllersTargets();
+	void SpawnGladiators(EFaction Faction, const FRosterData& Roster);
 	void RemoveAllGladiatorsFromWorld();
+	AKolosseumiPlayerState* GetPlayerState() const;
 
 	UPROPERTY()
 	TSubclassOf<AGladiator> GladiatorClass;

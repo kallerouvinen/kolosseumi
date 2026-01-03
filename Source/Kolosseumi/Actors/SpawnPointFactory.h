@@ -26,6 +26,9 @@ private:
 	void GenerateOpponentSidelineSpawnPoints();
 	void GenerateOpponentFieldSpawnPoints();
 
+	int32 CurrentPlayerSpawnPointIndex = 0;
+	int32 CurrentOpponentSpawnPointIndex = 0;
+
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
 	int32 SidelineSlotNum = 6;
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))

@@ -37,6 +37,9 @@ public:
 	void SetFaction(EFaction NewFaction) { Faction = NewFaction; }
 	EFaction GetFaction() const { return Faction; }
 
+	void SetIsAtSidelines(bool bNewIsAtSidelines);
+	bool IsAtSidelines() const { return bIsAtSidelines; }
+
 	UFUNCTION(BlueprintCallable)
 	bool IsAttacking() const { return bIsAttacking; }
 	UFUNCTION(BlueprintCallable)
@@ -62,6 +65,7 @@ private:
 	float AttackDuration = 1.0f;
 	bool bIsKnockedOut = false;
 	bool bIsCheering = false;
+	bool bIsAtSidelines = false;
 
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);

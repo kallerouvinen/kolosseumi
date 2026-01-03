@@ -9,7 +9,7 @@ ACameraPawn::ACameraPawn()
 	RootComponent = RootScene;
 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
-	CameraComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 1000.0f));
+	CameraComponent->SetRelativeLocation(FVector(-100.0f, 0.0f, 1300.0f));
 	CameraComponent->SetRelativeRotation(FRotator(-70.0f, 0.0f, 0.0f));
 	CameraComponent->SetupAttachment(RootComponent);
 }

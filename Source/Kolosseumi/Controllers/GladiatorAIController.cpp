@@ -31,13 +31,6 @@ void AGladiatorAIController::BeginPlay()
 			KolosseumiTags::Message_MatchEnd,
 			this,
 			&ThisClass::OnMatchEnd);
-
-	if (!ensureMsgf(AIBehaviorTree, TEXT("AIBehaviorTree is not found in GladiatorAIController")))
-	{
-		return;
-	}
-
-	RunBehaviorTree(AIBehaviorTree);
 }
 
 void AGladiatorAIController::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -46,6 +39,23 @@ void AGladiatorAIController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	MessageSubsystem.UnregisterListener(GladiatorKnockedOutListenerHandle);
 
 	Super::EndPlay(EndPlayReason);
+}
+
+void AGladiatorAIController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	if (!ensureMsgf(AIBehaviorTree, TEXT("AIBehaviorTree is not found in GladiatorAIController")))
+	{
+		return;
+	}
+
+	if (AGladiator* ControlledGladiator = Cast<AGladiator>(InPawn))
+	{
+		if (ControlledGladiator->IsAtSidelines()) return;
+
+		RunBehaviorTree(AIBehaviorTree);
+	}
 }
 
 void AGladiatorAIController::SetAttackTargetToClosest()

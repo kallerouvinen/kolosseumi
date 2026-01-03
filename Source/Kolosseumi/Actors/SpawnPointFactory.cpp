@@ -25,6 +25,9 @@ void ASpawnPointFactory::DestroyAllSpawnPoints()
 
 void ASpawnPointFactory::GenerateSpawnPoints()
 {
+	CurrentPlayerSpawnPointIndex = 0;
+	CurrentOpponentSpawnPointIndex = 0;
+
 	GeneratePlayerSidelineSpawnPoints();
 	GeneratePlayerFieldSpawnPoints();
 	GenerateOpponentSidelineSpawnPoints();
@@ -49,9 +52,10 @@ void ASpawnPointFactory::GeneratePlayerSidelineSpawnPoints()
 		{
 			SpawnPoint->SetFaction(EFaction::Player);
 			SpawnPoint->SetIsAtSidelines(true);
-			// TODO
-			// SpawnPoint->SetIndex(i);
+			SpawnPoint->SetIndex(CurrentPlayerSpawnPointIndex);
 		}
+
+		CurrentPlayerSpawnPointIndex++;
 	}
 }
 
@@ -75,9 +79,10 @@ void ASpawnPointFactory::GeneratePlayerFieldSpawnPoints()
 			{
 				SpawnPoint->SetFaction(EFaction::Player);
 				SpawnPoint->SetIsAtSidelines(false);
-				// TODO
-				// SpawnPoint->SetIndex(Row * FieldColumns + Col);
+				SpawnPoint->SetIndex(CurrentPlayerSpawnPointIndex);
 			}
+
+			CurrentPlayerSpawnPointIndex++;
 		}
 	}
 }
@@ -100,9 +105,10 @@ void ASpawnPointFactory::GenerateOpponentSidelineSpawnPoints()
 		{
 			SpawnPoint->SetFaction(EFaction::Opponent);
 			SpawnPoint->SetIsAtSidelines(true);
-			// TODO
-			// SpawnPoint->SetIndex(i);
+			SpawnPoint->SetIndex(CurrentOpponentSpawnPointIndex);
 		}
+
+		CurrentOpponentSpawnPointIndex++;
 	}
 }
 
@@ -117,7 +123,7 @@ void ASpawnPointFactory::GenerateOpponentFieldSpawnPoints()
 			SpawnLocation.X += (Row + 0.5f) * (FieldSpawnAreaSizeY / FieldRows) - (FieldSpawnAreaSizeY / 2);
 			SpawnLocation.Y += (Col + 0.5f) * (FieldSpawnAreaSizeX / FieldColumns) - (FieldSpawnAreaSizeX / 2);
 			SpawnLocation.Z += FieldHeight;
-			FRotator SpawnRotation = FRotator::ZeroRotator;
+			FRotator SpawnRotation = FRotator(0.f, 180.f, 0.f);
 
 			ASpawnPoint* SpawnPoint = GetWorld()->SpawnActor<ASpawnPoint>(
 					SpawnLocation, SpawnRotation);
@@ -126,9 +132,10 @@ void ASpawnPointFactory::GenerateOpponentFieldSpawnPoints()
 			{
 				SpawnPoint->SetFaction(EFaction::Opponent);
 				SpawnPoint->SetIsAtSidelines(false);
-				// TODO
-				// SpawnPoint->SetIndex(Row * FieldColumns + Col);
+				SpawnPoint->SetIndex(CurrentOpponentSpawnPointIndex);
 			}
+
+			CurrentOpponentSpawnPointIndex++;
 		}
 	}
 }

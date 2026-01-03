@@ -52,7 +52,7 @@ void AKolosseumiGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
-void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
+void AKolosseumiGameMode::SpawnGladiators(EFaction Faction, const FRosterData& Roster)
 {
 	TArray<AActor*> SpawnPoints;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnPoint::StaticClass(), SpawnPoints);
@@ -63,7 +63,8 @@ void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
 	{
 		if (ASpawnPoint* SpawnPoint = Cast<ASpawnPoint>(Actor))
 		{
-			if (SpawnPoint->IsAtSidelines()) continue;
+			if (SpawnPoint->GetFaction() != Faction) continue;
+			if (!Roster.Gladiators.Contains(SpawnPoint->GetIndex())) continue;
 
 			FTransform SpawnTransform = SpawnPoint->GetActorTransform();
 
@@ -72,6 +73,8 @@ void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
 							SpawnTransform))
 			{
 				SpawnedGladiator->SetFaction(SpawnPoint->GetFaction());
+				SpawnedGladiator->SetIsAtSidelines(SpawnPoint->IsAtSidelines());
+				// TODO: Set gladiator data from roster
 				SpawnedGladiator->FinishSpawning(SpawnTransform);
 
 				AliveGladiators.Add(SpawnedGladiator);
@@ -82,20 +85,6 @@ void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
 	if (AKolosseumiGameState* KolosseumiGameState = Cast<AKolosseumiGameState>(GameState))
 	{
 		KolosseumiGameState->InitAliveGladiators(AliveGladiators);
-	}
-}
-
-void AKolosseumiGameMode::AssignAIControllersTargets()
-{
-	TArray<AActor*> AIControllers;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGladiatorAIController::StaticClass(), AIControllers);
-
-	for (AActor* Actor : AIControllers)
-	{
-		if (AGladiatorAIController* AIController = Cast<AGladiatorAIController>(Actor))
-		{
-			AIController->SetAttackTargetToClosest();
-		}
 	}
 }
 
@@ -116,11 +105,23 @@ void AKolosseumiGameMode::RemoveAllGladiatorsFromWorld()
 void AKolosseumiGameMode::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
 {
 	RemoveAllGladiatorsFromWorld();
-	SpawnGladiatorsAtSpawnPoints();
-	AssignAIControllersTargets();
+
+	AKolosseumiPlayerState* PlayerState = GetPlayerState();
+	if (!PlayerState) return;
+
+	SpawnGladiators(EFaction::Player, PlayerState->GetPlayerRoster());
+	SpawnGladiators(EFaction::Opponent, PlayerState->GetPlayerRoster());
 }
 
 void AKolosseumiGameMode::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
 {
 	// TODO: Is this needed?
+}
+
+AKolosseumiPlayerState* AKolosseumiGameMode::GetPlayerState() const
+{
+	AKolosseumiPlayerController* PlayerController = GetWorld()->GetFirstPlayerController<AKolosseumiPlayerController>();
+	if (!PlayerController) return nullptr;
+
+	return PlayerController->GetPlayerState<AKolosseumiPlayerState>();
 }

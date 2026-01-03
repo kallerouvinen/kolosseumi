@@ -6,6 +6,7 @@
 #include "GameFramework/GameplayMessageSubsystem.h"
 
 const TArray<FString> AKolosseumiPlayerState::AllGladiatorNames = {
+	"Murikka",
 	"Raknar",
 	"Seppo",
 };

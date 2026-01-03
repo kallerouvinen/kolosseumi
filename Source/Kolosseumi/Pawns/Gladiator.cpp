@@ -88,6 +88,13 @@ void AGladiator::SetMaxHealth(int32 NewMaxHealth)
 	RefreshHealthBar();
 }
 
+void AGladiator::SetIsAtSidelines(bool bNewIsAtSidelines)
+{
+	bIsAtSidelines = bNewIsAtSidelines;
+
+	HealthBarWidgetComponent->SetVisibility(!bIsAtSidelines);
+}
+
 // void AGladiator::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 // {
 // 	Super::SetupPlayerInputComponent(PlayerInputComponent);
