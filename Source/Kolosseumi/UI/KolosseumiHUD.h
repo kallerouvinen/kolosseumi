@@ -7,6 +7,7 @@
 #include "KolosseumiHUD.generated.h"
 
 class UMainUIWidget;
+class UMatchResultsWidget;
 
 /**
  *
@@ -22,9 +23,9 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY()
 	TSubclassOf<UMainUIWidget> MainUIWidgetClass;
-
-	UPROPERTY()
 	TObjectPtr<UMainUIWidget> MainUIWidget;
+
+	TSubclassOf<UMatchResultsWidget> MatchResultsWidgetClass;
+	TObjectPtr<UMatchResultsWidget> MatchResultsWidget;
 };

@@ -3,19 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
+#include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Blueprint/UserWidget.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameplayTagContainer.h"
-#include "MainUIWidget.generated.h"
+#include "MatchResultsWidget.generated.h"
 
 class UButton;
+class UTextBlock;
 
 /**
  *
  */
 UCLASS()
-class KOLOSSEUMI_API UMainUIWidget : public UUserWidget
+class KOLOSSEUMI_API UMatchResultsWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
@@ -25,13 +26,17 @@ protected:
 	virtual void NativeDestruct() override;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
-	TObjectPtr<UButton> StartNextMatchButton;
+	TObjectPtr<UTextBlock> MatchResultText;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UButton> ReturnToMainUIButton;
 
 private:
 	UFUNCTION()
-	void OnStartNextMatchClicked();
+	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
+	FGameplayMessageListenerHandle MatchEndListenerHandle;
 
 	UFUNCTION()
-	void OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUIMessage& Message);
-	FGameplayMessageListenerHandle ReturnToMainUIListenerHandle;
+	void OnReturnToMainUIClicked();
+
+	float DelayAfterMatchEnd = 3.0f;
 };

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
+#include "Kolosseumi/Messages/StartMatchMessage.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameplayTagContainer.h"
@@ -29,6 +30,12 @@ public:
 
 private:
 	TArray<TWeakObjectPtr<AGladiator>> AliveGladiators;
+
+	bool bIsMatchOngoing = false;
+
+	UFUNCTION()
+	void OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message);
+	FGameplayMessageListenerHandle StartMatchListenerHandle;
 
 	UFUNCTION()
 	void OnGladiatorKnockedOut(FGameplayTag Channel, const FGladiatorKnockedOutMessage& Message);

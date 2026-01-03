@@ -2,6 +2,7 @@
 
 #include "Kolosseumi/UI/KolosseumiHUD.h"
 #include "Kolosseumi/UI/MainUIWidget.h"
+#include "Kolosseumi/UI/MatchResultsWidget.h"
 
 AKolosseumiHUD::AKolosseumiHUD()
 {
@@ -9,6 +10,12 @@ AKolosseumiHUD::AKolosseumiHUD()
 	if (MainUIWidgetClassFinder.Succeeded())
 	{
 		MainUIWidgetClass = MainUIWidgetClassFinder.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UMatchResultsWidget> MatchResultsWidgetClassFinder(TEXT("/Game/UI/WBP_MatchResults"));
+	if (MatchResultsWidgetClassFinder.Succeeded())
+	{
+		MatchResultsWidgetClass = MatchResultsWidgetClassFinder.Class;
 	}
 }
 
@@ -21,6 +28,15 @@ void AKolosseumiHUD::BeginPlay()
 		if (MainUIWidget = CreateWidget<UMainUIWidget>(GetWorld(), MainUIWidgetClass))
 		{
 			MainUIWidget->AddToViewport();
+		}
+	}
+
+	if (MatchResultsWidgetClass)
+	{
+		if (MatchResultsWidget = CreateWidget<UMatchResultsWidget>(GetWorld(), MatchResultsWidgetClass))
+		{
+			MatchResultsWidget->AddToViewport();
+			MatchResultsWidget->SetVisibility(ESlateVisibility::Collapsed);
 		}
 	}
 }

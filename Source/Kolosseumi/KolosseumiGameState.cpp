@@ -13,6 +13,10 @@ void AKolosseumiGameState::BeginPlay()
 	Super::BeginPlay();
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	StartMatchListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartMatch,
+			this,
+			&ThisClass::OnStartMatch);
 	GladiatorKnockedOutListenerHandle = MessageSubsystem.RegisterListener(
 			KolosseumiTags::Message_GladiatorKnockedOut,
 			this,
@@ -22,6 +26,7 @@ void AKolosseumiGameState::BeginPlay()
 void AKolosseumiGameState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.UnregisterListener(StartMatchListenerHandle);
 	MessageSubsystem.UnregisterListener(GladiatorKnockedOutListenerHandle);
 
 	Super::EndPlay(EndPlayReason);
@@ -37,8 +42,15 @@ void AKolosseumiGameState::ResetAliveGladiators()
 	AliveGladiators.Empty();
 }
 
+void AKolosseumiGameState::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
+{
+	bIsMatchOngoing = true;
+}
+
 void AKolosseumiGameState::OnGladiatorKnockedOut(FGameplayTag Channel, const FGladiatorKnockedOutMessage& Message)
 {
+	if (!bIsMatchOngoing) return;
+
 	if (Message.Gladiator)
 	{
 		AliveGladiators.Remove(Message.Gladiator);
@@ -62,6 +74,8 @@ void AKolosseumiGameState::OnGladiatorKnockedOut(FGameplayTag Channel, const FGl
 		}
 
 		if (bIsAnyPlayerGladiatorAlive && bIsAnyOpponentGladiatorAlive) return;
+
+		bIsMatchOngoing = false;
 
 		FMatchEndMessage MatchEndMessage;
 

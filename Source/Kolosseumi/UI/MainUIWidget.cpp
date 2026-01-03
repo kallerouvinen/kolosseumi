@@ -12,10 +12,10 @@ void UMainUIWidget::NativeOnInitialized()
 	StartNextMatchButton->OnClicked.AddDynamic(this, &ThisClass::OnStartNextMatchClicked);
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
-			KolosseumiTags::Message_MatchEnd,
+	ReturnToMainUIListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_ReturnToMainUI,
 			this,
-			&ThisClass::OnMatchEnd);
+			&ThisClass::OnReturnToMainUI);
 }
 
 void UMainUIWidget::NativeConstruct()
@@ -26,7 +26,7 @@ void UMainUIWidget::NativeConstruct()
 void UMainUIWidget::NativeDestruct()
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
+	MessageSubsystem.UnregisterListener(ReturnToMainUIListenerHandle);
 
 	Super::NativeDestruct();
 }
@@ -45,9 +45,7 @@ void UMainUIWidget::OnStartNextMatchClicked()
 			StartMatchMessage);
 }
 
-void UMainUIWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
+void UMainUIWidget::OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUIMessage& Message)
 {
 	SetVisibility(ESlateVisibility::Visible);
-	// TODO: Show match result instead of moving to main UI right away
-	// MainUIWidget->ShowMatchResult(Message.WinningFaction);
 }

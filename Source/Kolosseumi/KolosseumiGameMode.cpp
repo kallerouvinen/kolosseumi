@@ -111,11 +111,12 @@ void AKolosseumiGameMode::RemoveAllGladiatorsFromWorld()
 
 void AKolosseumiGameMode::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
 {
+	RemoveAllGladiatorsFromWorld();
 	SpawnGladiatorsAtSpawnPoints();
 	AssignAIControllersTargets();
 }
 
 void AKolosseumiGameMode::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
 {
-	RemoveAllGladiatorsFromWorld();
+	// TODO: Is this needed?
 }
