@@ -9,6 +9,7 @@
 #include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Kolosseumi/Pawns/CameraPawn.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
+#include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Kolosseumi/UI/KolosseumiHUD.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -18,6 +19,7 @@ AKolosseumiGameMode::AKolosseumiGameMode()
 	HUDClass = AKolosseumiHUD::StaticClass();
 	GameStateClass = AKolosseumiGameState::StaticClass();
 	PlayerControllerClass = AKolosseumiPlayerController::StaticClass();
+	PlayerStateClass = AKolosseumiPlayerState::StaticClass();
 
 	static ConstructorHelpers::FClassFinder<AGladiator> GladiatorClassFinder(TEXT("/Game/Characters/BP_Gladiator"));
 	if (GladiatorClassFinder.Succeeded())

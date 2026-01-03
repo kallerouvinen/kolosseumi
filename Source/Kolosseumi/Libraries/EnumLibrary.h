@@ -11,3 +11,14 @@ enum class EFaction : uint8
 	Player UMETA(DisplayName = "Player"),
 	Opponent UMETA(DisplayName = "Opponent"),
 };
+
+UENUM(BlueprintType)
+enum class EGladiatorClass : uint8
+{
+	Barbarian UMETA(DisplayName = "Barbarian"),
+	Knight UMETA(DisplayName = "Knight"),
+	Mage UMETA(DisplayName = "Mage"),
+	Ranger UMETA(DisplayName = "Ranger"),
+	Rogue UMETA(DisplayName = "Rogue"),
+	Skeleton UMETA(DisplayName = "Skeleton"),
+};
