@@ -1,0 +1,9 @@
+// Copyright 2026 Kalle Rouvinen. All Rights Reserved.
+
+#include "CoreMinimal.h"
+#include "NativeGameplayTags.h"
+
+namespace KolosseumiTags
+{
+  UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_GladiatorKnockedOut);
+}

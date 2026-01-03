@@ -1,9 +1,12 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
+#include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
+#include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
 AGladiatorAIController::AGladiatorAIController()
@@ -19,6 +22,12 @@ void AGladiatorAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	GladiatorKnockedOutListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_GladiatorKnockedOut,
+			this,
+			&ThisClass::OnGladiatorKnockedOut);
+
 	if (!ensureMsgf(AIBehaviorTree, TEXT("AIBehaviorTree is not found in GladiatorAIController")))
 	{
 		return;
@@ -27,9 +36,12 @@ void AGladiatorAIController::BeginPlay()
 	RunBehaviorTree(AIBehaviorTree);
 }
 
-void AGladiatorAIController::OnPossess(APawn* InPawn)
+void AGladiatorAIController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	Super::OnPossess(InPawn);
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.UnregisterListener(GladiatorKnockedOutListenerHandle);
+
+	Super::EndPlay(EndPlayReason);
 }
 
 void AGladiatorAIController::SetAttackTargetToClosest()
@@ -47,6 +59,7 @@ void AGladiatorAIController::SetAttackTargetToClosest()
 			{
 				if (Gladiator == ControlledGladiator) continue;
 				if (Gladiator->GetFaction() == ControlledGladiator->GetFaction()) continue;
+				if (Gladiator->IsKnockedOut()) continue;
 
 				const float DistanceSq = FVector::DistSquared(
 						ControlledGladiator->GetActorLocation(),
@@ -66,5 +79,14 @@ void AGladiatorAIController::SetAttackTargetToClosest()
 					TEXT("AttackTarget"),
 					ClosestOpponentGladiator);
 		}
+	}
+}
+
+void AGladiatorAIController::OnGladiatorKnockedOut(FGameplayTag Channel, const FGladiatorKnockedOutMessage& Message)
+{
+	UObject* CurrentAttackTarget = GetBlackboardComponent()->GetValueAsObject(TEXT("AttackTarget"));
+	if (CurrentAttackTarget == Message.Gladiator)
+	{
+		SetAttackTargetToClosest();
 	}
 }

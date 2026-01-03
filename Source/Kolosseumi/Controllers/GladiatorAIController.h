@@ -3,7 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
 #include "AIController.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "GladiatorAIController.generated.h"
 
 class UBehaviorTree;
@@ -21,7 +24,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void OnPossess(APawn* InPawn) override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
 	// TODO: Blackboard key setters
@@ -30,4 +33,9 @@ public:
 protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UBehaviorTree> AIBehaviorTree;
+
+private:
+	UFUNCTION()
+	void OnGladiatorKnockedOut(FGameplayTag Channel, const FGladiatorKnockedOutMessage& Message);
+	FGameplayMessageListenerHandle GladiatorKnockedOutListenerHandle;
 };

@@ -3,8 +3,11 @@
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/KolosseumiGameState.h"
+#include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
+#include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
 #include "Kolosseumi/UI/HealthBarWidget.h"
 #include "Components/WidgetComponent.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 
 AGladiator::AGladiator()
 {
@@ -54,11 +57,12 @@ void AGladiator::SetHealth(int32 NewHealth)
 
 		UE_LOG(LogTemp, Warning, TEXT("Gladiator %s knocked out!"), *GetName());
 
-		if (AKolosseumiGameState* GameState = Cast<AKolosseumiGameState>(GetWorld()->GetGameState()))
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Notifying GameState about knockout of %s"), *GetName());
-			GameState->OnGladiatorKnockedOut(this);
-		}
+		FGladiatorKnockedOutMessage KnockedOutMessage;
+		KnockedOutMessage.Gladiator = this;
+		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+		MessageSubsystem.BroadcastMessage(
+				KolosseumiTags::Message_GladiatorKnockedOut,
+				KnockedOutMessage);
 	}
 
 	RefreshHealthBar();
