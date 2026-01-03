@@ -22,12 +22,15 @@
 ☑ Viestintä koodin sisällä
 ☑ Ottelun päättyminen
 ☑ Ruutu ottelun tuloksille
-☐ Joukkueen kokoonpano
-☐ Pelaajan vaikutusmahdollisuuksien lisääminen
+☐ Gladiaattorin data
+☐ Kokoonpanon data
+☐ Kokoonpanon näyttäminen käyttöliittymässä
+☐ Kokoonpanon spawnaus
 ☐ Hahmojen paikkojen valinta ottelun alussa
 
 ### Päivä 3/4
 
+☐ Pelaajan vaikutusmahdollisuuksien lisääminen
 ☐ Hahmojen rodut
 ☐ Hahmojen nimet
 ☐ Datan generointi
