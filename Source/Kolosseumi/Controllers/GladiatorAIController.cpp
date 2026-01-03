@@ -93,6 +93,10 @@ void AGladiatorAIController::OnGladiatorKnockedOut(FGameplayTag Channel, const F
 	{
 		SetAttackTargetToClosest();
 	}
+	else if (GetPawn() == Message.Gladiator)
+	{
+		GetBlackboardComponent()->SetValueAsObject(TEXT("AttackTarget"), nullptr);
+	}
 }
 
 void AGladiatorAIController::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)

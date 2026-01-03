@@ -27,7 +27,6 @@ protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
-	// TODO: Blackboard key setters
 	void SetAttackTargetToClosest();
 
 protected:
