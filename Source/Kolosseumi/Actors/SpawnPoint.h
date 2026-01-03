@@ -17,8 +17,24 @@ class KOLOSSEUMI_API ASpawnPoint : public ATargetPoint
 
 public:
 	EFaction GetFaction() const { return Faction; }
+	void SetFaction(EFaction NewFaction) { Faction = NewFaction; }
+
+	void SetIndex(int32 NewIndex) { Index = NewIndex; }
+	int32 GetIndex() const { return Index; }
+
+	bool IsOccupied() const { return bIsOccupied; }
+	void SetOccupied(bool bNewIsOccupied) { bIsOccupied = bNewIsOccupied; }
+
+	bool IsAtSidelines() const { return bIsAtSidelines; }
+	void SetIsAtSidelines(bool bNewIsAtSidelines) { bIsAtSidelines = bNewIsAtSidelines; }
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SpawnPoint")
 	EFaction Faction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SpawnPoint")
+	int32 Index;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SpawnPoint")
+	bool bIsOccupied = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SpawnPoint")
+	bool bIsAtSidelines = false;
 };
