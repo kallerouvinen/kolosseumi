@@ -13,7 +13,10 @@ public class Kolosseumi : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"InputCore",
-			"EnhancedInput"
+			"EnhancedInput",
+			// 
+			"GameplayMessageRuntime",
+			"GameplayTags",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
