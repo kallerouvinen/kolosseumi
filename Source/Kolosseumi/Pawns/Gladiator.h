@@ -70,4 +70,9 @@ private:
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
 	FGameplayMessageListenerHandle MatchEndListenerHandle;
+
+	UFUNCTION()
+	void OnHoverStart(AActor* TouchedActor);
+	UFUNCTION()
+	void OnHoverEnd(AActor* TouchedActor);
 };

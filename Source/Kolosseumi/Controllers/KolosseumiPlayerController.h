@@ -3,8 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kolosseumi/Libraries/EnumLibrary.h"
 #include "GameFramework/PlayerController.h"
 #include "KolosseumiPlayerController.generated.h"
+
+class AGladiator;
+class ASpawnPoint;
+class UInputAction;
+class UInputMappingContext;
 
 /**
  *
@@ -19,4 +25,18 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void SetupInputComponent() override;
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+protected:
+	TObjectPtr<UInputMappingContext> DefaultMappingContext;
+	TObjectPtr<UInputAction> SelectAction;
+
+	void OnSelectStarted();
+	void OnSelectCompleted();
+	ASpawnPoint* GetClosestUnoccupiedSpawnPointWithinRange(EFaction Faction, const FVector& Location, float Range) const;
+
+	AGladiator* GrabbedGladiator = nullptr;
 };

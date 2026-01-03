@@ -23,6 +23,8 @@ AGladiator::AGladiator()
 	HealthBarWidgetComponent->SetDrawAtDesiredSize(true);
 	HealthBarWidgetComponent->SetupAttachment(RootComponent);
 
+	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+
 	AIControllerClass = AGladiatorAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
@@ -45,6 +47,9 @@ void AGladiator::BeginPlay()
 			KolosseumiTags::Message_MatchEnd,
 			this,
 			&ThisClass::OnMatchEnd);
+
+	OnBeginCursorOver.AddDynamic(this, &ThisClass::OnHoverStart);
+	OnEndCursorOver.AddDynamic(this, &ThisClass::OnHoverEnd);
 }
 
 void AGladiator::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -144,4 +149,14 @@ void AGladiator::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Messag
 	{
 		bIsCheering = true;
 	}
+}
+
+void AGladiator::OnHoverStart(AActor* TouchedActor)
+{
+	// TODO: Use this or remove
+}
+
+void AGladiator::OnHoverEnd(AActor* TouchedActor)
+{
+	// TODO: Use this or remove
 }
