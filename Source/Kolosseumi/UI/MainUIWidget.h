@@ -3,7 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Blueprint/UserWidget.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "MainUIWidget.generated.h"
 
 class UButton;
@@ -19,6 +22,7 @@ class KOLOSSEUMI_API UMainUIWidget : public UUserWidget
 protected:
 	virtual void NativeOnInitialized() override;
 	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> StartNextMatchButton;
@@ -26,4 +30,8 @@ protected:
 private:
 	UFUNCTION()
 	void OnStartNextMatchClicked();
+
+	UFUNCTION()
+	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
+	FGameplayMessageListenerHandle MatchEndListenerHandle;
 };

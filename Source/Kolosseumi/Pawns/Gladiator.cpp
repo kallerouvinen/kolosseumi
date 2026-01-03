@@ -55,8 +55,6 @@ void AGladiator::SetHealth(int32 NewHealth)
 		bIsKnockedOut = true;
 		// TODO: Stop any ongoing actions and prevent further actions
 
-		UE_LOG(LogTemp, Warning, TEXT("Gladiator %s knocked out!"), *GetName());
-
 		FGladiatorKnockedOutMessage KnockedOutMessage;
 		KnockedOutMessage.Gladiator = this;
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);

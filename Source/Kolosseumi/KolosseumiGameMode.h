@@ -4,11 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
+#include "Kolosseumi/Messages/MatchEndMessage.h"
+#include "Kolosseumi/Messages/StartMatchMessage.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "KolosseumiGameMode.generated.h"
 
 class AGladiator;
-class UMainUIWidget;
 
 /**
  *
@@ -23,10 +26,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
-public:
-	void StartNextMatch();
-	void EndMatch(EFaction WinningFaction);
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
 	void SpawnGladiatorsAtSpawnPoints();
@@ -36,9 +36,10 @@ private:
 	UPROPERTY()
 	TSubclassOf<AGladiator> GladiatorClass;
 
-	UPROPERTY()
-	TSubclassOf<UMainUIWidget> MainUIWidgetClass;
-
-	UPROPERTY()
-	TObjectPtr<UMainUIWidget> MainUIWidget;
+	UFUNCTION()
+	void OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message);
+	FGameplayMessageListenerHandle StartMatchListenerHandle;
+	UFUNCTION()
+	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
+	FGameplayMessageListenerHandle MatchEndListenerHandle;
 };

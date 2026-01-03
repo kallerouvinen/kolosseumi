@@ -5,15 +5,17 @@
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/Controllers/KolosseumiPlayerController.h"
 #include "Kolosseumi/KolosseumiGameState.h"
+#include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
+#include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Kolosseumi/Pawns/CameraPawn.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
-#include "Kolosseumi/UI/MainUIWidget.h"
+#include "Kolosseumi/UI/KolosseumiHUD.h"
 #include "Kismet/GameplayStatics.h"
 
 AKolosseumiGameMode::AKolosseumiGameMode()
 {
 	DefaultPawnClass = ACameraPawn::StaticClass();
-	// HUDClass = nullptr;
+	HUDClass = AKolosseumiHUD::StaticClass();
 	GameStateClass = AKolosseumiGameState::StaticClass();
 	PlayerControllerClass = AKolosseumiPlayerController::StaticClass();
 
@@ -22,48 +24,30 @@ AKolosseumiGameMode::AKolosseumiGameMode()
 	{
 		GladiatorClass = GladiatorClassFinder.Class;
 	}
-
-	static ConstructorHelpers::FClassFinder<UMainUIWidget> MainUIWidgetClassFinder(TEXT("/Game/UI/WBP_MainUI"));
-	if (MainUIWidgetClassFinder.Succeeded())
-	{
-		MainUIWidgetClass = MainUIWidgetClassFinder.Class;
-	}
 }
 
 void AKolosseumiGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (MainUIWidgetClass)
-	{
-		MainUIWidget = CreateWidget<UMainUIWidget>(GetWorld(), MainUIWidgetClass);
-		if (MainUIWidget)
-		{
-			MainUIWidget->AddToViewport();
-		}
-	}
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	StartMatchListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartMatch,
+			this,
+			&ThisClass::OnStartMatch);
+	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_MatchEnd,
+			this,
+			&ThisClass::OnMatchEnd);
 }
 
-void AKolosseumiGameMode::StartNextMatch()
+void AKolosseumiGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	if (MainUIWidget)
-	{
-		MainUIWidget->SetVisibility(ESlateVisibility::Collapsed);
-	}
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.UnregisterListener(StartMatchListenerHandle);
+	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
 
-	SpawnGladiatorsAtSpawnPoints();
-	AssignAIControllersTargets();
-}
-
-void AKolosseumiGameMode::EndMatch(EFaction WinningFaction)
-{
-	RemoveAllGladiatorsFromWorld();
-
-	if (MainUIWidget)
-	{
-		MainUIWidget->SetVisibility(ESlateVisibility::Visible);
-		// MainUIWidget->ShowMatchResult(WinningFaction);
-	}
+	Super::EndPlay(EndPlayReason);
 }
 
 void AKolosseumiGameMode::SpawnGladiatorsAtSpawnPoints()
@@ -123,4 +107,15 @@ void AKolosseumiGameMode::RemoveAllGladiatorsFromWorld()
 			Gladiator->Destroy();
 		}
 	}
+}
+
+void AKolosseumiGameMode::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
+{
+	SpawnGladiatorsAtSpawnPoints();
+	AssignAIControllersTargets();
+}
+
+void AKolosseumiGameMode::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
+{
+	RemoveAllGladiatorsFromWorld();
 }

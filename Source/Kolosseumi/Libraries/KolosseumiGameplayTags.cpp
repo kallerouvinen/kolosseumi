@@ -5,4 +5,6 @@
 namespace KolosseumiTags
 {
 	UE_DEFINE_GAMEPLAY_TAG(Message_GladiatorKnockedOut, "Message.GladiatorKnockedOut");
-}
+	UE_DEFINE_GAMEPLAY_TAG(Message_MatchEnd, "Message.MatchEnd");
+	UE_DEFINE_GAMEPLAY_TAG(Message_StartMatch, "Message.StartMatch");
+} // namespace KolosseumiTags

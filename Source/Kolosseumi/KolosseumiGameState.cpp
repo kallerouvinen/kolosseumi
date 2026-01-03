@@ -41,13 +41,10 @@ void AKolosseumiGameState::OnGladiatorKnockedOut(FGameplayTag Channel, const FGl
 {
 	if (Message.Gladiator)
 	{
-		// UE_LOG(LogTemp, Warning, TEXT("GameState received GladiatorKnockedOut message for %s"), *Message.Gladiator->GetName());
-
 		AliveGladiators.Remove(Message.Gladiator);
 
-		// TODO: Check for match end conditions here
-		bool bPlayerGladiatorAlive = false;
-		bool bOpponentGladiatorAlive = false;
+		bool bIsAnyPlayerGladiatorAlive = false;
+		bool bIsAnyOpponentGladiatorAlive = false;
 
 		for (const TWeakObjectPtr<AGladiator>& RemainingGladiator : AliveGladiators)
 		{
@@ -55,35 +52,36 @@ void AKolosseumiGameState::OnGladiatorKnockedOut(FGameplayTag Channel, const FGl
 			{
 				if (RemainingGladiator->GetFaction() == EFaction::Player)
 				{
-					bPlayerGladiatorAlive = true;
+					bIsAnyPlayerGladiatorAlive = true;
 				}
 				else
 				{
-					bOpponentGladiatorAlive = true;
+					bIsAnyOpponentGladiatorAlive = true;
 				}
 			}
 		}
 
-		// TODO: If match should end here, broadcast match end message with winning faction
+		if (bIsAnyPlayerGladiatorAlive && bIsAnyOpponentGladiatorAlive) return;
 
-		// if (AKolosseumiGameMode* GameMode = Cast<AKolosseumiGameMode>(GetWorld()->GetAuthGameMode()))
-		// {
-		// 	if (bPlayerGladiatorAlive && !bOpponentGladiatorAlive)
-		// 	{
-		// 		UE_LOG(LogTemp, Warning, TEXT("Match Ended! Winning Faction: Player"));
-		// 		GameMode->EndMatch(EFaction::Player);
-		// 	}
-		// 	else if (!bPlayerGladiatorAlive && bOpponentGladiatorAlive)
-		// 	{
-		// 		UE_LOG(LogTemp, Warning, TEXT("Match Ended! Winning Faction: Opponent"));
-		// 		GameMode->EndMatch(EFaction::Opponent);
-		// 	}
-		// 	else if (!bPlayerGladiatorAlive && !bOpponentGladiatorAlive)
-		// 	{
-		// 		// GameMode->EndMatch(EFaction::Opponent);
-		// 		UE_LOG(LogTemp, Warning, TEXT("It's a Draw!"));
-		// 		GameMode->EndMatch(EFaction::Player);
-		// 	}
-		// }
+		FMatchEndMessage MatchEndMessage;
+
+		if (bIsAnyPlayerGladiatorAlive && !bIsAnyOpponentGladiatorAlive)
+		{
+			MatchEndMessage.WinningFaction = EFaction::Player;
+		}
+		else if (!bIsAnyPlayerGladiatorAlive && bIsAnyOpponentGladiatorAlive)
+		{
+			MatchEndMessage.WinningFaction = EFaction::Opponent;
+		}
+		else if (!bIsAnyPlayerGladiatorAlive && !bIsAnyOpponentGladiatorAlive)
+		{
+			// TODO: Should draws be handled differently?
+			MatchEndMessage.WinningFaction = EFaction::Player; // Treat draw as player
+		}
+
+		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+		MessageSubsystem.BroadcastMessage(
+				KolosseumiTags::Message_MatchEnd,
+				MatchEndMessage);
 	}
 }
