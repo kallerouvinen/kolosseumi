@@ -3,9 +3,9 @@ Päivä 2/4
 ☑ Viestintä koodin sisällä
 ☑ Ottelun päättyminen
 ☑ Ruutu ottelun tuloksille
-☐ Gladiaattorin data
-☐ Kokoonpanon data
-☐ Kokoonpanon näyttäminen
+☑ Gladiaattorin data
+☑ Kokoonpanon data
+☑ Kokoonpanon näyttäminen
      käyttöliittymässä
 ☐ Kokoonpanon spawnaus
 ☐ Hahmojen paikkojen valinta

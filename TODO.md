@@ -22,14 +22,15 @@
 ☑ Viestintä koodin sisällä
 ☑ Ottelun päättyminen
 ☑ Ruutu ottelun tuloksille
-☐ Gladiaattorin data
-☐ Kokoonpanon data
-☐ Kokoonpanon näyttäminen käyttöliittymässä
+☑ Gladiaattorin data
+☑ Kokoonpanon data
+☑ Kokoonpanon näyttäminen käyttöliittymässä
 ☐ Kokoonpanon spawnaus
 ☐ Hahmojen paikkojen valinta ottelun alussa
 
 ### Päivä 3/4
 
+☐ Gladiaattorin tiedot käyttöliittymässä
 ☐ Pelaajan vaikutusmahdollisuuksien lisääminen
 ☐ Hahmojen rodut
 ☐ Hahmojen nimet
