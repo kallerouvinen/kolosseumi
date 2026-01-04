@@ -24,10 +24,6 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-public:
-	void InitAliveGladiators(const TArray<TWeakObjectPtr<AGladiator>>& Gladiators);
-	void ResetAliveGladiators();
-
 private:
 	TArray<TWeakObjectPtr<AGladiator>> AliveGladiators;
 

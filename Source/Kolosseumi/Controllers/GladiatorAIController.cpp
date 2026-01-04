@@ -47,7 +47,6 @@ void AGladiatorAIController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
-
 void AGladiatorAIController::SetAttackTargetToClosest()
 {
 	if (AGladiator* ControlledGladiator = Cast<AGladiator>(GetPawn()))
@@ -64,6 +63,7 @@ void AGladiatorAIController::SetAttackTargetToClosest()
 				if (Gladiator == ControlledGladiator) continue;
 				if (Gladiator->GetFaction() == ControlledGladiator->GetFaction()) continue;
 				if (Gladiator->IsKnockedOut()) continue;
+				if (Gladiator->IsAtSidelines()) continue;
 
 				const float DistanceSq = FVector::DistSquared(
 						ControlledGladiator->GetActorLocation(),
@@ -103,6 +103,8 @@ void AGladiatorAIController::OnStartMatch(FGameplayTag Channel, const FStartMatc
 
 void AGladiatorAIController::OnGladiatorKnockedOut(FGameplayTag Channel, const FGladiatorKnockedOutMessage& Message)
 {
+	if (!GetBlackboardComponent()) return;
+
 	UObject* CurrentAttackTarget = GetBlackboardComponent()->GetValueAsObject(TEXT("AttackTarget"));
 	if (CurrentAttackTarget == Message.Gladiator)
 	{
@@ -116,5 +118,8 @@ void AGladiatorAIController::OnGladiatorKnockedOut(FGameplayTag Channel, const F
 
 void AGladiatorAIController::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
 {
-	GetBlackboardComponent()->SetValueAsObject(TEXT("AttackTarget"), nullptr);
+	if (GetBlackboardComponent())
+	{
+		GetBlackboardComponent()->SetValueAsObject(TEXT("AttackTarget"), nullptr);
+	}
 }

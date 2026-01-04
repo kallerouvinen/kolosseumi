@@ -57,8 +57,6 @@ void AKolosseumiGameMode::SpawnGladiators(EFaction Faction, const FRosterData& R
 	TArray<AActor*> SpawnPoints;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnPoint::StaticClass(), SpawnPoints);
 
-	TArray<TWeakObjectPtr<AGladiator>> AliveGladiators;
-
 	for (AActor* Actor : SpawnPoints)
 	{
 		if (ASpawnPoint* SpawnPoint = Cast<ASpawnPoint>(Actor))
@@ -76,15 +74,8 @@ void AKolosseumiGameMode::SpawnGladiators(EFaction Faction, const FRosterData& R
 				SpawnedGladiator->SetIsAtSidelines(SpawnPoint->IsAtSidelines());
 				// TODO: Set gladiator data from roster
 				SpawnedGladiator->FinishSpawning(SpawnTransform);
-
-				AliveGladiators.Add(SpawnedGladiator);
 			}
 		}
-	}
-
-	if (AKolosseumiGameState* KolosseumiGameState = Cast<AKolosseumiGameState>(GameState))
-	{
-		KolosseumiGameState->InitAliveGladiators(AliveGladiators);
 	}
 }
 

@@ -7,6 +7,7 @@
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Kolosseumi/States/KolosseumiGameMode.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
+#include "Kismet/GameplayStatics.h"
 
 void AKolosseumiGameState::BeginPlay()
 {
@@ -32,18 +33,23 @@ void AKolosseumiGameState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
-void AKolosseumiGameState::InitAliveGladiators(const TArray<TWeakObjectPtr<AGladiator>>& Gladiators)
-{
-	AliveGladiators = Gladiators;
-}
-
-void AKolosseumiGameState::ResetAliveGladiators()
-{
-	AliveGladiators.Empty();
-}
-
 void AKolosseumiGameState::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
 {
+	AliveGladiators.Empty();
+
+	TArray<AActor*> GladiatorActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGladiator::StaticClass(), GladiatorActors);
+
+	for (AActor* Actor : GladiatorActors)
+	{
+		if (AGladiator* Gladiator = Cast<AGladiator>(Actor))
+		{
+			if (Gladiator->IsAtSidelines()) continue;
+
+			AliveGladiators.Add(Gladiator);
+		}
+	}
+
 	bIsMatchOngoing = true;
 }
 
