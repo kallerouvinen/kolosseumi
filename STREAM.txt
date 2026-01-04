@@ -2,7 +2,7 @@ Päivä 2/4
 
 ☑ Muodostelman muokkaa-
      minen
-☐ Rostereita vastustajille
+☑ Rostereita vastustajille
 ☐ Hahmoluokat
 ☐ Taktiikat TAI varusteet
 ☐ Ympäristöjä areenalle

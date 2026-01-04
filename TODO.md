@@ -31,7 +31,7 @@
 ### Päivä 3/4
 
 ☑ Muodostelman muokkaaminen
-☐ Rostereita vastustajille
+☑ Rostereita vastustajille
 ☐ Hahmoluokat
 ☐ Taktiikat TAI varusteet
 ☐ Ympäristöjä areenalle
