@@ -3,7 +3,9 @@
 #include "Kolosseumi/UI/InnWidget.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
+#include "Kolosseumi/UI/RosterInfo/GladiatorDataObj.h"
 #include "Components/Button.h"
+#include "Components/ListView.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 
 void UInnWidget::NativeOnInitialized()
@@ -12,12 +14,23 @@ void UInnWidget::NativeOnInitialized()
 
 	HireButton->OnClicked.AddDynamic(this, &ThisClass::OnHireButtonClicked);
 	BackButton->OnClicked.AddDynamic(this, &ThisClass::OnBackButtonClicked);
+	GladiatorListView->OnItemSelectionChanged().AddUObject(
+			this,
+			&ThisClass::OnGladiatorSelected);
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
 			KolosseumiTags::Message_MatchEnd,
 			this,
 			&ThisClass::OnMatchEnd);
+}
+
+void UInnWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	GenerateNewGladiatorsForHire();
+	HireButton->SetIsEnabled(false);
 }
 
 void UInnWidget::NativeDestruct()
@@ -30,8 +43,6 @@ void UInnWidget::NativeDestruct()
 
 void UInnWidget::OnHireButtonClicked()
 {
-	// TODO: Disable hire button if no funds available
-	// TODO: Disable hire button if no gladiator selected
 }
 
 void UInnWidget::OnBackButtonClicked()
@@ -42,8 +53,50 @@ void UInnWidget::OnBackButtonClicked()
 			FReturnToMainUIMessage());
 }
 
+void UInnWidget::OnGladiatorSelected(UObject* SelectedItem)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Gladiator selected in InnWidget"));
+
+	// TODO: Update gladiator info when player selects gladiator
+
+	bool bCanHire = (SelectedItem != nullptr);
+	bool bHasFunds = true; // TODO: Check player funds
+	HireButton->SetIsEnabled(bCanHire && bHasFunds);
+}
+
 void UInnWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
 {
-	// TODO: Refresh gladiator list
-  // - Generate new gladiators for hire
+	GenerateNewGladiatorsForHire();
+}
+
+void UInnWidget::GenerateNewGladiatorsForHire()
+{
+	TArray<FGladiatorData> NewGladiators;
+	int32 NumNewGladiators = 3;
+
+	for (int32 i = 0; i < NumNewGladiators; ++i)
+	{
+		FGladiatorData NewGladiator;
+		// TODO: Generate name
+		// NewGladiator.Name = AllGladiatorNames[FMath::RandRange(0, AllGladiatorNames.Num() - 1)];
+		NewGladiator.Name = TEXT("");
+		NewGladiator.Class = static_cast<EGladiatorClass>(FMath::RandRange(0, static_cast<int32>(EGladiatorClass::Rogue)));
+
+		NewGladiator.Health = FMath::RandRange(80, 120);
+		NewGladiator.Strength = FMath::RandRange(10, 20);
+		NewGladiator.Agility = FMath::RandRange(10, 20);
+		NewGladiator.Mana = FMath::RandRange(5, 15);
+
+		NewGladiators.Add(NewGladiator);
+	}
+
+	TArray<UGladiatorDataObj*> GladiatorDataObjects;
+	for (const FGladiatorData& GladiatorData : NewGladiators)
+	{
+		UGladiatorDataObj* DataObj = NewObject<UGladiatorDataObj>(this);
+		DataObj->Init(GladiatorData);
+		GladiatorDataObjects.Add(DataObj);
+	}
+
+	GladiatorListView->SetListItems(GladiatorDataObjects);
 }

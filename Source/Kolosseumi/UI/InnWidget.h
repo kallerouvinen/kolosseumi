@@ -21,6 +21,7 @@ class KOLOSSEUMI_API UInnWidget : public UUserWidget
 
 protected:
 	virtual void NativeOnInitialized() override;
+	virtual void NativeConstruct() override;
 	virtual void NativeDestruct() override;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
@@ -35,8 +36,12 @@ private:
 	void OnHireButtonClicked();
 	UFUNCTION()
 	void OnBackButtonClicked();
+	UFUNCTION()
+	void OnGladiatorSelected(UObject* SelectedItem);
 
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
 	FGameplayMessageListenerHandle MatchEndListenerHandle;
+
+	void GenerateNewGladiatorsForHire();
 };
