@@ -5,13 +5,18 @@
 #include "Kolosseumi/Managers/OpponentTeamManager.h"
 #include "Kolosseumi/Messages/StartFormationEditingMessage.h"
 #include "Kolosseumi/States/KolosseumiPlayerState.h"
+#include "Kolosseumi/UI/InnWidget.h"
+#include "Kolosseumi/UI/ShopWidget.h"
 #include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
 #include "Kismet/GameplayStatics.h"
 
 void UMainUIWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
+	InnButton->OnClicked.AddDynamic(this, &ThisClass::OnInnButtonClicked);
+	ShopButton->OnClicked.AddDynamic(this, &ThisClass::OnShopButtonClicked);
 	StartNextMatchButton->OnClicked.AddDynamic(this, &ThisClass::OnNextMatchClicked);
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
@@ -32,6 +37,16 @@ void UMainUIWidget::NativeDestruct()
 	MessageSubsystem.UnregisterListener(ReturnToMainUIListenerHandle);
 
 	Super::NativeDestruct();
+}
+
+void UMainUIWidget::OnInnButtonClicked()
+{
+	WidgetSwitcher->SetActiveWidget(InnWidget);
+}
+
+void UMainUIWidget::OnShopButtonClicked()
+{
+	WidgetSwitcher->SetActiveWidget(ShopWidget);
 }
 
 void UMainUIWidget::OnNextMatchClicked()
@@ -65,4 +80,6 @@ void UMainUIWidget::OnNextMatchClicked()
 void UMainUIWidget::OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUIMessage& Message)
 {
 	SetVisibility(ESlateVisibility::Visible);
+
+	WidgetSwitcher->SetActiveWidgetIndex(0);
 }

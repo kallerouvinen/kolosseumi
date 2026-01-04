@@ -10,6 +10,9 @@
 #include "MainUIWidget.generated.h"
 
 class UButton;
+class UInnWidget;
+class UShopWidget;
+class UWidgetSwitcher;
 
 /**
  *
@@ -25,9 +28,23 @@ protected:
 	virtual void NativeDestruct() override;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UWidgetSwitcher> WidgetSwitcher;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UButton> InnButton;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UButton> ShopButton;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UInnWidget> InnWidget;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UShopWidget> ShopWidget;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> StartNextMatchButton;
 
 private:
+	UFUNCTION()
+	void OnInnButtonClicked();
+	UFUNCTION()
+	void OnShopButtonClicked();
 	UFUNCTION()
 	void OnNextMatchClicked();
 
