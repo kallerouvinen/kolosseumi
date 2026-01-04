@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
+#include "Engine/DataTable.h"
 #include "StructLibrary.generated.h"
 
 USTRUCT(BlueprintType)
@@ -11,26 +12,26 @@ struct FGladiatorData
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	FString Name;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	EGladiatorClass Class;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	int32 Health;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	int32 Strength;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	int32 Agility;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	int32 Mana;
 };
 
 USTRUCT(BlueprintType)
-struct FRosterData
+struct FRosterData : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TMap<int32, FGladiatorData> Gladiators;
 };

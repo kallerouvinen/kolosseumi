@@ -2,9 +2,11 @@
 
 #include "Kolosseumi/UI/MainUIWidget.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
-#include "Kolosseumi/States/KolosseumiPlayerState.h"
+#include "Kolosseumi/Managers/OpponentTeamManager.h"
 #include "Kolosseumi/Messages/StartFormationEditingMessage.h"
+#include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
 
 void UMainUIWidget::NativeOnInitialized()
 {
@@ -41,10 +43,19 @@ void UMainUIWidget::OnNextMatchClicked()
 	if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())
 	{
 		FormationEditingMessage.PlayerTeam = PlayerState->GetPlayerRoster();
-		// TODO: Include proper opponent team instead of this placeholder
-		FormationEditingMessage.OpponentTeam = PlayerState->GetPlayerRoster();
 	}
-	// FormationEditingMessage.OpponentTeam = ...
+
+	if (AActor* ManagerActor = UGameplayStatics::GetActorOfClass(GetWorld(), AOpponentTeamManager::StaticClass()))
+	{
+		if (AOpponentTeamManager* Manager = Cast<AOpponentTeamManager>(ManagerActor))
+		{
+			if (FRosterData* OpponentRoster = Manager->GetRandomOpponentRoster())
+			{
+				FormationEditingMessage.OpponentTeam = *OpponentRoster;
+			}
+		}
+	}
+
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.BroadcastMessage(
 			KolosseumiTags::Message_StartFormationEditing,
