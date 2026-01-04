@@ -36,20 +36,25 @@
 
 ### Päivä 4/4
 
-☐ Varusteet
-☐ Gladiaattorin tiedot käyttöliittymässä
 ☐ Raha
 ☐ Rahapalkinto ottelun jälkeen
 ☐ Gladiaattoreiden palkkaaminen (majatalo)
 ☐ Attribuutit
-☐ Perehdytys
-☐ Eventit otteluiden välissä
+☐ Gladiaattorin tiedot käyttöliittymässä
+☐ Jos ehtii -asioita
 ☐ Viimeistely
 ☐ Pelin paketointi
 ☐ Lataaminen itch.ioon
+
+### Jos ehtii
+
+☐ Varusteet
 ☐ Ympäristöjä areenalle
+☐ Perehdytys
+☐ Eventit otteluiden välissä
 
 ### Bugikorjauksia
+
 ☐ Hahmon tulisi kääntyä kohti hyökkäyksen kohdetta
 
 ### Varusteet
