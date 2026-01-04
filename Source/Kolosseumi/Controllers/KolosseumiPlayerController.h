@@ -37,7 +37,9 @@ protected:
 	void OnSelectStarted();
 	void OnSelectCompleted();
 	ASpawnPoint* GetClosestUnoccupiedSpawnPointWithinRange(EFaction Faction, const FVector& Location, float Range) const;
+	void CacheSpawnPoints(bool bFilterByFaction = false, EFaction Faction = EFaction::Player);
 
 	ASpawnPoint* ClosestSpawnPoint = nullptr;
 	AGladiator* GrabbedGladiator = nullptr;
+	TArray<TWeakObjectPtr<ASpawnPoint>> CachedSpawnPoints;
 };

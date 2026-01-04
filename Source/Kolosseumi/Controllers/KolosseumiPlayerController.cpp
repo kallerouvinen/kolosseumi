@@ -42,6 +42,8 @@ void AKolosseumiPlayerController::BeginPlay()
 	{
 		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
+
+	CacheSpawnPoints(true, EFaction::Player);
 }
 
 void AKolosseumiPlayerController::SetupInputComponent()
@@ -119,19 +121,15 @@ void AKolosseumiPlayerController::OnSelectCompleted()
 
 ASpawnPoint* AKolosseumiPlayerController::GetClosestUnoccupiedSpawnPointWithinRange(EFaction Faction, const FVector& Location, float Range) const
 {
-	TArray<AActor*> SpawnPoints;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnPoint::StaticClass(), SpawnPoints);
-
 	ASpawnPoint* NewClosestSpawnPoint = nullptr;
 	float ClosestDistanceSq = TNumericLimits<float>::Max();
 	float RangeSq = Range * Range;
 
-	for (AActor* Actor : SpawnPoints)
+	for (TWeakObjectPtr<ASpawnPoint> SpawnPointPtr : CachedSpawnPoints)
 	{
-		if (ASpawnPoint* SpawnPoint = Cast<ASpawnPoint>(Actor))
+		if (ASpawnPoint* SpawnPoint = SpawnPointPtr.Get())
 		{
-			if (SpawnPoint->GetFaction() != Faction) continue;
-			// TODO: Skip occupied spawn points
+			if (SpawnPoint->IsOccupied()) continue;
 
 			const float DistanceSq = FVector::DistSquared(Location, SpawnPoint->GetActorLocation());
 			if (DistanceSq < ClosestDistanceSq && DistanceSq <= RangeSq)
@@ -143,4 +141,22 @@ ASpawnPoint* AKolosseumiPlayerController::GetClosestUnoccupiedSpawnPointWithinRa
 	}
 
 	return NewClosestSpawnPoint;
+}
+
+void AKolosseumiPlayerController::CacheSpawnPoints(bool bFilterByFaction, EFaction Faction)
+{
+	CachedSpawnPoints.Empty();
+
+	TArray<AActor*> SpawnPoints;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnPoint::StaticClass(), SpawnPoints);
+
+	for (AActor* Actor : SpawnPoints)
+	{
+		if (ASpawnPoint* SpawnPoint = Cast<ASpawnPoint>(Actor))
+		{
+			if (bFilterByFaction && SpawnPoint->GetFaction() != Faction) continue;
+
+			CachedSpawnPoints.Add(SpawnPoint);
+		}
+	}
 }
