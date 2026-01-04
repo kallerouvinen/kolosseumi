@@ -3,8 +3,4 @@ Päivä 2/4
 ☑ Muodostelman muokkaa-
      minen
 ☑ Rostereita vastustajille
-☐ Hahmoluokat
-☐ Taktiikat TAI varusteet
-☐ Ympäristöjä areenalle
-☐ Gladiaattorin tiedot
-     käyttöliittymässä
+☑ Hahmoluokat

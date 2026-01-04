@@ -32,27 +32,33 @@
 
 ☑ Muodostelman muokkaaminen
 ☑ Rostereita vastustajille
-☐ Hahmoluokat
-☐ Taktiikat TAI varusteet
-☐ Ympäristöjä areenalle
-☐ Gladiaattorin tiedot käyttöliittymässä
+☑ Hahmoluokat
 
 ### Päivä 4/4
 
+☐ Varusteet
+☐ Gladiaattorin tiedot käyttöliittymässä
 ☐ Raha
 ☐ Rahapalkinto ottelun jälkeen
 ☐ Gladiaattoreiden palkkaaminen (majatalo)
-☐ Jos ehtii -asioita
+☐ Attribuutit
+☐ Perehdytys
+☐ Eventit otteluiden välissä
 ☐ Viimeistely
 ☐ Pelin paketointi
 ☐ Lataaminen itch.ioon
+☐ Ympäristöjä areenalle
 
-### Jos ehtii
+### Bugikorjauksia
+☐ Hahmon tulisi kääntyä kohti hyökkäyksen kohdetta
 
-☐ Perehdytys
-☐ Eventit otteluiden välissä
-☐ Loitsut
-☐ Attribuutit
+### Varusteet
+
+- Buffaa attribuutteja
+- Antaa erikoiskykyjä, millaisia?
+- Buffaa lähellä olevia
+- Taunttaa automaattisesti lähellä olevat
+- Ekstrarahaa taistelun lopussa
 
 ### Varasuunnitelmat mikäli asiat menee metsään
 
