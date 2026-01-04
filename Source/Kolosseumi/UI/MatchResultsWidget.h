@@ -39,4 +39,6 @@ private:
 	void OnReturnToMainUIClicked();
 
 	float DelayAfterMatchEnd = 3.0f;
+
+	FString GetMatchResultText(EFaction WinningFaction) const;
 };

@@ -89,8 +89,7 @@ void AKolosseumiGameState::OnGladiatorKnockedOut(FGameplayTag Channel, const FGl
 		}
 		else if (!bIsAnyPlayerGladiatorAlive && !bIsAnyOpponentGladiatorAlive)
 		{
-			// TODO: Should draws be handled differently?
-			MatchEndMessage.WinningFaction = EFaction::Player; // Treat draw as player
+			MatchEndMessage.WinningFaction = EFaction::None;
 		}
 
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);

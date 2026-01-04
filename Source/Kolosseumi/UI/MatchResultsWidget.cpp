@@ -50,12 +50,24 @@ void UMatchResultsWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessag
 			FTimerDelegate::CreateLambda([Message, this]() {
 				SetVisibility(ESlateVisibility::Visible);
 
-				FString MatchResult = Message.WinningFaction == EFaction::Player
-						? TEXT("Victory!")
-						: TEXT("Defeat!");
+				FString MatchResult = GetMatchResultText(Message.WinningFaction);
 
 				MatchResultText->SetText(FText::FromString(MatchResult));
 			}),
 			DelayAfterMatchEnd,
 			false);
+}
+
+FString UMatchResultsWidget::GetMatchResultText(EFaction WinningFaction) const
+{
+	switch (WinningFaction)
+	{
+		case EFaction::Player:
+			return TEXT("Victory!");
+		case EFaction::Opponent:
+			return TEXT("Defeat!");
+		case EFaction::None:
+		default:
+			return TEXT("Draw!");
+	}
 }

@@ -10,6 +10,7 @@ enum class EFaction : uint8
 {
 	Player UMETA(DisplayName = "Player"),
 	Opponent UMETA(DisplayName = "Opponent"),
+	None UMETA(DisplayName = "None"),
 };
 
 UENUM(BlueprintType)
