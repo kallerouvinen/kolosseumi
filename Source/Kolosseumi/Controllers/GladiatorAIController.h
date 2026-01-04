@@ -34,6 +34,8 @@ public:
 protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UBehaviorTree> AIBehaviorTree;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBehaviorTree> RangerBT;
 
 private:
 	UFUNCTION()
@@ -45,4 +47,6 @@ private:
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
 	FGameplayMessageListenerHandle MatchEndListenerHandle;
+
+	UBehaviorTree* GetBehaviorTreeForControlledGladiator() const;
 };

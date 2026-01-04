@@ -1,11 +1,13 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
 #include "Kolosseumi/Pawns/Gladiator.h"
+#include "Kolosseumi/Actors/Arrow.h"
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
 #include "Kolosseumi/States/KolosseumiGameState.h"
 #include "Kolosseumi/UI/HealthBarWidget.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
@@ -79,6 +81,8 @@ void AGladiator::Tick(float DeltaTime)
 
 void AGladiator::SetData(const FGladiatorData& Data)
 {
+	GladiatorData = Data;
+
 	GetMesh()->SetSkeletalMesh(
 			Cast<USkeletalMesh>(StaticLoadObject(
 					USkeletalMesh::StaticClass(),
@@ -126,7 +130,7 @@ void AGladiator::SetIsAtSidelines(bool bNewIsAtSidelines)
 // 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 // }
 
-void AGladiator::Attack(AGladiator* TargetGladiator)
+void AGladiator::MeleeAttack(AGladiator* TargetGladiator)
 {
 	if (bIsAttacking || bIsKnockedOut) return;
 
@@ -140,6 +144,44 @@ void AGladiator::Attack(AGladiator* TargetGladiator)
 				[this, TargetGladiator]() {
 					float DamageAmount = AttackDamage + FMath::RandRange(-20, 20);
 					TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
+				},
+				0.5f,
+				false);
+	}
+
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(
+			TimerHandle,
+			[this]() { bIsAttacking = false; },
+			AttackDuration,
+			false);
+}
+
+void AGladiator::RangedAttack(AGladiator* TargetGladiator)
+{
+	if (bIsAttacking || bIsKnockedOut) return;
+
+	bIsAttacking = true;
+
+	if (TargetGladiator)
+	{
+		FTimerHandle DamageTimerHandle;
+		GetWorldTimerManager().SetTimer(
+				DamageTimerHandle,
+				[this, TargetGladiator]() {
+					FTransform SpawnTransform;
+					SpawnTransform.SetLocation(GetActorLocation());
+					SpawnTransform.SetRotation(
+							(TargetGladiator->GetActorLocation() - GetActorLocation()).Rotation().Quaternion());
+
+					AArrow* SpawnedArrow = GetWorld()->SpawnActorDeferred<AArrow>(
+							AArrow::StaticClass(), SpawnTransform);
+					SpawnedArrow->SetTarget(TargetGladiator);
+					SpawnedArrow->SetSource(this);
+					SpawnedArrow->FinishSpawning(SpawnTransform);
+
+					GetMesh()->IgnoreActorWhenMoving(SpawnedArrow, true);
+					GetCapsuleComponent()->IgnoreActorWhenMoving(SpawnedArrow, true);
 				},
 				0.5f,
 				false);

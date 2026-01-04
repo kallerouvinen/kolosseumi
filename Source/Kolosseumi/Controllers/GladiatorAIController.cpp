@@ -18,6 +18,12 @@ AGladiatorAIController::AGladiatorAIController(const FObjectInitializer& ObjectI
 	{
 		AIBehaviorTree = BehaviorTreeFinder.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UBehaviorTree> RangerBTFinder(TEXT("/Game/AI/BT_Ranger"));
+	if (RangerBTFinder.Succeeded())
+	{
+		RangerBT = RangerBTFinder.Object;
+	}
 }
 
 void AGladiatorAIController::BeginPlay()
@@ -90,16 +96,14 @@ void AGladiatorAIController::SetAttackTargetToClosest()
 
 void AGladiatorAIController::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
 {
-	if (!ensureMsgf(AIBehaviorTree, TEXT("AIBehaviorTree is not found in GladiatorAIController")))
-	{
-		return;
-	}
-
 	if (AGladiator* Gladiator = Cast<AGladiator>(GetPawn()))
 	{
 		if (Gladiator->IsAtSidelines()) return;
 
-		RunBehaviorTree(AIBehaviorTree);
+		if (UBehaviorTree* BehaviorTreeToRun = GetBehaviorTreeForControlledGladiator())
+		{
+			RunBehaviorTree(BehaviorTreeToRun);
+		}
 	}
 }
 
@@ -124,4 +128,17 @@ void AGladiatorAIController::OnMatchEnd(FGameplayTag Channel, const FMatchEndMes
 	{
 		GetBlackboardComponent()->SetValueAsObject(TEXT("AttackTarget"), nullptr);
 	}
+}
+
+UBehaviorTree* AGladiatorAIController::GetBehaviorTreeForControlledGladiator() const
+{
+	if (AGladiator* Gladiator = Cast<AGladiator>(GetPawn()))
+	{
+		if (Gladiator->GetData().Class == EGladiatorClass::Ranger)
+		{
+			return RangerBT;
+		}
+	}
+
+	return AIBehaviorTree;
 }

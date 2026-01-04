@@ -31,6 +31,7 @@ public:
 	// virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void SetData(const FGladiatorData& Data);
+	const FGladiatorData& GetData() const { return GladiatorData; }
 
 	int32 GetHealth() const { return Health; }
 	int32 GetMaxHealth() const { return MaxHealth; }
@@ -50,7 +51,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool IsCheering() const { return bIsCheering; }
 
-	void Attack(AGladiator* TargetGladiator);
+	void MeleeAttack(AGladiator* TargetGladiator);
+	void RangedAttack(AGladiator* TargetGladiator);
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
@@ -80,4 +82,6 @@ private:
 	void OnHoverEnd(AActor* TouchedActor);
 
 	static const TMap<EGladiatorClass, FString> GladiatorClassToMeshPath;
+
+	FGladiatorData GladiatorData;
 };
