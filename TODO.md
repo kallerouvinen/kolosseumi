@@ -30,15 +30,12 @@
 
 ### Päivä 3/4
 
-☐ Hahmojen paikkojen valinta ottelun alussa
-☐ Hahmon tilan muuttaminen spawn pointia vaihtaessa (esim. onko kentän laidalla)
-☐ Erillinen tila muodostelman luomiselle ennen ottelua
-☐ Näytä spawn pointit ainoastaan muodostelmaa muokatessa
+☑ Muodostelman muokkaaminen
 ☐ Rostereita vastustajille
-☐ Gladiaattorin tiedot käyttöliittymässä
 ☐ Hahmoluokat
 ☐ Taktiikat TAI varusteet
 ☐ Ympäristöjä areenalle
+☐ Gladiaattorin tiedot käyttöliittymässä
 
 ### Päivä 4/4
 
