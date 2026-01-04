@@ -11,12 +11,11 @@
 #include "GameFramework/GameplayMessageSubsystem.h"
 
 const TMap<EGladiatorClass, FString> AGladiator::GladiatorClassToMeshPath = {
-	{ EGladiatorClass::Barbarian, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
+	{ EGladiatorClass::Barbarian, "/Game/Characters/Meshes/SK_Barbarian.SK_Barbarian" },
 	{ EGladiatorClass::Knight, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
-	{ EGladiatorClass::Mage, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
-	{ EGladiatorClass::Ranger, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
+	{ EGladiatorClass::Mage, "/Game/Characters/Meshes/SK_Mage.SK_Mage" },
+	{ EGladiatorClass::Ranger, "/Game/Characters/Meshes/SK_Ranger.SK_Ranger" },
 	{ EGladiatorClass::Rogue, "/Game/Characters/Meshes/SK_Rogue.SK_Rogue" },
-	{ EGladiatorClass::Skeleton, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
 };
 
 AGladiator::AGladiator()

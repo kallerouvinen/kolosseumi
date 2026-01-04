@@ -31,7 +31,7 @@ void AKolosseumiPlayerState::GenerateRoster(int32 NumGladiators)
 	{
 		FGladiatorData NewGladiator;
 		NewGladiator.Name = AllGladiatorNames[FMath::RandRange(0, AllGladiatorNames.Num() - 1)];
-		NewGladiator.Class = static_cast<EGladiatorClass>(FMath::RandRange(0, static_cast<int32>(EGladiatorClass::Skeleton)));
+		NewGladiator.Class = static_cast<EGladiatorClass>(FMath::RandRange(0, static_cast<int32>(EGladiatorClass::Rogue)));
 
 		NewGladiator.Health = FMath::RandRange(80, 120);
 		NewGladiator.Strength = FMath::RandRange(10, 20);

@@ -21,5 +21,4 @@ enum class EGladiatorClass : uint8
 	Mage UMETA(DisplayName = "Mage"),
 	Ranger UMETA(DisplayName = "Ranger"),
 	Rogue UMETA(DisplayName = "Rogue"),
-	Skeleton UMETA(DisplayName = "Skeleton"),
 };
