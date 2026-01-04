@@ -22,8 +22,6 @@ const TMap<EGladiatorClass, FString> AGladiator::GladiatorClassToMeshPath = {
 
 AGladiator::AGladiator()
 {
-	PrimaryActorTick.bCanEverTick = true;
-
 	HealthBarWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBarWidget"));
 	static ConstructorHelpers::FClassFinder<UHealthBarWidget> HealthBarClassFinder(TEXT("/Game/UI/WBP_HealthBar"));
 	if (HealthBarClassFinder.Succeeded())
@@ -74,11 +72,6 @@ void AGladiator::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
-void AGladiator::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 void AGladiator::SetData(const FGladiatorData& Data)
 {
 	GladiatorData = Data;
@@ -124,11 +117,6 @@ void AGladiator::SetIsAtSidelines(bool bNewIsAtSidelines)
 
 	HealthBarWidgetComponent->SetVisibility(!bIsAtSidelines);
 }
-
-// void AGladiator::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-// {
-// 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-// }
 
 void AGladiator::MeleeAttack(AGladiator* TargetGladiator)
 {

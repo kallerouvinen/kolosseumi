@@ -74,7 +74,6 @@ void AKolosseumiGameMode::SpawnGladiators(EFaction Faction, const FRosterData& R
 				SpawnedGladiator->SetFaction(SpawnPoint->GetFaction());
 				SpawnedGladiator->SetIsAtSidelines(SpawnPoint->IsAtSidelines());
 				SpawnedGladiator->SetData(GladiatorData);
-				// TODO: Set gladiator data from roster
 				SpawnedGladiator->FinishSpawning(SpawnTransform);
 			}
 		}
