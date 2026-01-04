@@ -10,6 +10,15 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 
+const TMap<EGladiatorClass, FString> AGladiator::GladiatorClassToMeshPath = {
+	{ EGladiatorClass::Barbarian, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
+	{ EGladiatorClass::Knight, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
+	{ EGladiatorClass::Mage, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
+	{ EGladiatorClass::Ranger, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
+	{ EGladiatorClass::Rogue, "/Game/Characters/Meshes/SK_Rogue.SK_Rogue" },
+	{ EGladiatorClass::Skeleton, "/Game/Characters/Meshes/SK_Knight.SK_Knight" },
+};
+
 AGladiator::AGladiator()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -67,6 +76,15 @@ void AGladiator::EndPlay(const EEndPlayReason::Type EndPlayReason)
 void AGladiator::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AGladiator::SetData(const FGladiatorData& Data)
+{
+	GetMesh()->SetSkeletalMesh(
+			Cast<USkeletalMesh>(StaticLoadObject(
+					USkeletalMesh::StaticClass(),
+					nullptr,
+					*GladiatorClassToMeshPath[Data.Class])));
 }
 
 void AGladiator::SetHealth(int32 NewHealth)

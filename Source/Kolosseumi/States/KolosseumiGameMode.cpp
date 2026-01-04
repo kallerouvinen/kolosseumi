@@ -65,6 +65,7 @@ void AKolosseumiGameMode::SpawnGladiators(EFaction Faction, const FRosterData& R
 			if (!Roster.Gladiators.Contains(SpawnPoint->GetIndex())) continue;
 
 			FTransform SpawnTransform = SpawnPoint->GetActorTransform();
+			FGladiatorData GladiatorData = Roster.Gladiators[SpawnPoint->GetIndex()];
 
 			if (AGladiator* SpawnedGladiator = GetWorld()->SpawnActorDeferred<AGladiator>(
 							GladiatorClass,
@@ -72,6 +73,7 @@ void AKolosseumiGameMode::SpawnGladiators(EFaction Faction, const FRosterData& R
 			{
 				SpawnedGladiator->SetFaction(SpawnPoint->GetFaction());
 				SpawnedGladiator->SetIsAtSidelines(SpawnPoint->IsAtSidelines());
+				SpawnedGladiator->SetData(GladiatorData);
 				// TODO: Set gladiator data from roster
 				SpawnedGladiator->FinishSpawning(SpawnTransform);
 			}

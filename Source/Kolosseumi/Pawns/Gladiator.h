@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
+#include "Kolosseumi/Libraries/StructLibrary.h"
 #include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
@@ -28,6 +29,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void SetData(const FGladiatorData& Data);
 
 	int32 GetHealth() const { return Health; }
 	int32 GetMaxHealth() const { return MaxHealth; }
@@ -75,4 +78,6 @@ private:
 	void OnHoverStart(AActor* TouchedActor);
 	UFUNCTION()
 	void OnHoverEnd(AActor* TouchedActor);
+
+	static const TMap<EGladiatorClass, FString> GladiatorClassToMeshPath;
 };
