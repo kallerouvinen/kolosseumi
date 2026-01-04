@@ -15,7 +15,7 @@ void AKolosseumiPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GenerateRoster();
+	GenerateRoster(6);
 }
 
 void AKolosseumiPlayerState::EndPlay(const EEndPlayReason::Type EndPlayReason)
