@@ -19,14 +19,13 @@ ASpawnPoint::ASpawnPoint()
 	}
 
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Engine/BasicShapes/Plane.Plane"));
 	if (MeshAsset.Succeeded())
 	{
 		MeshComponent->SetStaticMesh(MeshAsset.Object);
 		MeshComponent->SetMaterial(0, DefaultMaterial);
 	}
-	MeshComponent->SetRelativeLocation(FVector(0.f, 0.f, -88.f));
-	MeshComponent->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.1f));
+	MeshComponent->SetRelativeLocation(FVector(0.f, 0.f, -87.f));
 	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	MeshComponent->SetupAttachment(RootComponent);
 }
