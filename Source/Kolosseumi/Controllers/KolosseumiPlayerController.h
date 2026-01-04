@@ -38,5 +38,6 @@ protected:
 	void OnSelectCompleted();
 	ASpawnPoint* GetClosestUnoccupiedSpawnPointWithinRange(EFaction Faction, const FVector& Location, float Range) const;
 
+	ASpawnPoint* ClosestSpawnPoint = nullptr;
 	AGladiator* GrabbedGladiator = nullptr;
 };

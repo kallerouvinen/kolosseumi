@@ -7,6 +7,8 @@
 #include "Engine/TargetPoint.h"
 #include "SpawnPoint.generated.h"
 
+class UMaterialInterface;
+
 /**
  *
  */
@@ -16,6 +18,15 @@ class KOLOSSEUMI_API ASpawnPoint : public ATargetPoint
 	GENERATED_BODY()
 
 public:
+	ASpawnPoint();
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	void SetIsVisible(bool bIsVisible);
+	void Highlight(bool bHighlight);
+
 	EFaction GetFaction() const { return Faction; }
 	void SetFaction(EFaction NewFaction) { Faction = NewFaction; }
 
@@ -29,6 +40,9 @@ public:
 	void SetIsAtSidelines(bool bNewIsAtSidelines) { bIsAtSidelines = bNewIsAtSidelines; }
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UStaticMeshComponent> MeshComponent;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SpawnPoint")
 	EFaction Faction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SpawnPoint")
@@ -37,4 +51,7 @@ protected:
 	bool bIsOccupied = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SpawnPoint")
 	bool bIsAtSidelines = false;
+
+	TObjectPtr<UMaterialInterface> DefaultMaterial;
+	TObjectPtr<UMaterialInterface> HighlightMaterial;
 };

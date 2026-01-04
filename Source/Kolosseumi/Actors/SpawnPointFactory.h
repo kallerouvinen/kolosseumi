@@ -37,22 +37,22 @@ private:
 	int32 FieldColumns = 7;
 
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
-	FVector2D PlayerSidelineOffset = FVector2D(0.f, 0.f);
+	FVector2D PlayerSidelineOffset = FVector2D(-650.f, -700.f);
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
-	FVector2D OpponentSidelineOffset = FVector2D(0.f, 0.f);
+	FVector2D OpponentSidelineOffset = FVector2D(650.f, 700.f);
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
 	float SidelineSpacing = 200.f;
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
-	float SidelineHeight = 138.f;
+	float SidelineHeight = 148.f;
 
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
-	float PlayerFieldOffset = 0.f;
+	float PlayerFieldOffset = -300.f;
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
-	float OpponentFieldOffset = 0.f;
+	float OpponentFieldOffset = 300.f;
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
-	float FieldSpawnAreaSizeX = 1000.f;
+	float FieldSpawnAreaSizeX = 1400.f;
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
-	float FieldSpawnAreaSizeY = 200.f;
+	float FieldSpawnAreaSizeY = 400.f;
 	UPROPERTY(EditAnywhere, Category = "SpawnPointFactory", meta = (AllowPrivateAccess = "true"))
 	float FieldHeight = 88.f;
 };

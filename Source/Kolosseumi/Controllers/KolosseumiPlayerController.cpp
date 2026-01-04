@@ -70,6 +70,18 @@ void AKolosseumiPlayerController::Tick(float DeltaTime)
 		TargetLocation.Z += 200.0f;
 		FVector GladiatorLocation = GrabbedGladiator->GetActorLocation();
 
+		ASpawnPoint* NewClosestSpawnPoint = GetClosestUnoccupiedSpawnPointWithinRange(EFaction::Player, TargetLocation, 500.f);
+
+		if (NewClosestSpawnPoint)
+		{
+			if (ClosestSpawnPoint)
+			{
+				ClosestSpawnPoint->Highlight(false);
+			}
+			ClosestSpawnPoint = NewClosestSpawnPoint;
+			ClosestSpawnPoint->Highlight(true);
+		}
+
 		GrabbedGladiator->SetActorLocation(FMath::VInterpTo(GladiatorLocation, TargetLocation, DeltaTime, 10.0f));
 	}
 }
@@ -92,22 +104,14 @@ void AKolosseumiPlayerController::OnSelectCompleted()
 {
 	if (!GrabbedGladiator) return;
 
-	FHitResult HitResult;
-	bool bSuccess = GetHitResultUnderCursor(ECollisionChannel::GRAB_TRACE, true, HitResult);
-
-	if (bSuccess)
+	if (ClosestSpawnPoint)
 	{
-		FVector TargetLocation = HitResult.Location;
-
-		ASpawnPoint* ClosestSpawnPoint = GetClosestUnoccupiedSpawnPointWithinRange(
-				GrabbedGladiator->GetFaction(),
-				TargetLocation,
-				500.0f);
-
-		// TODO: Handle not finding a spawn point
-		GrabbedGladiator->SetActorLocation(ClosestSpawnPoint
-						? ClosestSpawnPoint->GetActorLocation()
-						: TargetLocation);
+		GrabbedGladiator->SetActorLocation(ClosestSpawnPoint->GetActorLocation());
+		ClosestSpawnPoint->Highlight(false);
+	}
+	else
+	{
+		// TODO: Handle not finding a spawn point - return to original position?
 	}
 
 	GrabbedGladiator = nullptr;
@@ -118,7 +122,7 @@ ASpawnPoint* AKolosseumiPlayerController::GetClosestUnoccupiedSpawnPointWithinRa
 	TArray<AActor*> SpawnPoints;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnPoint::StaticClass(), SpawnPoints);
 
-	ASpawnPoint* ClosestSpawnPoint = nullptr;
+	ASpawnPoint* NewClosestSpawnPoint = nullptr;
 	float ClosestDistanceSq = TNumericLimits<float>::Max();
 	float RangeSq = Range * Range;
 
@@ -133,10 +137,10 @@ ASpawnPoint* AKolosseumiPlayerController::GetClosestUnoccupiedSpawnPointWithinRa
 			if (DistanceSq < ClosestDistanceSq && DistanceSq <= RangeSq)
 			{
 				ClosestDistanceSq = DistanceSq;
-				ClosestSpawnPoint = SpawnPoint;
+				NewClosestSpawnPoint = SpawnPoint;
 			}
 		}
 	}
 
-	return ClosestSpawnPoint;
+	return NewClosestSpawnPoint;
 }
