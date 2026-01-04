@@ -23,26 +23,28 @@
 ☑ Ottelun päättyminen
 ☑ Ruutu ottelun tuloksille
 ☑ Gladiaattorin data
+☑ Hahmojen nimet
 ☑ Kokoonpanon data
 ☑ Kokoonpanon näyttäminen käyttöliittymässä
-☐ Kokoonpanon spawnaus
-☐ Hahmojen paikkojen valinta ottelun alussa
+☑ Kokoonpanon spawnaus
 
 ### Päivä 3/4
 
+☐ Hahmojen paikkojen valinta ottelun alussa
+☐ Hahmon tilan muuttaminen spawn pointia vaihtaessa (esim. onko kentän laidalla)
+☐ Erillinen tila muodostelman luomiselle ennen ottelua
+☐ Näytä spawn pointit ainoastaan muodostelmaa muokatessa
+☐ Rostereita vastustajille
 ☐ Gladiaattorin tiedot käyttöliittymässä
-☐ Pelaajan vaikutusmahdollisuuksien lisääminen
-☐ Hahmojen rodut
-☐ Hahmojen nimet
-☐ Datan generointi
-☐ Gladiaattoreiden palkkaaminen (majatalo)
-☐ Gladiaattorin taktiikan valinta
-☐ Raha
-☐ Rahapalkinto ottelun jälkeen
-☐ Huutelu ("Lyökää sitä kääpiötä!")
+☐ Hahmoluokat
+☐ Taktiikat TAI varusteet
+☐ Ympäristöjä areenalle
 
 ### Päivä 4/4
 
+☐ Raha
+☐ Rahapalkinto ottelun jälkeen
+☐ Gladiaattoreiden palkkaaminen (majatalo)
 ☐ Jos ehtii -asioita
 ☐ Viimeistely
 ☐ Pelin paketointi
@@ -52,8 +54,6 @@
 
 ☐ Perehdytys
 ☐ Eventit otteluiden välissä
-☐ Ympäristöjä areenalle
-☐ Varusteet
 ☐ Loitsut
 ☐ Attribuutit
 

@@ -1,12 +1,10 @@
 Päivä 2/4
 
-☑ Viestintä koodin sisällä
-☑ Ottelun päättyminen
-☑ Ruutu ottelun tuloksille
-☑ Gladiaattorin data
-☑ Kokoonpanon data
-☑ Kokoonpanon näyttäminen
+☐ Muodostelman muokkaa-
+     minen
+☐ Rostereita vastustajille
+☐ Gladiaattorin tiedot
      käyttöliittymässä
-☐ Kokoonpanon spawnaus
-☐ Hahmojen paikkojen valinta
-     ottelun alussa
+☐ Hahmoluokat
+☐ Taktiikat TAI varusteet
+☐ Ympäristöjä areenalle
