@@ -23,6 +23,10 @@ void AGladiatorAIController::BeginPlay()
 	Super::BeginPlay();
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	StartMatchListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartMatch,
+			this,
+			&ThisClass::OnStartMatch);
 	GladiatorKnockedOutListenerHandle = MessageSubsystem.RegisterListener(
 			KolosseumiTags::Message_GladiatorKnockedOut,
 			this,
@@ -36,27 +40,13 @@ void AGladiatorAIController::BeginPlay()
 void AGladiatorAIController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.UnregisterListener(StartMatchListenerHandle);
 	MessageSubsystem.UnregisterListener(GladiatorKnockedOutListenerHandle);
+	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
 
 	Super::EndPlay(EndPlayReason);
 }
 
-void AGladiatorAIController::OnPossess(APawn* InPawn)
-{
-	Super::OnPossess(InPawn);
-
-	if (!ensureMsgf(AIBehaviorTree, TEXT("AIBehaviorTree is not found in GladiatorAIController")))
-	{
-		return;
-	}
-
-	if (AGladiator* ControlledGladiator = Cast<AGladiator>(InPawn))
-	{
-		if (ControlledGladiator->IsAtSidelines()) return;
-
-		RunBehaviorTree(AIBehaviorTree);
-	}
-}
 
 void AGladiatorAIController::SetAttackTargetToClosest()
 {
@@ -93,6 +83,21 @@ void AGladiatorAIController::SetAttackTargetToClosest()
 					TEXT("AttackTarget"),
 					ClosestOpponentGladiator);
 		}
+	}
+}
+
+void AGladiatorAIController::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
+{
+	if (!ensureMsgf(AIBehaviorTree, TEXT("AIBehaviorTree is not found in GladiatorAIController")))
+	{
+		return;
+	}
+
+	if (AGladiator* Gladiator = Cast<AGladiator>(GetPawn()))
+	{
+		if (Gladiator->IsAtSidelines()) return;
+
+		RunBehaviorTree(AIBehaviorTree);
 	}
 }
 

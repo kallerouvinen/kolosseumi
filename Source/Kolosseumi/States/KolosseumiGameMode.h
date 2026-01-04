@@ -6,7 +6,7 @@
 #include "Kolosseumi/Libraries/EnumLibrary.h"
 #include "Kolosseumi/Libraries/StructLibrary.h"
 #include "Kolosseumi/Messages/MatchEndMessage.h"
-#include "Kolosseumi/Messages/StartMatchMessage.h"
+#include "Kolosseumi/Messages/StartFormationEditingMessage.h"
 #include "GameFramework/GameModeBase.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameplayTagContainer.h"
@@ -39,8 +39,8 @@ private:
 	TSubclassOf<AGladiator> GladiatorClass;
 
 	UFUNCTION()
-	void OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message);
-	FGameplayMessageListenerHandle StartMatchListenerHandle;
+	void OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message);
+	FGameplayMessageListenerHandle StartFormationEditingListenerHandle;
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
 	FGameplayMessageListenerHandle MatchEndListenerHandle;

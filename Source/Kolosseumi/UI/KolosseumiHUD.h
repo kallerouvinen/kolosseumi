@@ -6,6 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "KolosseumiHUD.generated.h"
 
+class UEditFormationWidget;
 class UMainUIWidget;
 class UMatchResultsWidget;
 
@@ -25,6 +26,9 @@ protected:
 private:
 	TSubclassOf<UMainUIWidget> MainUIWidgetClass;
 	TObjectPtr<UMainUIWidget> MainUIWidget;
+
+	TSubclassOf<UEditFormationWidget> EditFormationWidgetClass;
+	TObjectPtr<UEditFormationWidget> EditFormationWidget;
 
 	TSubclassOf<UMatchResultsWidget> MatchResultsWidgetClass;
 	TObjectPtr<UMatchResultsWidget> MatchResultsWidget;

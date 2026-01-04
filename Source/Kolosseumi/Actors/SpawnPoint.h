@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
+#include "Kolosseumi/Messages/StartFormationEditingMessage.h"
+#include "Kolosseumi/Messages/StartMatchMessage.h"
 #include "Engine/TargetPoint.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "SpawnPoint.generated.h"
 
 class UMaterialInterface;
@@ -22,6 +26,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
 	void SetIsVisible(bool bIsVisible);
@@ -54,4 +59,12 @@ protected:
 
 	TObjectPtr<UMaterialInterface> DefaultMaterial;
 	TObjectPtr<UMaterialInterface> HighlightMaterial;
+
+private:
+	UFUNCTION()
+	void OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message);
+	FGameplayMessageListenerHandle StartFormationEditingListenerHandle;
+	UFUNCTION()
+	void OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message);
+	FGameplayMessageListenerHandle StartMatchListenerHandle;
 };

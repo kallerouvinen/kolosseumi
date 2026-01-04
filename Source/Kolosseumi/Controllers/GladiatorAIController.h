@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Messages/GladiatorKnockedOutMessage.h"
+#include "Kolosseumi/Messages/MatchEndMessage.h"
+#include "Kolosseumi/Messages/StartMatchMessage.h"
 #include "AIController.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameplayTagContainer.h"
@@ -26,8 +28,6 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-	virtual void OnPossess(APawn* InPawn) override;
-
 public:
 	void SetAttackTargetToClosest();
 
@@ -36,6 +36,9 @@ protected:
 	TObjectPtr<UBehaviorTree> AIBehaviorTree;
 
 private:
+	UFUNCTION()
+	void OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message);
+	FGameplayMessageListenerHandle StartMatchListenerHandle;
 	UFUNCTION()
 	void OnGladiatorKnockedOut(FGameplayTag Channel, const FGladiatorKnockedOutMessage& Message);
 	FGameplayMessageListenerHandle GladiatorKnockedOutListenerHandle;

@@ -9,10 +9,4 @@ USTRUCT(BlueprintType)
 struct FStartMatchMessage
 {
 	GENERATED_BODY()
-
-public:
-	// UPROPERTY()
-	// FTeamData PlayerTeam;
-	// UPROPERTY()
-	// FTeamData OpponentTeam;
 };

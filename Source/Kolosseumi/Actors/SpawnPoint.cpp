@@ -1,6 +1,7 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
 #include "Kolosseumi/Actors/SpawnPoint.h"
+#include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 
 ASpawnPoint::ASpawnPoint()
 {
@@ -34,7 +35,24 @@ void ASpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetIsVisible(Faction == EFaction::Player);
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	StartFormationEditingListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartFormationEditing,
+			this,
+			&ThisClass::OnStartFormationEditing);
+	StartMatchListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartMatch,
+			this,
+			&ThisClass::OnStartMatch);
+}
+
+void ASpawnPoint::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.UnregisterListener(StartFormationEditingListenerHandle);
+	MessageSubsystem.UnregisterListener(StartMatchListenerHandle);
+
+	Super::EndPlay(EndPlayReason);
 }
 
 void ASpawnPoint::SetIsVisible(bool bIsVisible)
@@ -45,4 +63,14 @@ void ASpawnPoint::SetIsVisible(bool bIsVisible)
 void ASpawnPoint::Highlight(bool bHighlight)
 {
 	MeshComponent->SetMaterial(0, bHighlight ? HighlightMaterial : DefaultMaterial);
+}
+
+void ASpawnPoint::OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message)
+{
+	SetIsVisible(Faction == EFaction::Player);
+}
+
+void ASpawnPoint::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
+{
+	SetIsVisible(false);
 }

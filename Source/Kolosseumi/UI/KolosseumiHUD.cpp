@@ -1,6 +1,7 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
 #include "Kolosseumi/UI/KolosseumiHUD.h"
+#include "Kolosseumi/UI/EditFormationWidget.h"
 #include "Kolosseumi/UI/MainUIWidget.h"
 #include "Kolosseumi/UI/MatchResultsWidget.h"
 
@@ -10,6 +11,12 @@ AKolosseumiHUD::AKolosseumiHUD()
 	if (MainUIWidgetClassFinder.Succeeded())
 	{
 		MainUIWidgetClass = MainUIWidgetClassFinder.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UEditFormationWidget> EditFormationWidgetClassFinder(TEXT("/Game/UI/WBP_EditFormation"));
+	if (EditFormationWidgetClassFinder.Succeeded())
+	{
+		EditFormationWidgetClass = EditFormationWidgetClassFinder.Class;
 	}
 
 	static ConstructorHelpers::FClassFinder<UMatchResultsWidget> MatchResultsWidgetClassFinder(TEXT("/Game/UI/WBP_MatchResults"));
@@ -28,6 +35,15 @@ void AKolosseumiHUD::BeginPlay()
 		if (MainUIWidget = CreateWidget<UMainUIWidget>(GetWorld(), MainUIWidgetClass))
 		{
 			MainUIWidget->AddToViewport();
+		}
+	}
+
+	if (EditFormationWidgetClass)
+	{
+		if (EditFormationWidget = CreateWidget<UEditFormationWidget>(GetWorld(), EditFormationWidgetClass))
+		{
+			EditFormationWidget->AddToViewport();
+			EditFormationWidget->SetVisibility(ESlateVisibility::Collapsed);
 		}
 	}
 

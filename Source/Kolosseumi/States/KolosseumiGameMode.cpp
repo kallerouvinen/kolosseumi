@@ -33,10 +33,10 @@ void AKolosseumiGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	StartMatchListenerHandle = MessageSubsystem.RegisterListener(
-			KolosseumiTags::Message_StartMatch,
+	StartFormationEditingListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartFormationEditing,
 			this,
-			&ThisClass::OnStartMatch);
+			&ThisClass::OnStartFormationEditing);
 	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
 			KolosseumiTags::Message_MatchEnd,
 			this,
@@ -46,7 +46,7 @@ void AKolosseumiGameMode::BeginPlay()
 void AKolosseumiGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.UnregisterListener(StartMatchListenerHandle);
+	MessageSubsystem.UnregisterListener(StartFormationEditingListenerHandle);
 	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
 
 	Super::EndPlay(EndPlayReason);
@@ -102,15 +102,12 @@ void AKolosseumiGameMode::RemoveAllGladiatorsFromWorld()
 	}
 }
 
-void AKolosseumiGameMode::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
+void AKolosseumiGameMode::OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message)
 {
 	RemoveAllGladiatorsFromWorld();
 
-	AKolosseumiPlayerState* PlayerState = GetPlayerState();
-	if (!PlayerState) return;
-
-	SpawnGladiators(EFaction::Player, PlayerState->GetPlayerRoster());
-	SpawnGladiators(EFaction::Opponent, PlayerState->GetPlayerRoster());
+	SpawnGladiators(EFaction::Player, Message.PlayerTeam);
+	SpawnGladiators(EFaction::Opponent, Message.OpponentTeam);
 }
 
 void AKolosseumiGameMode::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)

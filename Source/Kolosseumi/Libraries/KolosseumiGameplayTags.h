@@ -9,5 +9,6 @@ namespace KolosseumiTags
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_MatchEnd);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_ReturnToMainUI);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_RosterChanged);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_StartFormationEditing);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_StartMatch);
 } // namespace KolosseumiTags

@@ -29,7 +29,7 @@ protected:
 
 private:
 	UFUNCTION()
-	void OnStartNextMatchClicked();
+	void OnNextMatchClicked();
 
 	UFUNCTION()
 	void OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUIMessage& Message);
