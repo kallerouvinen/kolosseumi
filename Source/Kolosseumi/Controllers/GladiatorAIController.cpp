@@ -8,8 +8,10 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "Kismet/GameplayStatics.h"
+#include "Navigation/CrowdFollowingComponent.h"
 
-AGladiatorAIController::AGladiatorAIController()
+AGladiatorAIController::AGladiatorAIController(const FObjectInitializer& ObjectInitializer)
+		: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
 {
 	static ConstructorHelpers::FObjectFinder<UBehaviorTree> BehaviorTreeFinder(TEXT("/Game/AI/BT_Gladiator"));
 	if (BehaviorTreeFinder.Succeeded())

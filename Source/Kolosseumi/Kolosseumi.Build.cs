@@ -15,8 +15,10 @@ public class Kolosseumi : ModuleRules
 			"InputCore",
 			"EnhancedInput",
 			// 
+			"AIModule",
 			"GameplayMessageRuntime",
 			"GameplayTags",
+			"UMG",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

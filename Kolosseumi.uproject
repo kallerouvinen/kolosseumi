@@ -8,12 +8,7 @@
 			"Name": "Kolosseumi",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine",
-				"UMG",
-				"AIModule",
-				"CoreUObject"
-			]
+			"AdditionalDependencies": []
 		}
 	],
 	"Plugins": [

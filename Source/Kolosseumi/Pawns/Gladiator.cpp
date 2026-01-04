@@ -7,6 +7,7 @@
 #include "Kolosseumi/States/KolosseumiGameState.h"
 #include "Kolosseumi/UI/HealthBarWidget.h"
 #include "Components/WidgetComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 
 AGladiator::AGladiator()
@@ -24,6 +25,9 @@ AGladiator::AGladiator()
 	HealthBarWidgetComponent->SetupAttachment(RootComponent);
 
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
+	bUseControllerRotationYaw = false;
 
 	AIControllerClass = AGladiatorAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;

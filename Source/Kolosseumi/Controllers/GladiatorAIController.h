@@ -22,7 +22,7 @@ class KOLOSSEUMI_API AGladiatorAIController : public AAIController
 	GENERATED_BODY()
 
 public:
-	AGladiatorAIController();
+	AGladiatorAIController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
 	virtual void BeginPlay() override;
