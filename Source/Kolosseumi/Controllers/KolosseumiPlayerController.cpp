@@ -72,7 +72,7 @@ void AKolosseumiPlayerController::Tick(float DeltaTime)
 		TargetLocation.Z += 200.0f;
 		FVector GladiatorLocation = GrabbedGladiator->GetActorLocation();
 
-		ASpawnPoint* NewClosestSpawnPoint = GetClosestUnoccupiedSpawnPointWithinRange(EFaction::Player, TargetLocation, 500.f);
+		ASpawnPoint* NewClosestSpawnPoint = GetClosestUnoccupiedSpawnPointWithinRange(EFaction::Player, TargetLocation, 2000.f);
 
 		if (NewClosestSpawnPoint)
 		{
@@ -109,6 +109,7 @@ void AKolosseumiPlayerController::OnSelectCompleted()
 	if (ClosestSpawnPoint)
 	{
 		GrabbedGladiator->SetActorLocation(ClosestSpawnPoint->GetActorLocation());
+		GrabbedGladiator->SetIsAtSidelines(ClosestSpawnPoint->IsAtSidelines());
 		ClosestSpawnPoint->Highlight(false);
 	}
 	else
