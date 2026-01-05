@@ -36,4 +36,7 @@ private:
 	UFUNCTION()
 	void OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message);
 	FGameplayMessageListenerHandle StartFormationEditingListenerHandle;
+	UFUNCTION()
+	void OnGladiatorMoved(FGameplayTag Channel, const FGladiatorMovedMessage& Message);
+	FGameplayMessageListenerHandle GladiatorMovedListenerHandle;
 };

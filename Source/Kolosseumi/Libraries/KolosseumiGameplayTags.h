@@ -6,6 +6,7 @@
 namespace KolosseumiTags
 {
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_GladiatorKnockedOut);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_GladiatorMoved);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_MatchEnd);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_MoneyChanged);
 	UE_DECLARE_GAMEPLAY_TAG_EXTERN(Message_QuitGame);

@@ -3,6 +3,7 @@
 #include "Kolosseumi/Controllers/KolosseumiPlayerController.h"
 #include "Kolosseumi/Actors/SpawnPoint.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
+#include "Kolosseumi/Messages/GladiatorMovedMessage.h"
 #include "Kolosseumi/Messages/QuitGameMessage.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "EnhancedInputComponent.h"
@@ -147,6 +148,11 @@ void AKolosseumiPlayerController::OnSelectCompleted()
 	}
 
 	GrabbedGladiator = nullptr;
+
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.BroadcastMessage(
+			KolosseumiTags::Message_GladiatorMoved,
+			FGladiatorMovedMessage());
 }
 
 void AKolosseumiPlayerController::OnQuit()
