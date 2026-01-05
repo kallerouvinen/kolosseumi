@@ -3,11 +3,13 @@
 #include "Kolosseumi/UI/MainUIWidget.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Managers/OpponentTeamManager.h"
+#include "Kolosseumi/Messages/MoneyChangedMessage.h"
 #include "Kolosseumi/Messages/StartFormationEditingMessage.h"
 #include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Kolosseumi/UI/InnWidget.h"
 #include "Kolosseumi/UI/ShopWidget.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
 #include "Components/WidgetSwitcher.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -24,17 +26,27 @@ void UMainUIWidget::NativeOnInitialized()
 			KolosseumiTags::Message_ReturnToMainUI,
 			this,
 			&ThisClass::OnReturnToMainUI);
+	MoneyChangedListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_MoneyChanged,
+			this,
+			&ThisClass::OnMoneyChanged);
 }
 
 void UMainUIWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())
+	{
+		UpdateMoneyText(PlayerState->GetMoney());
+	}
 }
 
 void UMainUIWidget::NativeDestruct()
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.UnregisterListener(ReturnToMainUIListenerHandle);
+	MessageSubsystem.UnregisterListener(MoneyChangedListenerHandle);
 
 	Super::NativeDestruct();
 }
@@ -82,4 +94,16 @@ void UMainUIWidget::OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUI
 	SetVisibility(ESlateVisibility::Visible);
 
 	WidgetSwitcher->SetActiveWidgetIndex(0);
+}
+
+void UMainUIWidget::OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMessage& Message)
+{
+	UpdateMoneyText(Message.NewAmount);
+}
+
+void UMainUIWidget::UpdateMoneyText(int32 NewAmount)
+{
+	FString MoneyString = FString::Printf(TEXT("Gold: %d"), NewAmount);
+
+	MoneyText->SetText(FText::FromString(MoneyString));
 }

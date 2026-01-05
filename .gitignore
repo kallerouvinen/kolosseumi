@@ -82,3 +82,4 @@ Source/Kolosseumi/Scripts/__pycache__/*
 Source/Kolosseumi/Scripts/temp/*
 Kolosseumi.code-workspace
 Makefile
+PACKAGED/*

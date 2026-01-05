@@ -12,6 +12,7 @@
 class UButton;
 class UInnWidget;
 class UShopWidget;
+class UTextBlock;
 class UWidgetSwitcher;
 
 /**
@@ -38,6 +39,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UShopWidget> ShopWidget;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UTextBlock> MoneyText;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> StartNextMatchButton;
 
 private:
@@ -51,4 +54,9 @@ private:
 	UFUNCTION()
 	void OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUIMessage& Message);
 	FGameplayMessageListenerHandle ReturnToMainUIListenerHandle;
+	UFUNCTION()
+	void OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMessage& Message);
+	FGameplayMessageListenerHandle MoneyChangedListenerHandle;
+
+	void UpdateMoneyText(int32 NewAmount);
 };

@@ -6,6 +6,7 @@ namespace KolosseumiTags
 {
 	UE_DEFINE_GAMEPLAY_TAG(Message_GladiatorKnockedOut, "Message.GladiatorKnockedOut");
 	UE_DEFINE_GAMEPLAY_TAG(Message_MatchEnd, "Message.MatchEnd");
+	UE_DEFINE_GAMEPLAY_TAG(Message_MoneyChanged, "Message.MoneyChanged");
 	UE_DEFINE_GAMEPLAY_TAG(Message_ReturnToMainUI, "Message.ReturnToMainUI");
 	UE_DEFINE_GAMEPLAY_TAG(Message_RosterChanged, "Message.RosterChanged");
 	UE_DEFINE_GAMEPLAY_TAG(Message_StartFormationEditing, "Message.StartFormationEditing");
