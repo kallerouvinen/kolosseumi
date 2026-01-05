@@ -24,6 +24,12 @@ AKolosseumiHUD::AKolosseumiHUD()
 	{
 		MatchResultsWidgetClass = MatchResultsWidgetClassFinder.Class;
 	}
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> OnboardingWidgetClassFinder(TEXT("/Game/UI/WBP_Onboarding"));
+	if (OnboardingWidgetClassFinder.Succeeded())
+	{
+		OnboardingWidgetClass = OnboardingWidgetClassFinder.Class;
+	}
 }
 
 void AKolosseumiHUD::BeginPlay()
@@ -53,6 +59,14 @@ void AKolosseumiHUD::BeginPlay()
 		{
 			MatchResultsWidget->AddToViewport();
 			MatchResultsWidget->SetVisibility(ESlateVisibility::Collapsed);
+		}
+	}
+
+	if (OnboardingWidgetClass)
+	{
+		if (UUserWidget* OnboardingWidget = CreateWidget<UUserWidget>(GetWorld(), OnboardingWidgetClass))
+		{
+			OnboardingWidget->AddToViewport();
 		}
 	}
 }

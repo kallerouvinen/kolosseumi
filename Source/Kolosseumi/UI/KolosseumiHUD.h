@@ -32,4 +32,6 @@ private:
 
 	TSubclassOf<UMatchResultsWidget> MatchResultsWidgetClass;
 	TObjectPtr<UMatchResultsWidget> MatchResultsWidget;
+
+	TSubclassOf<UUserWidget> OnboardingWidgetClass;
 };
