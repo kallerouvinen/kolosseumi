@@ -40,10 +40,7 @@
 ☑ Rahapalkinto ottelun jälkeen
 ☑ Gladiaattorin tiedot käyttöliittymässä
 ☑ Gladiaattoreiden palkkaaminen (majatalo)
-☐ Attribuutit
-  ☐ Attack damage ei vaikuta
-  ☐ Tarkista vaikuttaako HP
-  ☐ Implementoi dodge
+☑ Attribuutit
 ☐ Jos ehtii -asioita
 ☐ Viimeistely
 ☐ Pelin paketointi
@@ -54,6 +51,8 @@
 
 ☐ Perehdytys
 ☐ Eventit otteluiden välissä
+☐ Spawnaa vahinkonumeroita vihollisten yläpuolelle
+☐ Spawnaa ilmoitus hudista vihollisten yläpuolelle
 ☐ Valikon ulkoasu
 ☐ Äänet
 ☐ Kehittyvä vaikeusaste tienatun rahan perusteella

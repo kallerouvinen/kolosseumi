@@ -7,7 +7,7 @@ Päivä 4/4
      käyttöliittymässä
 ☑ Gladiaattoreiden palkkaa-
      minen (majatalo)
-☐ Attribuutit
+☑ Attribuutit
 ☐ Jos ehtii -asioita
 ☐ Viimeistely
 ☐ Pelin paketointi
