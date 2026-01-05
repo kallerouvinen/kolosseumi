@@ -4,6 +4,7 @@
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Libraries/Statics.h"
 #include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
+#include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Kolosseumi/UI/GladiatorInfoWidget.h"
 #include "Kolosseumi/UI/RosterInfo/GladiatorDataObj.h"
 #include "Components/Button.h"
@@ -45,6 +46,18 @@ void UInnWidget::NativeDestruct()
 
 void UInnWidget::OnHireButtonClicked()
 {
+	if (UGladiatorDataObj* SelectedGladiator = Cast<UGladiatorDataObj>(GladiatorListView->GetSelectedItem()))
+	{
+		if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())
+		{
+			PlayerState->ChangeMoneyAmount(-SelectedGladiator->Salary);
+			PlayerState->AddGladiatorToRoster(SelectedGladiator->GetGladiatorDataAsStruct());
+
+			GladiatorListView->RemoveItem(SelectedGladiator);
+			GladiatorListView->ClearSelection();
+			GladiatorInfo->SetInfo(nullptr);
+		}
+	}
 }
 
 void UInnWidget::OnBackButtonClicked()
@@ -58,16 +71,21 @@ void UInnWidget::OnBackButtonClicked()
 void UInnWidget::OnGladiatorSelected(UObject* SelectedItem)
 {
 	bool bCanHire = (SelectedItem != nullptr);
-	bool bHasFunds = true;
+	bool bHasFunds = false;
+	bool bHasMaxGladiators = false;
 
 	if (UGladiatorDataObj* GladiatorDataObj = Cast<UGladiatorDataObj>(SelectedItem))
 	{
 		GladiatorInfo->SetInfo(GladiatorDataObj);
 
-		// bool bHasFunds; // TODO: Check player funds
+		if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())
+		{
+			bHasFunds = PlayerState->GetMoney() >= GladiatorDataObj->Salary;
+			bHasMaxGladiators = PlayerState->GetPlayerRoster().Gladiators.Num() >= 6;
+		}
 	}
 
-	HireButton->SetIsEnabled(bCanHire && bHasFunds);
+	HireButton->SetIsEnabled(bCanHire && bHasFunds && !bHasMaxGladiators);
 }
 
 void UInnWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)

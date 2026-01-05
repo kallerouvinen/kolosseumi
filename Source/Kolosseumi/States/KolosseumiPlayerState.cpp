@@ -11,7 +11,6 @@ void AKolosseumiPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GenerateRoster(6);
 	ChangeMoneyAmount(0); // To broadcast initial money amount
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
@@ -29,14 +28,14 @@ void AKolosseumiPlayerState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
-void AKolosseumiPlayerState::GenerateRoster(int32 NumGladiators)
+void AKolosseumiPlayerState::AddGladiatorToRoster(const FGladiatorData& GladiatorData)
 {
-	PlayerRoster.Gladiators.Empty();
-
-	for (int32 i = 0; i < NumGladiators; ++i)
+	int32 NewIndex = 0;
+	while (PlayerRoster.Gladiators.Contains(NewIndex))
 	{
-		PlayerRoster.Gladiators.Add(i, UStatics::GenerateGladiatorData());
+		++NewIndex;
 	}
+	PlayerRoster.Gladiators.Add(NewIndex, GladiatorData);
 
 	FRosterChangedMessage RosterChangedMessage;
 	RosterChangedMessage.NewRoster = PlayerRoster;
@@ -57,6 +56,23 @@ void AKolosseumiPlayerState::ChangeMoneyAmount(int32 Amount)
 	MessageSubsystem.BroadcastMessage(
 			KolosseumiTags::Message_MoneyChanged,
 			MoneyChangedMessage);
+}
+
+void AKolosseumiPlayerState::GenerateRoster(int32 NumGladiators)
+{
+	PlayerRoster.Gladiators.Empty();
+
+	for (int32 i = 0; i < NumGladiators; ++i)
+	{
+		PlayerRoster.Gladiators.Add(i, UStatics::GenerateGladiatorData());
+	}
+
+	FRosterChangedMessage RosterChangedMessage;
+	RosterChangedMessage.NewRoster = PlayerRoster;
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.BroadcastMessage(
+			KolosseumiTags::Message_RosterChanged,
+			RosterChangedMessage);
 }
 
 void AKolosseumiPlayerState::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)

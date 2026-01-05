@@ -23,8 +23,10 @@ protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
-	const FRosterData& GetPlayerRoster() const { return PlayerRoster; }
+	void AddGladiatorToRoster(const FGladiatorData& GladiatorData);
+	void ChangeMoneyAmount(int32 Amount);
 
+	const FRosterData& GetPlayerRoster() const { return PlayerRoster; }
 	int32 GetMoney() const { return Money; }
 
 private:
@@ -32,8 +34,6 @@ private:
 
 	FRosterData PlayerRoster;
 	int32 Money = 100;
-
-	void ChangeMoneyAmount(int32 Amount);
 
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);

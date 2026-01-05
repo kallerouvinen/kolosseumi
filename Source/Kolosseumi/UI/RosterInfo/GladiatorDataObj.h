@@ -27,6 +27,18 @@ public:
 		Salary = GladiatorData.Salary;
 	}
 
+	FGladiatorData GetGladiatorDataAsStruct() const
+	{
+		FGladiatorData GladiatorData;
+		GladiatorData.Name = Name;
+		GladiatorData.Class = Class;
+		GladiatorData.Health = Health;
+		GladiatorData.AttackDamage = AttackDamage;
+		GladiatorData.Dodge = Dodge;
+		GladiatorData.Salary = Salary;
+		return GladiatorData;
+	}
+
 	FString Name;
 	EGladiatorClass Class;
 	int32 Health;
