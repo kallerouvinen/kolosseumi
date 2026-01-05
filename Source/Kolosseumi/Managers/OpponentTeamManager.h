@@ -7,8 +7,6 @@
 #include "GameFramework/Info.h"
 #include "OpponentTeamManager.generated.h"
 
-class UDataTable;
-
 /**
  *
  */
@@ -18,11 +16,5 @@ class KOLOSSEUMI_API AOpponentTeamManager : public AInfo
 	GENERATED_BODY()
 
 public:
-	AOpponentTeamManager();
-
-	FRosterData* GetRandomOpponentRoster() const;
-
-private:
-	UPROPERTY()
-	TObjectPtr<UDataTable> OpponentTeamsTable;
+	FRosterData GenerateOpponentRoster(int32 TargetGoldValue) const;
 };

@@ -69,16 +69,16 @@ void UMainUIWidget::OnNextMatchClicked()
 
 	if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())
 	{
-		FormationEditingMessage.PlayerTeam = PlayerState->GetPlayerRoster();
-	}
+		FRosterData PlayerRoster = PlayerState->GetPlayerRoster();
+		FormationEditingMessage.PlayerTeam = PlayerRoster;
 
-	if (AActor* ManagerActor = UGameplayStatics::GetActorOfClass(GetWorld(), AOpponentTeamManager::StaticClass()))
-	{
-		if (AOpponentTeamManager* Manager = Cast<AOpponentTeamManager>(ManagerActor))
+		if (AActor* ManagerActor = UGameplayStatics::GetActorOfClass(GetWorld(), AOpponentTeamManager::StaticClass()))
 		{
-			if (FRosterData* OpponentRoster = Manager->GetRandomOpponentRoster())
+			if (AOpponentTeamManager* Manager = Cast<AOpponentTeamManager>(ManagerActor))
 			{
-				FormationEditingMessage.OpponentTeam = *OpponentRoster;
+				int32 TargetGoldValue = PlayerRoster.GetTotalSalary();
+				FRosterData OpponentRoster = Manager->GenerateOpponentRoster(TargetGoldValue);
+				FormationEditingMessage.OpponentTeam = OpponentRoster;
 			}
 		}
 	}

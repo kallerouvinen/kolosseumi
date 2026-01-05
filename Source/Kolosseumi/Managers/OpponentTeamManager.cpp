@@ -1,39 +1,46 @@
 // Copyright 2026 Kalle Rouvinen. All Rights Reserved.
 
 #include "Kolosseumi/Managers/OpponentTeamManager.h"
+#include "Kolosseumi/Libraries/Statics.h"
 
-AOpponentTeamManager::AOpponentTeamManager()
+FRosterData AOpponentTeamManager::GenerateOpponentRoster(int32 TargetGoldValue) const
 {
-	static ConstructorHelpers::FObjectFinder<UDataTable> DataTableFinder(TEXT("/Game/Data/DT_OpponentRosters.DT_OpponentRosters"));
-	if (DataTableFinder.Succeeded())
+	TArray<FGladiatorData> NewGladiators;
+	int32 TotalSalary = 0;
+	int32 LastAddedGladiatorSalary = 0;
+
+	while (TotalSalary < TargetGoldValue)
 	{
-		OpponentTeamsTable = DataTableFinder.Object;
+		FGladiatorData NewGladiator = UStatics::GenerateGladiatorData();
+		TotalSalary += NewGladiator.Salary;
+		LastAddedGladiatorSalary = NewGladiator.Salary;
+		NewGladiators.Add(NewGladiator);
 	}
 
-	if (!OpponentTeamsTable)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("OpponentTeamsTable not found!"));
-	}
-}
+	float WeightRoll = FMath::RandRange(TotalSalary - LastAddedGladiatorSalary, TotalSalary);
+	bool bShouldRemoveGladiator = WeightRoll > TargetGoldValue;
 
-FRosterData* AOpponentTeamManager::GetRandomOpponentRoster() const
-{
-	if (!OpponentTeamsTable)
+	if (bShouldRemoveGladiator && NewGladiators.Num() > 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OpponentTeamsTable is null!"));
-		return nullptr;
+		NewGladiators.Pop();
 	}
 
-	TArray<FName> RowNames = OpponentTeamsTable->GetRowNames();
-	if (RowNames.Num() == 0)
+	FRosterData RosterData;
+
+	// TODO: Generate positions more intelligently based on gladiator class
+	// Front row: 6-12
+	// Middle row 13-19
+	// Back row: 20-26
+
+	for (const FGladiatorData& GladiatorData : NewGladiators)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OpponentTeamsTable has no rows!"));
-		return nullptr;
+		int32 PositionIndex = FMath::RandRange(6, 26);
+		while (RosterData.Gladiators.Contains(PositionIndex))
+		{
+			PositionIndex = FMath::RandRange(6, 26);
+		}
+		RosterData.Gladiators.Add(PositionIndex, GladiatorData);
 	}
 
-	int32 RandomIndex = FMath::RandRange(0, RowNames.Num() - 1);
-
-	FName SelectedRowName = RowNames[RandomIndex];
-	FRosterData* RosterData = OpponentTeamsTable->FindRow<FRosterData>(SelectedRowName, TEXT(""));
 	return RosterData;
 }

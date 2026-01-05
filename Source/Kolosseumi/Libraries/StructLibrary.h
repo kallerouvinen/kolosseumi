@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
-#include "Engine/DataTable.h"
 #include "StructLibrary.generated.h"
 
 USTRUCT(BlueprintType)
@@ -28,10 +27,21 @@ struct FGladiatorData
 };
 
 USTRUCT(BlueprintType)
-struct FRosterData : public FTableRowBase
+struct FRosterData
 {
 	GENERATED_BODY()
 
+public:
 	UPROPERTY(EditAnywhere)
 	TMap<int32, FGladiatorData> Gladiators;
+
+	int32 GetTotalSalary() const
+	{
+		int32 Total = 0;
+		for (const auto& [Index, Gladiator] : Gladiators)
+		{
+			Total += Gladiator.Salary;
+		}
+		return Total;
+	}
 };
