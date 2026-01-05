@@ -73,4 +73,5 @@ void ASpawnPoint::OnStartFormationEditing(FGameplayTag Channel, const FStartForm
 void ASpawnPoint::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
 {
 	SetIsVisible(false);
+	bIsOccupied = false;
 }
