@@ -38,6 +38,4 @@ private:
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
 	FGameplayMessageListenerHandle MatchEndListenerHandle;
-
-	static const TArray<FString> AllGladiatorNames;
 };
