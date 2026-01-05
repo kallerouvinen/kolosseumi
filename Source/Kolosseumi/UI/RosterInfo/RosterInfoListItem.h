@@ -7,6 +7,7 @@
 #include "Blueprint/UserWidget.h"
 #include "RosterInfoListItem.generated.h"
 
+class UBorder;
 class UTextBlock;
 
 /**
@@ -21,6 +22,8 @@ protected:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	virtual void NativeOnItemSelectionChanged(bool bIsSelected) override;
 
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UBorder> Border;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UTextBlock> NameText;
 };

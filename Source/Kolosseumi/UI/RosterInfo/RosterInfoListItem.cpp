@@ -2,6 +2,7 @@
 
 #include "Kolosseumi/UI/RosterInfo/RosterInfoListItem.h"
 #include "Kolosseumi/UI/RosterInfo/GladiatorDataObj.h"
+#include "Components/Border.h"
 #include "Components/TextBlock.h"
 
 void URosterInfoListItem::NativeOnListItemObjectSet(UObject* ListItemObject)
@@ -14,4 +15,7 @@ void URosterInfoListItem::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 void URosterInfoListItem::NativeOnItemSelectionChanged(bool bIsSelected)
 {
+	Border->SetBrushColor(bIsSelected
+					? FLinearColor::Yellow
+					: FLinearColor::Transparent);
 }
