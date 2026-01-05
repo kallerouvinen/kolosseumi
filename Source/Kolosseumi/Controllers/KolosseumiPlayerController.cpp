@@ -46,12 +46,26 @@ void AKolosseumiPlayerController::BeginPlay()
 	InputMode.SetHideCursorDuringCapture(false);
 	SetInputMode(InputMode);
 
-	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-	{
-		Subsystem->AddMappingContext(DefaultMappingContext, 0);
-	}
-
 	CacheSpawnPoints(true, EFaction::Player);
+
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	StartFormationEditingListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartFormationEditing,
+			this,
+			&ThisClass::OnStartFormationEditing);
+	StartMatchListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_StartMatch,
+			this,
+			&ThisClass::OnStartMatch);
+}
+
+void AKolosseumiPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.UnregisterListener(StartFormationEditingListenerHandle);
+	MessageSubsystem.UnregisterListener(StartMatchListenerHandle);
+
+	Super::EndPlay(EndPlayReason);
 }
 
 void AKolosseumiPlayerController::SetupInputComponent()
@@ -176,5 +190,21 @@ void AKolosseumiPlayerController::CacheSpawnPoints(bool bFilterByFaction, EFacti
 
 			CachedSpawnPoints.Add(SpawnPoint);
 		}
+	}
+}
+
+void AKolosseumiPlayerController::OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message)
+{
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(DefaultMappingContext, 0);
+	}
+}
+
+void AKolosseumiPlayerController::OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message)
+{
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->RemoveMappingContext(DefaultMappingContext);
 	}
 }

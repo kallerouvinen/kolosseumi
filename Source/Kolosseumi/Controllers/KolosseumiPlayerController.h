@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameFramework/PlayerController.h"
 #include "KolosseumiPlayerController.generated.h"
 
@@ -25,6 +26,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void SetupInputComponent() override;
 
 public:
@@ -45,4 +47,11 @@ protected:
 	ASpawnPoint* ClosestSpawnPoint = nullptr;
 	AGladiator* GrabbedGladiator = nullptr;
 	TArray<TWeakObjectPtr<ASpawnPoint>> CachedSpawnPoints;
+
+	UFUNCTION()
+	void OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message);
+	FGameplayMessageListenerHandle StartFormationEditingListenerHandle;
+	UFUNCTION()
+	void OnStartMatch(FGameplayTag Channel, const FStartMatchMessage& Message);
+	FGameplayMessageListenerHandle StartMatchListenerHandle;
 };
