@@ -16,6 +16,6 @@ void URosterInfoListItem::NativeOnListItemObjectSet(UObject* ListItemObject)
 void URosterInfoListItem::NativeOnItemSelectionChanged(bool bIsSelected)
 {
 	Border->SetBrushColor(bIsSelected
-					? FLinearColor::Yellow
+					? FLinearColor(0.012983f, 0.104616f, 0.552012f, 0.500000f)
 					: FLinearColor::Transparent);
 }
