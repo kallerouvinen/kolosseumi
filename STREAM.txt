@@ -9,7 +9,6 @@ Päivä 4/4
      minen (majatalo)
 ☑ Attribuutit
 ☐ Jos ehtii -asioita
-☐ Viimeistely
-☐ Pelin paketointi
-☐ Lataaminen itch.ioon
-☐ Itch.io -sivun sisältö
+☑ Pelin paketointi
+☑ Lataaminen itch.ioon
+☑ Itch.io -sivun sisältö

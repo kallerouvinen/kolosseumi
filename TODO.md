@@ -42,22 +42,24 @@
 ☑ Gladiaattoreiden palkkaaminen (majatalo)
 ☑ Attribuutit
 ☐ Jos ehtii -asioita
-☐ Viimeistely
-☐ Pelin paketointi
-☐ Lataaminen itch.ioon
-☐ Itch.io -sivun sisältö
+  ☑ Perehdytys
+  ☑ Valikon ulkoasu
+  ☑ Dynaaminen vaikeusaste
+  ☑ Äänet
+  ☑ Pelistä poistuminen
+  ☑ Estä ukkeleiden siirtely ottelun aikana
+  ☐ Tasapainotus
+☑ Pelin paketointi
+☑ Lataaminen itch.ioon
+☑ Itch.io -sivun sisältö
 
 ### Jos ehtii
 
-☐ Perehdytys
 ☐ Eventit otteluiden välissä
 ☐ Spawnaa vahinkonumeroita vihollisten yläpuolelle
 ☐ Spawnaa ilmoitus hudista vihollisten yläpuolelle
-☐ Valikon ulkoasu
-☐ Äänet
-☐ Kehittyvä vaikeusaste tienatun rahan perusteella
-☐ Tasapainotus
 ☐ Ympäristöjä areenalle
+☐ Äänien tason säätäminen
 ☐ Varusteet
 
 ### Bugikorjauksia
