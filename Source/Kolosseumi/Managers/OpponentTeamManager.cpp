@@ -25,6 +25,11 @@ FRosterData AOpponentTeamManager::GenerateOpponentRoster(int32 TargetGoldValue) 
 		NewGladiators.Pop();
 	}
 
+	while (NewGladiators.Num() > 6)
+	{
+		NewGladiators.Pop();
+	}
+
 	FRosterData RosterData;
 
 	// TODO: Generate positions more intelligently based on gladiator class
