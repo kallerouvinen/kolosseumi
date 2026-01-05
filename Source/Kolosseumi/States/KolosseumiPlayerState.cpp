@@ -77,7 +77,7 @@ void AKolosseumiPlayerState::GenerateRoster(int32 NumGladiators)
 
 void AKolosseumiPlayerState::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
 {
-	int32 BaseRewardAmount = Message.WinningFaction == EFaction::Player ? 40 : 20;
+	int32 BaseRewardAmount = Message.WinningFaction == EFaction::Player ? 25 : 15;
 	int32 Variance = FMath::RandRange(-5, 5);
 	int32 FinalAmount = BaseRewardAmount + Variance;
 

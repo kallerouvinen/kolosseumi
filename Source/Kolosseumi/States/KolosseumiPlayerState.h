@@ -33,7 +33,7 @@ private:
 	void GenerateRoster(int32 NumGladiators = 3);
 
 	FRosterData PlayerRoster;
-	int32 Money = 100;
+	int32 Money = 50;
 
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
