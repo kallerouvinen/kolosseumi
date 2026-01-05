@@ -45,11 +45,11 @@ const TArray<FString> UStatics::AllGladiatorNames = {
 };
 
 const TMap<EGladiatorClass, FClassBaseStats> UStatics::ClassBaseStats = {
-	{ EGladiatorClass::Barbarian, FClassBaseStats(100, 20, 0) },
-	{ EGladiatorClass::Knight, FClassBaseStats(120, 10, 0) },
-	{ EGladiatorClass::Mage, FClassBaseStats(80, 10, 0) },
-	{ EGladiatorClass::Ranger, FClassBaseStats(90, 10, 0) },
-	{ EGladiatorClass::Rogue, FClassBaseStats(85, 10, 20) },
+	{ EGladiatorClass::Barbarian, FClassBaseStats(100, 30, 0) },
+	{ EGladiatorClass::Knight, FClassBaseStats(200, 10, 0) },
+	{ EGladiatorClass::Mage, FClassBaseStats(100, 20, 0) },
+	{ EGladiatorClass::Ranger, FClassBaseStats(60, 20, 0) },
+	{ EGladiatorClass::Rogue, FClassBaseStats(80, 20, 30) },
 };
 
 FGladiatorData UStatics::GenerateGladiatorData()
@@ -59,14 +59,14 @@ FGladiatorData UStatics::GenerateGladiatorData()
 	EGladiatorClass Class = static_cast<EGladiatorClass>(FMath::RandRange(0, static_cast<int32>(EGladiatorClass::Rogue)));
 	NewGladiator.Class = Class;
 
-	int32 ExtraHealth = FMath::RandRange(0, 10);
-	int32 ExtraAttack = FMath::RandRange(0, 5);
-	int32 ExtraDodge = FMath::RandRange(0, 5);
+	int32 ExtraHealth = FMath::RandRange(0, 20);
+	int32 ExtraAttack = FMath::RandRange(0, 10);
+	int32 ExtraDodge = FMath::RandRange(0, 10);
 
 	NewGladiator.Health = ClassBaseStats[Class].Health + ExtraHealth;
 	NewGladiator.AttackDamage = ClassBaseStats[Class].AttackDamage + ExtraAttack;
 	NewGladiator.Dodge = ClassBaseStats[Class].Dodge + ExtraDodge;
-	NewGladiator.Salary = 5 + (2 * (ExtraHealth + ExtraAttack + (ExtraDodge / 2)));
+	NewGladiator.Salary = 5 + (ExtraHealth + ExtraAttack + (ExtraDodge / 2));
 
 	return NewGladiator;
 }
