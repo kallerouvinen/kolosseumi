@@ -126,6 +126,7 @@ void AKolosseumiPlayerController::OnSelectStarted()
 			GrabbedGladiator = Gladiator;
 			GrabbedGladiator->GetCurrentSpawnPoint()->SetIsOccupied(false);
 			GrabbedGladiator->SetCurrentSpawnPoint(nullptr);
+			GrabbedGladiator->SetActorEnableCollision(false);
 		}
 	}
 }
@@ -147,6 +148,7 @@ void AKolosseumiPlayerController::OnSelectCompleted()
 		// TODO: Handle not finding a spawn point - return to original position?
 	}
 
+	GrabbedGladiator->SetActorEnableCollision(true);
 	GrabbedGladiator = nullptr;
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
