@@ -39,7 +39,7 @@
 ☑ Raha
 ☑ Rahapalkinto ottelun jälkeen
 ☑ Gladiaattorin tiedot käyttöliittymässä
-☐ Gladiaattoreiden palkkaaminen (majatalo)
+☑ Gladiaattoreiden palkkaaminen (majatalo)
 ☐ Attribuutit
 ☐ Jos ehtii -asioita
 ☐ Viimeistely
@@ -52,6 +52,7 @@
 ☐ Eventit otteluiden välissä
 ☐ Valikon ulkoasu
 ☐ Äänet
+☐ Kehittyvä vaikeusaste tienatun rahan perusteella
 ☐ Tasapainotus
 ☐ Ympäristöjä areenalle
 ☐ Varusteet
@@ -59,6 +60,7 @@
 ### Bugikorjauksia
 
 ☐ Attack damage ei vaikuta
+☐ Gladiaattoreita voi laittaa samoihin ruutuihin
 ☐ Hahmon tulisi kääntyä kohti hyökkäyksen kohdetta
 
 ### Varusteet

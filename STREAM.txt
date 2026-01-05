@@ -5,7 +5,7 @@ Päivä 4/4
      jälkeen
 ☑ Gladiaattorin tiedot
      käyttöliittymässä
-☐ Gladiaattoreiden palkkaa-
+☑ Gladiaattoreiden palkkaa-
      minen (majatalo)
 ☐ Attribuutit
 ☐ Jos ehtii -asioita
