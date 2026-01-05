@@ -48,6 +48,8 @@
   ☑ Äänet
   ☑ Pelistä poistuminen
   ☑ Estä ukkeleiden siirtely ottelun aikana
+  ☑ Estä ottelun aloittaminen jos kaikki ukot ovat kentän sivussa
+  ☑ Eventit otteluiden välissä
   ☐ Tasapainotus
 ☑ Pelin paketointi
 ☑ Lataaminen itch.ioon
@@ -55,11 +57,11 @@
 
 ### Jos ehtii
 
-☐ Eventit otteluiden välissä
 ☐ Spawnaa vahinkonumeroita vihollisten yläpuolelle
 ☐ Spawnaa ilmoitus hudista vihollisten yläpuolelle
 ☐ Ympäristöjä areenalle
 ☐ Äänien tason säätäminen
+☐ Poista BP_Gladiator ja käytä C++ -luokkaa
 ☐ Varusteet
 
 ### Bugikorjauksia
