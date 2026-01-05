@@ -66,7 +66,6 @@ FGladiatorData UStatics::GenerateGladiatorData()
 	NewGladiator.Health = ClassBaseStats[Class].Health + ExtraHealth;
 	NewGladiator.AttackDamage = ClassBaseStats[Class].AttackDamage + ExtraAttack;
 	NewGladiator.Dodge = ClassBaseStats[Class].Dodge + ExtraDodge;
-	// TODO: Add dodge to salary calculation if it gets implemented
 	NewGladiator.Salary = 5 + (2 * (ExtraHealth + ExtraAttack + (ExtraDodge / 2)));
 
 	return NewGladiator;

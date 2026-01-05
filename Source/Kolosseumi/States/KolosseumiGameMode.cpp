@@ -5,7 +5,6 @@
 #include "Kolosseumi/Controllers/GladiatorAIController.h"
 #include "Kolosseumi/Controllers/KolosseumiPlayerController.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
-#include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Kolosseumi/Pawns/CameraPawn.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Kolosseumi/States/KolosseumiGameState.h"
@@ -37,17 +36,12 @@ void AKolosseumiGameMode::BeginPlay()
 			KolosseumiTags::Message_StartFormationEditing,
 			this,
 			&ThisClass::OnStartFormationEditing);
-	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
-			KolosseumiTags::Message_MatchEnd,
-			this,
-			&ThisClass::OnMatchEnd);
 }
 
 void AKolosseumiGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.UnregisterListener(StartFormationEditingListenerHandle);
-	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
 
 	Super::EndPlay(EndPlayReason);
 }
@@ -102,11 +96,6 @@ void AKolosseumiGameMode::OnStartFormationEditing(FGameplayTag Channel, const FS
 
 	SpawnGladiators(EFaction::Player, Message.PlayerTeam);
 	SpawnGladiators(EFaction::Opponent, Message.OpponentTeam);
-}
-
-void AKolosseumiGameMode::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
-{
-	// TODO: Is this needed?
 }
 
 AKolosseumiPlayerState* AKolosseumiGameMode::GetPlayerState() const

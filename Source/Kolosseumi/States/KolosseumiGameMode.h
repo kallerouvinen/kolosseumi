@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/EnumLibrary.h"
 #include "Kolosseumi/Libraries/StructLibrary.h"
-#include "Kolosseumi/Messages/MatchEndMessage.h"
 #include "Kolosseumi/Messages/StartFormationEditingMessage.h"
 #include "GameFramework/GameModeBase.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
@@ -41,7 +40,4 @@ private:
 	UFUNCTION()
 	void OnStartFormationEditing(FGameplayTag Channel, const FStartFormationEditingMessage& Message);
 	FGameplayMessageListenerHandle StartFormationEditingListenerHandle;
-	UFUNCTION()
-	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
-	FGameplayMessageListenerHandle MatchEndListenerHandle;
 };
