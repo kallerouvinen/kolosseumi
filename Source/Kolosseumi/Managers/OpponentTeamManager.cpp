@@ -20,7 +20,7 @@ FRosterData AOpponentTeamManager::GenerateOpponentRoster(int32 TargetGoldValue) 
 	float WeightRoll = FMath::RandRange(TotalSalary - LastAddedGladiatorSalary, TotalSalary);
 	bool bShouldRemoveGladiator = WeightRoll > TargetGoldValue;
 
-	if (bShouldRemoveGladiator && NewGladiators.Num() > 0)
+	if (bShouldRemoveGladiator && NewGladiators.Num() > 1)
 	{
 		NewGladiators.Pop();
 	}
