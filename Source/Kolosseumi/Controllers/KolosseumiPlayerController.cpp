@@ -123,6 +123,8 @@ void AKolosseumiPlayerController::OnSelectStarted()
 			if (Gladiator->GetFaction() != EFaction::Player) return;
 
 			GrabbedGladiator = Gladiator;
+			GrabbedGladiator->GetCurrentSpawnPoint()->SetIsOccupied(false);
+			GrabbedGladiator->SetCurrentSpawnPoint(nullptr);
 		}
 	}
 }
@@ -135,6 +137,8 @@ void AKolosseumiPlayerController::OnSelectCompleted()
 	{
 		GrabbedGladiator->SetActorLocation(ClosestSpawnPoint->GetActorLocation());
 		GrabbedGladiator->SetIsAtSidelines(ClosestSpawnPoint->IsAtSidelines());
+		GrabbedGladiator->SetCurrentSpawnPoint(ClosestSpawnPoint);
+		ClosestSpawnPoint->SetIsOccupied(true);
 		ClosestSpawnPoint->Highlight(false);
 	}
 	else

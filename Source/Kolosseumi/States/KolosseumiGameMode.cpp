@@ -73,6 +73,8 @@ void AKolosseumiGameMode::SpawnGladiators(EFaction Faction, const FRosterData& R
 			{
 				SpawnedGladiator->SetFaction(SpawnPoint->GetFaction());
 				SpawnedGladiator->SetIsAtSidelines(SpawnPoint->IsAtSidelines());
+				SpawnedGladiator->SetCurrentSpawnPoint(SpawnPoint);
+				SpawnPoint->SetIsOccupied(true);
 				SpawnedGladiator->SetData(GladiatorData);
 				SpawnedGladiator->FinishSpawning(SpawnTransform);
 			}

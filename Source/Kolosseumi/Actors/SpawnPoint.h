@@ -39,7 +39,7 @@ public:
 	int32 GetIndex() const { return Index; }
 
 	bool IsOccupied() const { return bIsOccupied; }
-	void SetOccupied(bool bNewIsOccupied) { bIsOccupied = bNewIsOccupied; }
+	void SetIsOccupied(bool bNewIsOccupied) { bIsOccupied = bNewIsOccupied; }
 
 	bool IsAtSidelines() const { return bIsAtSidelines; }
 	void SetIsAtSidelines(bool bNewIsAtSidelines) { bIsAtSidelines = bNewIsAtSidelines; }

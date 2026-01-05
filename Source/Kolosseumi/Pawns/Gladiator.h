@@ -11,6 +11,7 @@
 #include "GameplayTagContainer.h"
 #include "Gladiator.generated.h"
 
+class ASpawnPoint;
 class USoundBase;
 class UWidgetComponent;
 
@@ -51,6 +52,9 @@ public:
 	void MeleeAttack(AGladiator* TargetGladiator);
 	void RangedAttack(AGladiator* TargetGladiator);
 
+	ASpawnPoint* GetCurrentSpawnPoint() const { return CurrentSpawnPoint; }
+	void SetCurrentSpawnPoint(ASpawnPoint* NewSpawnPoint) { CurrentSpawnPoint = NewSpawnPoint; }
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
 	TObjectPtr<UWidgetComponent> HealthBarWidgetComponent;
@@ -63,6 +67,9 @@ protected:
 private:
 	void RefreshHealthBar();
 
+	FGladiatorData GladiatorData;
+	static const TMap<EGladiatorClass, FString> GladiatorClassToMeshPath;
+
 	int32 MaxHealth = 100;
 	int32 Health = 100;
 	EFaction Faction = EFaction::Player;
@@ -73,16 +80,9 @@ private:
 	bool bIsCheering = false;
 	bool bIsAtSidelines = false;
 
+	ASpawnPoint* CurrentSpawnPoint = nullptr;
+
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
 	FGameplayMessageListenerHandle MatchEndListenerHandle;
-
-	UFUNCTION()
-	void OnHoverStart(AActor* TouchedActor);
-	UFUNCTION()
-	void OnHoverEnd(AActor* TouchedActor);
-
-	static const TMap<EGladiatorClass, FString> GladiatorClassToMeshPath;
-
-	FGladiatorData GladiatorData;
 };
