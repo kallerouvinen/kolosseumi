@@ -4,6 +4,7 @@
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Libraries/Statics.h"
 #include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
+#include "Kolosseumi/UI/GladiatorInfoWidget.h"
 #include "Kolosseumi/UI/RosterInfo/GladiatorDataObj.h"
 #include "Components/Button.h"
 #include "Components/ListView.h"
@@ -56,12 +57,16 @@ void UInnWidget::OnBackButtonClicked()
 
 void UInnWidget::OnGladiatorSelected(UObject* SelectedItem)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Gladiator selected in InnWidget"));
-
-	// TODO: Update gladiator info when player selects gladiator
-
 	bool bCanHire = (SelectedItem != nullptr);
-	bool bHasFunds = true; // TODO: Check player funds
+	bool bHasFunds = true;
+
+	if (UGladiatorDataObj* GladiatorDataObj = Cast<UGladiatorDataObj>(SelectedItem))
+	{
+		GladiatorInfo->SetInfo(GladiatorDataObj);
+
+		// bool bHasFunds; // TODO: Check player funds
+	}
+
 	HireButton->SetIsEnabled(bCanHire && bHasFunds);
 }
 
@@ -89,4 +94,6 @@ void UInnWidget::GenerateNewGladiatorsForHire()
 	}
 
 	GladiatorListView->SetListItems(GladiatorDataObjects);
+	GladiatorListView->ClearSelection();
+	GladiatorInfo->SetInfo(nullptr);
 }

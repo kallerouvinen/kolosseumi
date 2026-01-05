@@ -3,6 +3,7 @@
 #include "Kolosseumi/UI/RosterInfo/RosterInfoWidget.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/States/KolosseumiPlayerState.h"
+#include "Kolosseumi/UI/GladiatorInfoWidget.h"
 #include "Kolosseumi/UI/RosterInfo/GladiatorDataObj.h"
 #include "Components/ListView.h"
 
@@ -15,6 +16,10 @@ void URosterInfoWidget::NativeOnInitialized()
 			KolosseumiTags::Message_RosterChanged,
 			this,
 			&ThisClass::OnRosterChanged);
+
+	RosterListView->OnItemSelectionChanged().AddUObject(
+			this,
+			&ThisClass::OnGladiatorSelected);
 }
 
 void URosterInfoWidget::NativeConstruct()
@@ -33,6 +38,14 @@ void URosterInfoWidget::NativeDestruct()
 	MessageSubsystem.UnregisterListener(RosterChangedListenerHandle);
 
 	Super::NativeDestruct();
+}
+
+void URosterInfoWidget::OnGladiatorSelected(UObject* SelectedItem)
+{
+	if (UGladiatorDataObj* GladiatorDataObj = Cast<UGladiatorDataObj>(SelectedItem))
+	{
+		GladiatorInfo->SetInfo(GladiatorDataObj);
+	}
 }
 
 void URosterInfoWidget::OnRosterChanged(FGameplayTag Channel, const FRosterChangedMessage& Message)

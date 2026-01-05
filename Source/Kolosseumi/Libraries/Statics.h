@@ -7,6 +7,20 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Statics.generated.h"
 
+// TODO: Move this to StructLibrary.h
+USTRUCT(BlueprintType)
+struct FClassBaseStats
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	int32 Health;
+	UPROPERTY(EditAnywhere)
+	int32 AttackDamage;
+	UPROPERTY(EditAnywhere)
+	int32 Dodge;
+};
+
 /**
  *
  */
@@ -20,4 +34,5 @@ public:
 
 private:
 	static const TArray<FString> AllGladiatorNames;
+	static const TMap<EGladiatorClass, FClassBaseStats> ClassBaseStats;
 };

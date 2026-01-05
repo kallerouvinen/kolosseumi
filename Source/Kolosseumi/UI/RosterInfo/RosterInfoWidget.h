@@ -9,6 +9,7 @@
 #include "GameplayTagContainer.h"
 #include "RosterInfoWidget.generated.h"
 
+class UGladiatorInfoWidget;
 class UListView;
 
 /**
@@ -26,8 +27,13 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UListView> RosterListView;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UGladiatorInfoWidget> GladiatorInfo;
 
 private:
+	UFUNCTION()
+	void OnGladiatorSelected(UObject* SelectedItem);
+
 	UFUNCTION()
 	void OnRosterChanged(FGameplayTag Channel, const FRosterChangedMessage& Message);
 	FGameplayMessageListenerHandle RosterChangedListenerHandle;

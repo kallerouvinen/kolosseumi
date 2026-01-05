@@ -16,9 +16,9 @@ enum class EFaction : uint8
 UENUM(BlueprintType)
 enum class EGladiatorClass : uint8
 {
-	Barbarian UMETA(DisplayName = "Barbarian"),
-	Knight UMETA(DisplayName = "Knight"),
-	Mage UMETA(DisplayName = "Mage"),
-	Ranger UMETA(DisplayName = "Ranger"),
-	Rogue UMETA(DisplayName = "Rogue"),
+	Barbarian UMETA(DisplayName = "Barbaari"),
+	Knight UMETA(DisplayName = "Ritari"),
+	Mage UMETA(DisplayName = "Velho"),
+	Ranger UMETA(DisplayName = "Jousimies"),
+	Rogue UMETA(DisplayName = "Rosvo"),
 };

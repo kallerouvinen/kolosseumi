@@ -44,16 +44,30 @@ const TArray<FString> UStatics::AllGladiatorNames = {
 	"Vilunki-Petteri",
 };
 
+const TMap<EGladiatorClass, FClassBaseStats> UStatics::ClassBaseStats = {
+	{ EGladiatorClass::Barbarian, { 100, 20, 0 } },
+	{ EGladiatorClass::Knight, { 120, 10, 0 } },
+	{ EGladiatorClass::Mage, { 80, 10, 0 } },
+	{ EGladiatorClass::Ranger, { 90, 10, 0 } },
+	{ EGladiatorClass::Rogue, { 85, 10, 20 } },
+};
+
 FGladiatorData UStatics::GenerateGladiatorData()
 {
 	FGladiatorData NewGladiator;
 	NewGladiator.Name = AllGladiatorNames[FMath::RandRange(0, AllGladiatorNames.Num() - 1)];
-	NewGladiator.Class = static_cast<EGladiatorClass>(FMath::RandRange(0, static_cast<int32>(EGladiatorClass::Rogue)));
+	EGladiatorClass Class = static_cast<EGladiatorClass>(FMath::RandRange(0, static_cast<int32>(EGladiatorClass::Rogue)));
+	NewGladiator.Class = Class;
 
-	NewGladiator.Health = FMath::RandRange(80, 120);
-	NewGladiator.Strength = FMath::RandRange(10, 20);
-	NewGladiator.Agility = FMath::RandRange(10, 20);
-	NewGladiator.Mana = FMath::RandRange(5, 15);
+	int32 ExtraHealth = FMath::RandRange(0, 10);
+	int32 ExtraAttack = FMath::RandRange(0, 5);
+	int32 ExtraDodge = FMath::RandRange(0, 5);
+
+	NewGladiator.Health = ClassBaseStats[Class].Health + ExtraHealth;
+	NewGladiator.AttackDamage = ClassBaseStats[Class].AttackDamage + ExtraAttack;
+	NewGladiator.Dodge = ClassBaseStats[Class].Dodge + ExtraDodge;
+	// TODO: Add dodge to salary calculation if it gets implemented
+	NewGladiator.Salary = 5 + (2 * (ExtraHealth + ExtraAttack));
 
 	return NewGladiator;
 }

@@ -20,11 +20,11 @@ struct FGladiatorData
 	UPROPERTY(EditAnywhere)
 	int32 Health;
 	UPROPERTY(EditAnywhere)
-	int32 Strength;
+	int32 AttackDamage;
 	UPROPERTY(EditAnywhere)
-	int32 Agility;
+	int32 Dodge;
 	UPROPERTY(EditAnywhere)
-	int32 Mana;
+	int32 Salary;
 };
 
 USTRUCT(BlueprintType)

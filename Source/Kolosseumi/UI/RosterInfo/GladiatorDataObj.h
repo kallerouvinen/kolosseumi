@@ -22,15 +22,15 @@ public:
 		Name = GladiatorData.Name;
 		Class = GladiatorData.Class;
 		Health = GladiatorData.Health;
-		Strength = GladiatorData.Strength;
-		Agility = GladiatorData.Agility;
-		Mana = GladiatorData.Mana;
+		AttackDamage = GladiatorData.AttackDamage;
+		Dodge = GladiatorData.Dodge;
+		Salary = GladiatorData.Salary;
 	}
 
 	FString Name;
 	EGladiatorClass Class;
 	int32 Health;
-	int32 Strength;
-	int32 Agility;
-	int32 Mana;
+	int32 AttackDamage;
+	int32 Dodge;
+	int32 Salary;
 };

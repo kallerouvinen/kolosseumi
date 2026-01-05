@@ -4,7 +4,7 @@
 
 AOpponentTeamManager::AOpponentTeamManager()
 {
-	static ConstructorHelpers::FObjectFinder<UDataTable> DataTableFinder(TEXT("/Game/Data/DT_OpponentRosters"));
+	static ConstructorHelpers::FObjectFinder<UDataTable> DataTableFinder(TEXT("/Game/Data/DT_OpponentRosters.DT_OpponentRosters"));
 	if (DataTableFinder.Succeeded())
 	{
 		OpponentTeamsTable = DataTableFinder.Object;

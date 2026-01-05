@@ -6,49 +6,49 @@
         "Name": "",
         "Class": "Barbarian",
         "Health": 0,
-        "Strength": 0,
-        "Agility": 0,
-        "Mana": 0
+        "AttackDamage": 0,
+        "Dodge": 0,
+        "Salary": 0
       },
       "12": {
         "Name": "",
         "Class": "Knight",
         "Health": 0,
-        "Strength": 0,
-        "Agility": 0,
-        "Mana": 0
+        "AttackDamage": 0,
+        "Dodge": 0,
+        "Salary": 0
       },
       "15": {
         "Name": "",
         "Class": "Mage",
         "Health": 0,
-        "Strength": 0,
-        "Agility": 0,
-        "Mana": 0
+        "AttackDamage": 0,
+        "Dodge": 0,
+        "Salary": 0
       },
       "16": {
         "Name": "",
         "Class": "Ranger",
         "Health": 0,
-        "Strength": 0,
-        "Agility": 0,
-        "Mana": 0
+        "AttackDamage": 0,
+        "Dodge": 0,
+        "Salary": 0
       },
       "20": {
         "Name": "",
         "Class": "Rogue",
         "Health": 0,
-        "Strength": 0,
-        "Agility": 0,
-        "Mana": 0
+        "AttackDamage": 0,
+        "Dodge": 0,
+        "Salary": 0
       },
       "21": {
         "Name": "",
         "Class": "Knight",
         "Health": 0,
-        "Strength": 0,
-        "Agility": 0,
-        "Mana": 0
+        "AttackDamage": 0,
+        "Dodge": 0,
+        "Salary": 0
       }
     }
   }

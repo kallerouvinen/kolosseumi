@@ -9,6 +9,7 @@
 #include "InnWidget.generated.h"
 
 class UButton;
+class UGladiatorInfoWidget;
 class UListView;
 
 /**
@@ -26,6 +27,8 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UListView> GladiatorListView;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UGladiatorInfoWidget> GladiatorInfo;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> HireButton;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
