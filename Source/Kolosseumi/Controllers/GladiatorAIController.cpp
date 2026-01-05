@@ -118,7 +118,7 @@ void AGladiatorAIController::OnGladiatorKnockedOut(FGameplayTag Channel, const F
 	}
 	else if (GetPawn() == Message.Gladiator)
 	{
-		GetBlackboardComponent()->SetValueAsObject(TEXT("AttackTarget"), nullptr);
+		BrainComponent->StopLogic("Gladiator knocked out");
 	}
 }
 

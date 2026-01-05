@@ -90,7 +90,8 @@ void AGladiator::SetHealth(int32 NewHealth)
 	if (Health <= 0)
 	{
 		bIsKnockedOut = true;
-		// TODO: Stop any ongoing actions and prevent further actions
+
+		GetCharacterMovement()->StopMovementImmediately();
 
 		FGladiatorKnockedOutMessage KnockedOutMessage;
 		KnockedOutMessage.Gladiator = this;
