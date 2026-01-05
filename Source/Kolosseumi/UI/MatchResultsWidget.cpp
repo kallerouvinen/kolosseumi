@@ -46,10 +46,12 @@ void UMatchResultsWidget::OnReturnToMainUIClicked()
 
 	UGameplayStatics::PlaySound2D(this, CoinsSound, 0.2f);
 
+	FReturnToMainUIMessage ReturnMessage;
+	ReturnMessage.bTriggerEvent = true;
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.BroadcastMessage(
 			KolosseumiTags::Message_ReturnToMainUI,
-			FReturnToMainUIMessage());
+			ReturnMessage);
 }
 
 void UMatchResultsWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)

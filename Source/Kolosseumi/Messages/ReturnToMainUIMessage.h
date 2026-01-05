@@ -9,4 +9,8 @@ USTRUCT(BlueprintType)
 struct FReturnToMainUIMessage
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	bool bTriggerEvent = false;
 };

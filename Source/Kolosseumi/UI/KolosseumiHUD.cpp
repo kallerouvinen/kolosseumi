@@ -2,6 +2,7 @@
 
 #include "Kolosseumi/UI/KolosseumiHUD.h"
 #include "Kolosseumi/UI/EditFormationWidget.h"
+#include "Kolosseumi/UI/EventWidget.h"
 #include "Kolosseumi/UI/MainUIWidget.h"
 #include "Kolosseumi/UI/MatchResultsWidget.h"
 #include "Kolosseumi/UI/QuitWidget.h"
@@ -24,6 +25,12 @@ AKolosseumiHUD::AKolosseumiHUD()
 	if (MatchResultsWidgetClassFinder.Succeeded())
 	{
 		MatchResultsWidgetClass = MatchResultsWidgetClassFinder.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UEventWidget> EventWidgetClassFinder(TEXT("/Game/UI/WBP_Event"));
+	if (EventWidgetClassFinder.Succeeded())
+	{
+		EventWidgetClass = EventWidgetClassFinder.Class;
 	}
 
 	static ConstructorHelpers::FClassFinder<UQuitWidget> QuitConfirmationWidgetClassFinder(TEXT("/Game/UI/WBP_QuitConfirmation"));
@@ -66,6 +73,15 @@ void AKolosseumiHUD::BeginPlay()
 		{
 			MatchResultsWidget->AddToViewport();
 			MatchResultsWidget->SetVisibility(ESlateVisibility::Collapsed);
+		}
+	}
+
+	if (EventWidgetClass)
+	{
+		if (EventWidget = CreateWidget<UEventWidget>(GetWorld(), EventWidgetClass))
+		{
+			EventWidget->AddToViewport();
+			EventWidget->SetVisibility(ESlateVisibility::Collapsed);
 		}
 	}
 
