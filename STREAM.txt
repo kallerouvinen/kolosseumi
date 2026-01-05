@@ -1,7 +1,7 @@
 Päivä 4/4
 
 ☑ Raha
-☐ Rahapalkinto ottelun
+☑ Rahapalkinto ottelun
      jälkeen
 ☐ Gladiaattoreiden palkkaa-
      minen (majatalo)

@@ -37,7 +37,7 @@
 ### Päivä 4/4
 
 ☑ Raha
-☐ Rahapalkinto ottelun jälkeen
+☑ Rahapalkinto ottelun jälkeen
 ☐ Gladiaattoreiden palkkaaminen (majatalo)
 ☐ Attribuutit
 ☐ Gladiaattorin tiedot käyttöliittymässä
@@ -50,6 +50,7 @@
 
 ☐ Perehdytys
 ☐ Eventit otteluiden välissä
+☐ Tasapainotus
 ☐ Varusteet
 ☐ Ympäristöjä areenalle
 
