@@ -41,10 +41,14 @@
 ☑ Gladiaattorin tiedot käyttöliittymässä
 ☑ Gladiaattoreiden palkkaaminen (majatalo)
 ☐ Attribuutit
+  ☐ Attack damage ei vaikuta
+  ☐ Tarkista vaikuttaako HP
+  ☐ Implementoi dodge
 ☐ Jos ehtii -asioita
 ☐ Viimeistely
 ☐ Pelin paketointi
 ☐ Lataaminen itch.ioon
+☐ Itch.io -sivun sisältö
 
 ### Jos ehtii
 
@@ -59,7 +63,6 @@
 
 ### Bugikorjauksia
 
-☐ Attack damage ei vaikuta
 ☐ Gladiaattoreita voi laittaa samoihin ruutuihin
 ☐ Hahmon tulisi kääntyä kohti hyökkäyksen kohdetta
 

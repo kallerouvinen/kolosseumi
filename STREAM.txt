@@ -12,3 +12,4 @@ Päivä 4/4
 ☐ Viimeistely
 ☐ Pelin paketointi
 ☐ Lataaminen itch.ioon
+☐ Itch.io -sivun sisältö
