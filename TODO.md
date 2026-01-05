@@ -50,9 +50,11 @@
 
 ☐ Perehdytys
 ☐ Eventit otteluiden välissä
+☐ Valikon ulkoasu
+☐ Äänet
 ☐ Tasapainotus
-☐ Varusteet
 ☐ Ympäristöjä areenalle
+☐ Varusteet
 
 ### Bugikorjauksia
 
