@@ -11,19 +11,26 @@ struct FGladiatorData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
+	FGuid ID = FGuid::NewGuid();
+	UPROPERTY()
 	FString Name;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	EGladiatorClass Class;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	int32 Health;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	int32 AttackDamage;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	int32 Dodge;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	int32 Salary;
+
+	bool operator==(const FGladiatorData& Other) const
+	{
+		return ID == Other.ID;
+	}
 };
 
 USTRUCT(BlueprintType)
@@ -32,7 +39,7 @@ struct FRosterData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	TMap<int32, FGladiatorData> Gladiators;
 
 	int32 GetTotalSalary() const

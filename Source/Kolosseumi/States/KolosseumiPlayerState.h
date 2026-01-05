@@ -21,6 +21,7 @@ protected:
 public:
 	void AddGladiatorToRoster(const FGladiatorData& GladiatorData);
 	void ChangeMoneyAmount(int32 Amount);
+	void FireGladiator(const FGuid& GladiatorID);
 
 	const FRosterData& GetPlayerRoster() const { return PlayerRoster; }
 	int32 GetMoney() const { return Money; }

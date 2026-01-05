@@ -44,6 +44,26 @@ void AKolosseumiPlayerState::ChangeMoneyAmount(int32 Amount)
 			MoneyChangedMessage);
 }
 
+void AKolosseumiPlayerState::FireGladiator(const FGuid& GladiatorID)
+{
+	for (auto It = PlayerRoster.Gladiators.CreateIterator(); It; ++It)
+	{
+		if (It.Value().ID == GladiatorID)
+		{
+			It.RemoveCurrent();
+			ChangeMoneyAmount(It.Value().Salary * 0.5f);
+			break;
+		}
+	}
+
+	FRosterChangedMessage RosterChangedMessage;
+	RosterChangedMessage.NewRoster = PlayerRoster;
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.BroadcastMessage(
+			KolosseumiTags::Message_RosterChanged,
+			RosterChangedMessage);
+}
+
 void AKolosseumiPlayerState::GenerateRoster(int32 NumGladiators)
 {
 	PlayerRoster.Gladiators.Empty();

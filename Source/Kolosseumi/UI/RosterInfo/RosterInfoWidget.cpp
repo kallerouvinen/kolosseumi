@@ -5,11 +5,15 @@
 #include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Kolosseumi/UI/GladiatorInfoWidget.h"
 #include "Kolosseumi/UI/RosterInfo/GladiatorDataObj.h"
+#include "Components/Button.h"
 #include "Components/ListView.h"
 
 void URosterInfoWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
+
+	FireGladiatorButton->SetVisibility(ESlateVisibility::Hidden);
+	FireGladiatorButton->OnClicked.AddDynamic(this, &ThisClass::OnFireGladiatorClicked);
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	RosterChangedListenerHandle = MessageSubsystem.RegisterListener(
@@ -46,6 +50,21 @@ void URosterInfoWidget::OnGladiatorSelected(UObject* SelectedItem)
 	{
 		GladiatorInfo->SetInfo(GladiatorDataObj);
 	}
+
+	FireGladiatorButton->SetVisibility(SelectedItem
+					? ESlateVisibility::Visible
+					: ESlateVisibility::Hidden);
+}
+
+void URosterInfoWidget::OnFireGladiatorClicked()
+{
+	if (UGladiatorDataObj* SelectedGladiator = Cast<UGladiatorDataObj>(RosterListView->GetSelectedItem()))
+	{
+		if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())
+		{
+			PlayerState->FireGladiator(SelectedGladiator->ID);
+		}
+	}
 }
 
 void URosterInfoWidget::OnRosterChanged(FGameplayTag Channel, const FRosterChangedMessage& Message)
@@ -64,4 +83,6 @@ void URosterInfoWidget::OnRosterChanged(const FRosterData& Roster)
 	}
 
 	RosterListView->SetListItems(GladiatorDataObjects);
+	RosterListView->ClearSelection();
+	GladiatorInfo->SetInfo(nullptr);
 }

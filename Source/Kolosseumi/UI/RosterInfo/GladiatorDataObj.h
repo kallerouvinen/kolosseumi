@@ -19,6 +19,7 @@ class KOLOSSEUMI_API UGladiatorDataObj : public UObject
 public:
 	void Init(const FGladiatorData& GladiatorData)
 	{
+		ID = GladiatorData.ID;
 		Name = GladiatorData.Name;
 		Class = GladiatorData.Class;
 		Health = GladiatorData.Health;
@@ -30,6 +31,7 @@ public:
 	FGladiatorData GetGladiatorDataAsStruct() const
 	{
 		FGladiatorData GladiatorData;
+		GladiatorData.ID = ID;
 		GladiatorData.Name = Name;
 		GladiatorData.Class = Class;
 		GladiatorData.Health = Health;
@@ -39,6 +41,7 @@ public:
 		return GladiatorData;
 	}
 
+	FGuid ID;
 	FString Name;
 	EGladiatorClass Class;
 	int32 Health;
