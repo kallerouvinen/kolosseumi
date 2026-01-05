@@ -19,6 +19,10 @@ struct FClassBaseStats
 	int32 AttackDamage;
 	UPROPERTY(EditAnywhere)
 	int32 Dodge;
+
+	FClassBaseStats() : Health(100), AttackDamage(20), Dodge(0) {}
+	FClassBaseStats(int32 InHealth, int32 InAttackDamage, int32 InDodge)
+			: Health(InHealth), AttackDamage(InAttackDamage), Dodge(InDodge) {}
 };
 
 /**

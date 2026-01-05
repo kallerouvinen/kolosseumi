@@ -49,9 +49,22 @@ void AArrow::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 	{
 		if (AGladiator* TargetGladiator = Cast<AGladiator>(OtherActor))
 		{
-			// TODO: Replace this placeholder damage application with actual logic
-			float DamageAmount = 20.f;
-			TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
+			if (AGladiator* SourceGladiator = Cast<AGladiator>(SourceActor))
+			{
+				int32 DodgeChance = TargetGladiator->GetData().Dodge;
+				float DodgeRoll = FMath::FRandRange(0.0f, 100.0f);
+				if (DodgeRoll < static_cast<float>(DodgeChance))
+				{
+					// TODO: Spawn dodge effect
+					Destroy();
+					return;
+				}
+
+				float VarianceCoefficient = FMath::FRandRange(0.8f, 1.2f);
+				float DamageAmount = SourceGladiator->GetData().AttackDamage * VarianceCoefficient;
+				// TODO: Spawn damage effect
+				TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
+			}
 		}
 
 		Destroy();

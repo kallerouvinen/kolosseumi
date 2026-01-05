@@ -76,6 +76,9 @@ void AGladiator::SetData(const FGladiatorData& Data)
 {
 	GladiatorData = Data;
 
+	SetMaxHealth(Data.Health);
+	SetHealth(Data.Health);
+
 	GetMesh()->SetSkeletalMesh(
 			Cast<USkeletalMesh>(StaticLoadObject(
 					USkeletalMesh::StaticClass(),
@@ -131,7 +134,14 @@ void AGladiator::MeleeAttack(AGladiator* TargetGladiator)
 		GetWorldTimerManager().SetTimer(
 				DamageTimerHandle,
 				[this, TargetGladiator]() {
-					float DamageAmount = AttackDamage + FMath::RandRange(-20, 20);
+					int32 DodgeChance = TargetGladiator->GetData().Dodge;
+					float DodgeRoll = FMath::FRandRange(0.0f, 100.0f);
+					// TODO: Spawn dodge effect
+					if (DodgeRoll < static_cast<float>(DodgeChance)) return;
+
+					float VarianceCoefficient = FMath::FRandRange(0.8f, 1.2f);
+					float DamageAmount = GladiatorData.AttackDamage * VarianceCoefficient;
+					// TODO: Spawn damage effect
 					TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
 				},
 				0.5f,

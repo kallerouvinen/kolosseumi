@@ -45,11 +45,11 @@ const TArray<FString> UStatics::AllGladiatorNames = {
 };
 
 const TMap<EGladiatorClass, FClassBaseStats> UStatics::ClassBaseStats = {
-	{ EGladiatorClass::Barbarian, { 100, 20, 0 } },
-	{ EGladiatorClass::Knight, { 120, 10, 0 } },
-	{ EGladiatorClass::Mage, { 80, 10, 0 } },
-	{ EGladiatorClass::Ranger, { 90, 10, 0 } },
-	{ EGladiatorClass::Rogue, { 85, 10, 20 } },
+	{ EGladiatorClass::Barbarian, FClassBaseStats(100, 20, 0) },
+	{ EGladiatorClass::Knight, FClassBaseStats(120, 10, 0) },
+	{ EGladiatorClass::Mage, FClassBaseStats(80, 10, 0) },
+	{ EGladiatorClass::Ranger, FClassBaseStats(90, 10, 0) },
+	{ EGladiatorClass::Rogue, FClassBaseStats(85, 10, 20) },
 };
 
 FGladiatorData UStatics::GenerateGladiatorData()
