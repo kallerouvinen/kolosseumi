@@ -11,6 +11,7 @@
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
+#include "Kismet/GameplayStatics.h"
 
 const TMap<EGladiatorClass, FString> AGladiator::GladiatorClassToMeshPath = {
 	{ EGladiatorClass::Barbarian, "/Game/Characters/Meshes/SK_Barbarian.SK_Barbarian" },
@@ -31,6 +32,18 @@ AGladiator::AGladiator()
 	HealthBarWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 	HealthBarWidgetComponent->SetDrawAtDesiredSize(true);
 	HealthBarWidgetComponent->SetupAttachment(RootComponent);
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> HitSoundFinder(TEXT("/Game/Audio/MS_Hit.MS_Hit"));
+	if (HitSoundFinder.Succeeded())
+	{
+		HitSound = HitSoundFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> DodgeSoundFinder(TEXT("/Game/Audio/MS_Dodge.MS_Dodge"));
+	if (DodgeSoundFinder.Succeeded())
+	{
+		DodgeSound = DodgeSoundFinder.Object;
+	}
 
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 
@@ -136,12 +149,17 @@ void AGladiator::MeleeAttack(AGladiator* TargetGladiator)
 				[this, TargetGladiator]() {
 					int32 DodgeChance = TargetGladiator->GetData().Dodge;
 					float DodgeRoll = FMath::FRandRange(0.0f, 100.0f);
-					// TODO: Spawn dodge effect
-					if (DodgeRoll < static_cast<float>(DodgeChance)) return;
+					if (DodgeRoll < static_cast<float>(DodgeChance))
+					{
+						// TODO: Spawn dodge effect
+						UGameplayStatics::PlaySound2D(this, DodgeSound, 0.1f);
+						return;
+					}
 
 					float VarianceCoefficient = FMath::FRandRange(0.8f, 1.2f);
 					float DamageAmount = GladiatorData.AttackDamage * VarianceCoefficient;
 					// TODO: Spawn damage effect
+					UGameplayStatics::PlaySound2D(this, HitSound, 0.1f);
 					TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
 				},
 				0.5f,

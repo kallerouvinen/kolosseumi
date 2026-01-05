@@ -4,6 +4,7 @@
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AArrow::AArrow()
 {
@@ -33,6 +34,18 @@ AArrow::AArrow()
 	ProjectileMovement->bIsHomingProjectile = true;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->ProjectileGravityScale = 0.f;
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> HitSoundFinder(TEXT("/Game/Audio/MS_Hit.MS_Hit"));
+	if (HitSoundFinder.Succeeded())
+	{
+		HitSound = HitSoundFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> DodgeSoundFinder(TEXT("/Game/Audio/MS_Dodge.MS_Dodge"));
+	if (DodgeSoundFinder.Succeeded())
+	{
+		DodgeSound = DodgeSoundFinder.Object;
+	}
 }
 
 void AArrow::BeginPlay()
@@ -56,6 +69,7 @@ void AArrow::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 				if (DodgeRoll < static_cast<float>(DodgeChance))
 				{
 					// TODO: Spawn dodge effect
+					UGameplayStatics::PlaySound2D(this, DodgeSound, 0.1f);
 					Destroy();
 					return;
 				}
@@ -63,6 +77,7 @@ void AArrow::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Ot
 				float VarianceCoefficient = FMath::FRandRange(0.8f, 1.2f);
 				float DamageAmount = SourceGladiator->GetData().AttackDamage * VarianceCoefficient;
 				// TODO: Spawn damage effect
+				UGameplayStatics::PlaySound2D(this, HitSound, 0.1f);
 				TargetGladiator->SetHealth(TargetGladiator->GetHealth() - DamageAmount);
 			}
 		}

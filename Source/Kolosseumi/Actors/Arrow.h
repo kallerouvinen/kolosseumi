@@ -8,6 +8,7 @@
 
 class UBoxComponent;
 class UProjectileMovementComponent;
+class USoundBase;
 
 UCLASS()
 class KOLOSSEUMI_API AArrow : public AActor
@@ -31,6 +32,11 @@ protected:
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
+	TObjectPtr<USoundBase> HitSound;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
+	TObjectPtr<USoundBase> DodgeSound;
 
 	AActor* SourceActor;
 	AActor* TargetActor;

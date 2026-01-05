@@ -11,6 +11,7 @@
 #include "GameplayTagContainer.h"
 #include "Gladiator.generated.h"
 
+class USoundBase;
 class UWidgetComponent;
 
 UCLASS()
@@ -53,6 +54,11 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
 	TObjectPtr<UWidgetComponent> HealthBarWidgetComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
+	TObjectPtr<USoundBase> HitSound;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
+	TObjectPtr<USoundBase> DodgeSound;
 
 private:
 	void RefreshHealthBar();
