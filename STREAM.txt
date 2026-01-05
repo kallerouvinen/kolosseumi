@@ -3,11 +3,11 @@ Päivä 4/4
 ☑ Raha
 ☑ Rahapalkinto ottelun
      jälkeen
+☑ Gladiaattorin tiedot
+     käyttöliittymässä
 ☐ Gladiaattoreiden palkkaa-
      minen (majatalo)
 ☐ Attribuutit
-☐ Gladiaattorin tiedot
-     käyttöliittymässä
 ☐ Jos ehtii -asioita
 ☐ Viimeistely
 ☐ Pelin paketointi

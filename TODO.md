@@ -38,9 +38,9 @@
 
 ☑ Raha
 ☑ Rahapalkinto ottelun jälkeen
+☑ Gladiaattorin tiedot käyttöliittymässä
 ☐ Gladiaattoreiden palkkaaminen (majatalo)
 ☐ Attribuutit
-☐ Gladiaattorin tiedot käyttöliittymässä
 ☐ Jos ehtii -asioita
 ☐ Viimeistely
 ☐ Pelin paketointi
@@ -56,6 +56,7 @@
 
 ### Bugikorjauksia
 
+☐ Attack damage ei vaikuta
 ☐ Hahmon tulisi kääntyä kohti hyökkäyksen kohdetta
 
 ### Varusteet
