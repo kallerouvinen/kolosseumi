@@ -9,6 +9,7 @@
 class UEditFormationWidget;
 class UMainUIWidget;
 class UMatchResultsWidget;
+class UQuitWidget;
 
 /**
  *
@@ -32,6 +33,9 @@ private:
 
 	TSubclassOf<UMatchResultsWidget> MatchResultsWidgetClass;
 	TObjectPtr<UMatchResultsWidget> MatchResultsWidget;
+
+	TSubclassOf<UQuitWidget> QuitConfirmationWidgetClass;
+	TObjectPtr<UQuitWidget> QuitConfirmationWidget;
 
 	TSubclassOf<UUserWidget> OnboardingWidgetClass;
 };

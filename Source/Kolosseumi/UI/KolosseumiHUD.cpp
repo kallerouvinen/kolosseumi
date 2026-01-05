@@ -4,6 +4,7 @@
 #include "Kolosseumi/UI/EditFormationWidget.h"
 #include "Kolosseumi/UI/MainUIWidget.h"
 #include "Kolosseumi/UI/MatchResultsWidget.h"
+#include "Kolosseumi/UI/QuitWidget.h"
 
 AKolosseumiHUD::AKolosseumiHUD()
 {
@@ -23,6 +24,12 @@ AKolosseumiHUD::AKolosseumiHUD()
 	if (MatchResultsWidgetClassFinder.Succeeded())
 	{
 		MatchResultsWidgetClass = MatchResultsWidgetClassFinder.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UQuitWidget> QuitConfirmationWidgetClassFinder(TEXT("/Game/UI/WBP_QuitConfirmation"));
+	if (QuitConfirmationWidgetClassFinder.Succeeded())
+	{
+		QuitConfirmationWidgetClass = QuitConfirmationWidgetClassFinder.Class;
 	}
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> OnboardingWidgetClassFinder(TEXT("/Game/UI/WBP_Onboarding"));
@@ -67,6 +74,15 @@ void AKolosseumiHUD::BeginPlay()
 		if (UUserWidget* OnboardingWidget = CreateWidget<UUserWidget>(GetWorld(), OnboardingWidgetClass))
 		{
 			OnboardingWidget->AddToViewport();
+		}
+	}
+
+	if (QuitConfirmationWidgetClass)
+	{
+		if (QuitConfirmationWidget = CreateWidget<UQuitWidget>(GetWorld(), QuitConfirmationWidgetClass))
+		{
+			QuitConfirmationWidget->AddToViewport();
+			QuitConfirmationWidget->SetVisibility(ESlateVisibility::Collapsed);
 		}
 	}
 }

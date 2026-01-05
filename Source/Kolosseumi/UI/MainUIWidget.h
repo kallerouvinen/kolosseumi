@@ -42,6 +42,8 @@ protected:
 	TObjectPtr<UTextBlock> MoneyText;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> StartNextMatchButton;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UButton> QuitGameButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<USoundBase> BackgroundMusic;
@@ -57,10 +59,15 @@ private:
 	void OnShopButtonClicked();
 	UFUNCTION()
 	void OnNextMatchClicked();
+	UFUNCTION()
+	void OnQuitGameClicked();
 
 	UFUNCTION()
 	void OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUIMessage& Message);
 	FGameplayMessageListenerHandle ReturnToMainUIListenerHandle;
+	UFUNCTION()
+	void OnRosterChanged(FGameplayTag Channel, const FRosterChangedMessage& Message);
+	FGameplayMessageListenerHandle RosterChangedListenerHandle;
 	UFUNCTION()
 	void OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMessage& Message);
 	FGameplayMessageListenerHandle MoneyChangedListenerHandle;

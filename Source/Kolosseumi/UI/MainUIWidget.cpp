@@ -4,6 +4,8 @@
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Managers/OpponentTeamManager.h"
 #include "Kolosseumi/Messages/MoneyChangedMessage.h"
+#include "Kolosseumi/Messages/QuitGameMessage.h"
+#include "Kolosseumi/Messages/RosterChangedMessage.h"
 #include "Kolosseumi/Messages/StartFormationEditingMessage.h"
 #include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Kolosseumi/UI/InnWidget.h"
@@ -20,12 +22,18 @@ void UMainUIWidget::NativeOnInitialized()
 	InnButton->OnClicked.AddDynamic(this, &ThisClass::OnInnButtonClicked);
 	ShopButton->OnClicked.AddDynamic(this, &ThisClass::OnShopButtonClicked);
 	StartNextMatchButton->OnClicked.AddDynamic(this, &ThisClass::OnNextMatchClicked);
+	QuitGameButton->OnClicked.AddDynamic(this, &ThisClass::OnQuitGameClicked);
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+
 	ReturnToMainUIListenerHandle = MessageSubsystem.RegisterListener(
 			KolosseumiTags::Message_ReturnToMainUI,
 			this,
 			&ThisClass::OnReturnToMainUI);
+	RosterChangedListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_RosterChanged,
+			this,
+			&ThisClass::OnRosterChanged);
 	MoneyChangedListenerHandle = MessageSubsystem.RegisterListener(
 			KolosseumiTags::Message_MoneyChanged,
 			this,
@@ -40,6 +48,9 @@ void UMainUIWidget::NativeConstruct()
 	{
 		UpdateMoneyText(PlayerState->GetMoney());
 	}
+
+	// Disable as player doesn't have any gladiators yet
+	StartNextMatchButton->SetIsEnabled(false);
 
 	UGameplayStatics::PlaySound2D(this, BackgroundMusic, 0.2f);
 }
@@ -97,11 +108,24 @@ void UMainUIWidget::OnNextMatchClicked()
 			FormationEditingMessage);
 }
 
+void UMainUIWidget::OnQuitGameClicked()
+{
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.BroadcastMessage(
+			KolosseumiTags::Message_QuitGame,
+			FQuitGameMessage());
+}
+
 void UMainUIWidget::OnReturnToMainUI(FGameplayTag Channel, const FReturnToMainUIMessage& Message)
 {
 	SetVisibility(ESlateVisibility::Visible);
 
 	WidgetSwitcher->SetActiveWidgetIndex(0);
+}
+
+void UMainUIWidget::OnRosterChanged(FGameplayTag Channel, const FRosterChangedMessage& Message)
+{
+	StartNextMatchButton->SetIsEnabled(Message.NewRoster.Gladiators.Num() > 0);
 }
 
 void UMainUIWidget::OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMessage& Message)

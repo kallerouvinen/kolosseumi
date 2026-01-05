@@ -33,9 +33,12 @@ public:
 protected:
 	TObjectPtr<UInputMappingContext> DefaultMappingContext;
 	TObjectPtr<UInputAction> SelectAction;
+	TObjectPtr<UInputAction> QuitAction;
 
 	void OnSelectStarted();
 	void OnSelectCompleted();
+	void OnQuit();
+
 	ASpawnPoint* GetClosestUnoccupiedSpawnPointWithinRange(EFaction Faction, const FVector& Location, float Range) const;
 	void CacheSpawnPoints(bool bFilterByFaction = false, EFaction Faction = EFaction::Player);
 

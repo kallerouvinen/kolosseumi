@@ -2,6 +2,8 @@
 
 #include "Kolosseumi/Controllers/KolosseumiPlayerController.h"
 #include "Kolosseumi/Actors/SpawnPoint.h"
+#include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
+#include "Kolosseumi/Messages/QuitGameMessage.h"
 #include "Kolosseumi/Pawns/Gladiator.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -21,10 +23,16 @@ AKolosseumiPlayerController::AKolosseumiPlayerController()
 		DefaultMappingContext = InputMappingContextFinder.Object;
 	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> InputActionFinder(TEXT("/Game/Input/IA_Select"));
-	if (InputActionFinder.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UInputAction> SelectActionFinder(TEXT("/Game/Input/IA_Select"));
+	if (SelectActionFinder.Succeeded())
 	{
-		SelectAction = InputActionFinder.Object;
+		SelectAction = SelectActionFinder.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UInputAction> QuitActionFinder(TEXT("/Game/Input/IA_Quit"));
+	if (QuitActionFinder.Succeeded())
+	{
+		QuitAction = QuitActionFinder.Object;
 	}
 }
 
@@ -54,6 +62,7 @@ void AKolosseumiPlayerController::SetupInputComponent()
 	{
 		EnhancedInputComponent->BindAction(SelectAction, ETriggerEvent::Started, this, &ThisClass::OnSelectStarted);
 		EnhancedInputComponent->BindAction(SelectAction, ETriggerEvent::Completed, this, &ThisClass::OnSelectCompleted);
+		EnhancedInputComponent->BindAction(QuitAction, ETriggerEvent::Started, this, &ThisClass::OnQuit);
 	}
 }
 
@@ -118,6 +127,14 @@ void AKolosseumiPlayerController::OnSelectCompleted()
 	}
 
 	GrabbedGladiator = nullptr;
+}
+
+void AKolosseumiPlayerController::OnQuit()
+{
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.BroadcastMessage(
+			KolosseumiTags::Message_QuitGame,
+			FQuitGameMessage());
 }
 
 ASpawnPoint* AKolosseumiPlayerController::GetClosestUnoccupiedSpawnPointWithinRange(EFaction Faction, const FVector& Location, float Range) const
