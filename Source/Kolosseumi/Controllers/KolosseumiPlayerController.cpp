@@ -120,6 +120,8 @@ void AKolosseumiPlayerController::OnSelectStarted()
 	{
 		if (AGladiator* Gladiator = Cast<AGladiator>(HitResult.GetActor()))
 		{
+			if (Gladiator->GetFaction() != EFaction::Player) return;
+
 			GrabbedGladiator = Gladiator;
 		}
 	}
