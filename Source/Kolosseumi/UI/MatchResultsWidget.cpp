@@ -6,6 +6,7 @@
 #include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Kismet/GameplayStatics.h"
 
 void UMatchResultsWidget::NativeOnInitialized()
 {
@@ -41,6 +42,8 @@ void UMatchResultsWidget::NativeDestruct()
 void UMatchResultsWidget::OnReturnToMainUIClicked()
 {
 	SetVisibility(ESlateVisibility::Collapsed);
+
+	UGameplayStatics::PlaySound2D(this, CoinsSound, 0.2f);
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.BroadcastMessage(

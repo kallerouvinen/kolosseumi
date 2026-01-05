@@ -71,6 +71,8 @@ void UMainUIWidget::OnNextMatchClicked()
 {
 	SetVisibility(ESlateVisibility::Collapsed);
 
+	UGameplayStatics::PlaySound2D(this, NextMatchSound, 0.2f);
+
 	FStartFormationEditingMessage FormationEditingMessage;
 
 	if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())

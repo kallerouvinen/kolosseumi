@@ -9,6 +9,7 @@
 #include "EditFormationWidget.generated.h"
 
 class UButton;
+class USoundBase;
 
 /**
  *
@@ -24,6 +25,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> StartMatchButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<USoundBase> StartMatchSound;
 
 private:
 	UFUNCTION()

@@ -32,6 +32,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> ReturnToMainUIButton;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<USoundBase> CoinsSound;
+
 private:
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);

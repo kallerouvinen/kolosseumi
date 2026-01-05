@@ -5,6 +5,7 @@
 #include "Kolosseumi/Messages/StartFormationEditingMessage.h"
 #include "Kolosseumi/Messages/StartMatchMessage.h"
 #include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
 
 void UEditFormationWidget::NativeOnInitialized()
 {
@@ -30,6 +31,8 @@ void UEditFormationWidget::NativeDestruct()
 void UEditFormationWidget::OnStartMatchClicked()
 {
 	SetVisibility(ESlateVisibility::Collapsed);
+
+	UGameplayStatics::PlaySound2D(this, StartMatchSound, 0.2f);
 
 	FStartMatchMessage StartMatchMessage;
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
