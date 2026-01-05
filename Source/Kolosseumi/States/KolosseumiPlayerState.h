@@ -4,10 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kolosseumi/Libraries/StructLibrary.h"
-#include "Kolosseumi/Messages/MatchEndMessage.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameFramework/PlayerState.h"
-#include "GameplayTagContainer.h"
 #include "KolosseumiPlayerState.generated.h"
 
 /**
@@ -20,7 +17,6 @@ class KOLOSSEUMI_API AKolosseumiPlayerState : public APlayerState
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
 	void AddGladiatorToRoster(const FGladiatorData& GladiatorData);
@@ -34,8 +30,4 @@ private:
 
 	FRosterData PlayerRoster;
 	int32 Money = 50;
-
-	UFUNCTION()
-	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
-	FGameplayMessageListenerHandle MatchEndListenerHandle;
 };

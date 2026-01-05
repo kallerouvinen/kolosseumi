@@ -12,20 +12,6 @@ void AKolosseumiPlayerState::BeginPlay()
 	Super::BeginPlay();
 
 	ChangeMoneyAmount(0); // To broadcast initial money amount
-
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MatchEndListenerHandle = MessageSubsystem.RegisterListener(
-			KolosseumiTags::Message_MatchEnd,
-			this,
-			&ThisClass::OnMatchEnd);
-}
-
-void AKolosseumiPlayerState::EndPlay(const EEndPlayReason::Type EndPlayReason)
-{
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
-
-	Super::EndPlay(EndPlayReason);
 }
 
 void AKolosseumiPlayerState::AddGladiatorToRoster(const FGladiatorData& GladiatorData)
@@ -73,13 +59,4 @@ void AKolosseumiPlayerState::GenerateRoster(int32 NumGladiators)
 	MessageSubsystem.BroadcastMessage(
 			KolosseumiTags::Message_RosterChanged,
 			RosterChangedMessage);
-}
-
-void AKolosseumiPlayerState::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message)
-{
-	int32 BaseRewardAmount = Message.WinningFaction == EFaction::Player ? 25 : 15;
-	int32 Variance = FMath::RandRange(-5, 5);
-	int32 FinalAmount = BaseRewardAmount + Variance;
-
-	ChangeMoneyAmount(FinalAmount);
 }

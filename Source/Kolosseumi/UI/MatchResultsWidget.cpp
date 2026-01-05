@@ -4,6 +4,7 @@
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
 #include "Kolosseumi/Messages/MoneyChangedMessage.h"
 #include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
+#include "Kolosseumi/States/KolosseumiPlayerState.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
@@ -59,6 +60,28 @@ void UMatchResultsWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessag
 			FTimerDelegate::CreateLambda([Message, this]() {
 				SetVisibility(ESlateVisibility::Visible);
 
+				if (AKolosseumiPlayerState* PlayerState = GetOwningPlayerState<AKolosseumiPlayerState>())
+				{
+					int32 BaseRewardAmount = Message.WinningFaction == EFaction::Player ? 25 : 15;
+					int32 Variance = FMath::RandRange(-5, 5);
+					int32 FinalAmount = BaseRewardAmount + Variance;
+
+					PlayerState->ChangeMoneyAmount(FinalAmount);
+
+					FString RewardString;
+
+					if (Message.WinningFaction == EFaction::Player)
+					{
+						RewardString = FString::Printf(TEXT("Sait %d rahaa palkintona voitosta"), FinalAmount);
+					}
+					else
+					{
+						RewardString = FString::Printf(TEXT("Sait %d rahaa lohdutuspalkintona"), FinalAmount);
+					}
+
+					MoneyRewardText->SetText(FText::FromString(RewardString));
+				}
+
 				FString MatchResult = GetMatchResultText(Message.WinningFaction);
 
 				MatchResultText->SetText(FText::FromString(MatchResult));
@@ -69,18 +92,6 @@ void UMatchResultsWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessag
 
 void UMatchResultsWidget::OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMessage& Message)
 {
-	FString RewardString;
-
-	if (Message.ChangeAmount < 30)
-	{
-		RewardString = FString::Printf(TEXT("Sait %d rahaa lohdutuspalkintona"), Message.ChangeAmount);
-	}
-	else
-	{
-		RewardString = FString::Printf(TEXT("Sait %d rahaa palkintona voitosta"), Message.ChangeAmount);
-	}
-
-	MoneyRewardText->SetText(FText::FromString(RewardString));
 }
 
 FString UMatchResultsWidget::GetMatchResultText(EFaction WinningFaction) const
