@@ -40,6 +40,8 @@ void UMainUIWidget::NativeConstruct()
 	{
 		UpdateMoneyText(PlayerState->GetMoney());
 	}
+
+	UGameplayStatics::PlaySound2D(this, BackgroundMusic, 0.2f);
 }
 
 void UMainUIWidget::NativeDestruct()
@@ -54,11 +56,15 @@ void UMainUIWidget::NativeDestruct()
 void UMainUIWidget::OnInnButtonClicked()
 {
 	WidgetSwitcher->SetActiveWidget(InnWidget);
+
+	UGameplayStatics::PlaySound2D(this, OpenDoorSound, 0.2f);
 }
 
 void UMainUIWidget::OnShopButtonClicked()
 {
 	WidgetSwitcher->SetActiveWidget(ShopWidget);
+
+	UGameplayStatics::PlaySound2D(this, OpenDoorSound, 0.2f);
 }
 
 void UMainUIWidget::OnNextMatchClicked()

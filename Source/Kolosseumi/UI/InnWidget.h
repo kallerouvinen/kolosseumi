@@ -11,6 +11,7 @@
 class UButton;
 class UGladiatorInfoWidget;
 class UListView;
+class USoundBase;
 
 /**
  *
@@ -33,6 +34,11 @@ protected:
 	TObjectPtr<UButton> HireButton;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> BackButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<USoundBase> CloseDoorSound;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<USoundBase> CoinsSound;
 
 private:
 	UFUNCTION()

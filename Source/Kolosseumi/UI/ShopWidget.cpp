@@ -5,6 +5,7 @@
 #include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
 #include "Components/Button.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
+#include "Kismet/GameplayStatics.h"
 
 void UShopWidget::NativeOnInitialized()
 {
@@ -15,6 +16,8 @@ void UShopWidget::NativeOnInitialized()
 
 void UShopWidget::OnBackButtonClicked()
 {
+	UGameplayStatics::PlaySound2D(this, CloseDoorSound, 0.2f);
+
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.BroadcastMessage(
 			KolosseumiTags::Message_ReturnToMainUI,

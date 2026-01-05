@@ -10,6 +10,7 @@
 #include "Components/Button.h"
 #include "Components/ListView.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
+#include "Kismet/GameplayStatics.h"
 
 void UInnWidget::NativeOnInitialized()
 {
@@ -56,12 +57,16 @@ void UInnWidget::OnHireButtonClicked()
 			GladiatorListView->RemoveItem(SelectedGladiator);
 			GladiatorListView->ClearSelection();
 			GladiatorInfo->SetInfo(nullptr);
+
+			UGameplayStatics::PlaySound2D(this, CoinsSound, 0.2f);
 		}
 	}
 }
 
 void UInnWidget::OnBackButtonClicked()
 {
+	UGameplayStatics::PlaySound2D(this, CloseDoorSound, 0.2f);
+
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.BroadcastMessage(
 			KolosseumiTags::Message_ReturnToMainUI,

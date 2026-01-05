@@ -7,6 +7,7 @@
 #include "ShopWidget.generated.h"
 
 class UButton;
+class USoundBase;
 
 /**
  *
@@ -21,6 +22,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> BackButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<USoundBase> CloseDoorSound;
 
 private:
 	UFUNCTION()
