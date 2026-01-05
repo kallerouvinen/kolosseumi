@@ -1,6 +1,14 @@
-Päivä 2/4
+Päivä 4/4
 
-☑ Muodostelman muokkaa-
-     minen
-☑ Rostereita vastustajille
-☑ Hahmoluokat
+☑ Raha
+☐ Rahapalkinto ottelun
+     jälkeen
+☐ Gladiaattoreiden palkkaa-
+     minen (majatalo)
+☐ Attribuutit
+☐ Gladiaattorin tiedot
+     käyttöliittymässä
+☐ Jos ehtii -asioita
+☐ Viimeistely
+☐ Pelin paketointi
+☐ Lataaminen itch.ioon

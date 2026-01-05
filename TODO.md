@@ -36,7 +36,7 @@
 
 ### Päivä 4/4
 
-☐ Raha
+☑ Raha
 ☐ Rahapalkinto ottelun jälkeen
 ☐ Gladiaattoreiden palkkaaminen (majatalo)
 ☐ Attribuutit
@@ -48,10 +48,10 @@
 
 ### Jos ehtii
 
-☐ Varusteet
-☐ Ympäristöjä areenalle
 ☐ Perehdytys
 ☐ Eventit otteluiden välissä
+☐ Varusteet
+☐ Ympäristöjä areenalle
 
 ### Bugikorjauksia
 
