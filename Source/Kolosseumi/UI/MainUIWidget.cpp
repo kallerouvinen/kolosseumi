@@ -103,7 +103,7 @@ void UMainUIWidget::OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMess
 
 void UMainUIWidget::UpdateMoneyText(int32 NewAmount)
 {
-	FString MoneyString = FString::Printf(TEXT("Gold: %d"), NewAmount);
+	FString MoneyString = FString::Printf(TEXT("Kultaa: %d"), NewAmount);
 
 	MoneyText->SetText(FText::FromString(MoneyString));
 }

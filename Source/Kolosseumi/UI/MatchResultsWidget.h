@@ -28,12 +28,17 @@ protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UTextBlock> MatchResultText;
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UTextBlock> MoneyRewardText;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UButton> ReturnToMainUIButton;
 
 private:
 	UFUNCTION()
 	void OnMatchEnd(FGameplayTag Channel, const FMatchEndMessage& Message);
 	FGameplayMessageListenerHandle MatchEndListenerHandle;
+	UFUNCTION()
+	void OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMessage& Message);
+	FGameplayMessageListenerHandle MoneyChangedListenerHandle;
 
 	UFUNCTION()
 	void OnReturnToMainUIClicked();

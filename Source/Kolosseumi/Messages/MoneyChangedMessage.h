@@ -12,5 +12,7 @@ struct FMoneyChangedMessage
 
 public:
 	UPROPERTY()
+	int32 ChangeAmount;
+	UPROPERTY()
 	int32 NewAmount;
 };

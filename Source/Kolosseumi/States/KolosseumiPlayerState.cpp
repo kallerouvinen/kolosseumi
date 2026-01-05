@@ -66,6 +66,7 @@ void AKolosseumiPlayerState::ChangeMoneyAmount(int32 Amount)
 	Money += Amount;
 
 	FMoneyChangedMessage MoneyChangedMessage;
+	MoneyChangedMessage.ChangeAmount = Amount;
 	MoneyChangedMessage.NewAmount = Money;
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.BroadcastMessage(

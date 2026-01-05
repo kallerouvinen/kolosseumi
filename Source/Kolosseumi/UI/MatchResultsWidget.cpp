@@ -2,6 +2,7 @@
 
 #include "Kolosseumi/UI/MatchResultsWidget.h"
 #include "Kolosseumi/Libraries/KolosseumiGameplayTags.h"
+#include "Kolosseumi/Messages/MoneyChangedMessage.h"
 #include "Kolosseumi/Messages/ReturnToMainUIMessage.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
@@ -17,6 +18,10 @@ void UMatchResultsWidget::NativeOnInitialized()
 			KolosseumiTags::Message_MatchEnd,
 			this,
 			&ThisClass::OnMatchEnd);
+	MoneyChangedListenerHandle = MessageSubsystem.RegisterListener(
+			KolosseumiTags::Message_MoneyChanged,
+			this,
+			&ThisClass::OnMoneyChanged);
 }
 
 void UMatchResultsWidget::NativeConstruct()
@@ -28,6 +33,7 @@ void UMatchResultsWidget::NativeDestruct()
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.UnregisterListener(MatchEndListenerHandle);
+	MessageSubsystem.UnregisterListener(MoneyChangedListenerHandle);
 
 	Super::NativeDestruct();
 }
@@ -58,16 +64,32 @@ void UMatchResultsWidget::OnMatchEnd(FGameplayTag Channel, const FMatchEndMessag
 			false);
 }
 
+void UMatchResultsWidget::OnMoneyChanged(FGameplayTag Channel, const FMoneyChangedMessage& Message)
+{
+	FString RewardString;
+
+	if (Message.ChangeAmount < 30)
+	{
+		RewardString = FString::Printf(TEXT("Sait %d rahaa lohdutuspalkintona"), Message.ChangeAmount);
+	}
+	else
+	{
+		RewardString = FString::Printf(TEXT("Sait %d rahaa palkintona voitosta"), Message.ChangeAmount);
+	}
+
+	MoneyRewardText->SetText(FText::FromString(RewardString));
+}
+
 FString UMatchResultsWidget::GetMatchResultText(EFaction WinningFaction) const
 {
 	switch (WinningFaction)
 	{
 		case EFaction::Player:
-			return TEXT("Victory!");
+			return TEXT("Voitto!");
 		case EFaction::Opponent:
-			return TEXT("Defeat!");
+			return TEXT("Tappio!");
 		case EFaction::None:
 		default:
-			return TEXT("Draw!");
+			return TEXT("Tasapeli!");
 	}
 }
