@@ -1,84 +1,78 @@
-☑
-☐
+
+⚠️ **Note**  
+> This file was used as a living plan and TODO list during the game jam. It is kept here in a lightly cleaned-up state for documentation purposes. The contents remain in Finnish to match the original live-streamed development
+
+# TODO / suunnitelmat
+
+## Mitä saatiin tehtyä
 
 ### Päivä 1/4
 
-☑ Hahmot (mesh + animaatio)
-☑ Kenttä
-☑ Kamera
-☑ Hahmojen spawnaaminen
-☑ Hahmojen HP
-☑ Faction (player/opponent)
-☑ AI Controller
-☑ Liikkuminen
-☑ Hyökkääminen
-☑ Vahinko
-☑ Tajuttomuus
-☑ Käyttöliittymä
-☑ Nappi ottelun aloittamiselle
+- Hahmot (mesh + animaatio)
+- Kenttä
+- Kamera
+- Hahmojen spawnaaminen
+- Hahmojen HP
+- Faction (player/opponent)
+- AI Controller
+- Liikkuminen
+- Hyökkääminen
+- Vahinko
+- Tajuttomuus
+- Käyttöliittymä
+- Nappi ottelun aloittamiselle
 
 ### Päivä 2/4
 
-☑ Viestintä koodin sisällä
-☑ Ottelun päättyminen
-☑ Ruutu ottelun tuloksille
-☑ Gladiaattorin data
-☑ Hahmojen nimet
-☑ Kokoonpanon data
-☑ Kokoonpanon näyttäminen käyttöliittymässä
-☑ Kokoonpanon spawnaus
+- Viestintä koodin sisällä
+- Ottelun päättyminen
+- Ruutu ottelun tuloksille
+- Gladiaattorin data
+- Hahmojen nimet
+- Kokoonpanon data
+- Kokoonpanon näyttäminen käyttöliittymässä
+- Kokoonpanon spawnaus
 
 ### Päivä 3/4
 
-☑ Muodostelman muokkaaminen
-☑ Rostereita vastustajille
-☑ Hahmoluokat
+- Muodostelman muokkaaminen
+- Rostereita vastustajille
+- Hahmoluokat
 
 ### Päivä 4/4
 
-☑ Raha
-☑ Rahapalkinto ottelun jälkeen
-☑ Gladiaattorin tiedot käyttöliittymässä
-☑ Gladiaattoreiden palkkaaminen (majatalo)
-☑ Attribuutit
-☐ Jos ehtii -asioita
-  ☑ Perehdytys
-  ☑ Valikon ulkoasu
-  ☑ Dynaaminen vaikeusaste
-  ☑ Äänet
-  ☑ Pelistä poistuminen
-  ☑ Estä ukkeleiden siirtely ottelun aikana
-  ☑ Estä ottelun aloittaminen jos kaikki ukot ovat kentän sivussa
-  ☑ Eventit otteluiden välissä
-  ☐ Tasapainotus
-☑ Pelin paketointi
-☑ Lataaminen itch.ioon
-☑ Itch.io -sivun sisältö
+- Raha
+- Rahapalkinto ottelun jälkeen
+- Gladiaattorin tiedot käyttöliittymässä
+- Gladiaattoreiden palkkaaminen (majatalo)
+- Attribuutit
+- Jos ehtii -asioita
+  - Johdanto
+  - Valikon ulkoasu
+  - Dynaaminen vaikeusaste
+  - Äänet
+  - Pelistä poistuminen
+  - Eventit otteluiden välissä
+  - Tasapainotus
+- Pelin paketointi
+- Lataaminen itch.ioon
+- Itch.io -sivun sisältö
 
-### Jos ehtii
+## Tekemättä jääneet asiat
 
-☐ Spawnaa vahinkonumeroita vihollisten yläpuolelle
-☐ Spawnaa ilmoitus hudista vihollisten yläpuolelle
-☐ Ympäristöjä areenalle
-☐ Äänien tason säätäminen
-☐ Poista BP_Gladiator ja käytä C++ -luokkaa
-☐ Varusteet
+- Lyöntien tekemän vahingon määrän visualisointi
+- Ohi menneiden lyöntien visualisointi
+- Ympäristöjä areenalle
+- Varusteet
+- Äänien tason säätäminen
 
-### Bugikorjauksia
+## Korjaamattomia bugeja
 
-☐ Gladiaattoreita voi laittaa samoihin ruutuihin
-☐ Hahmon tulisi kääntyä kohti hyökkäyksen kohdetta
+- Muodostelman luomisnäkymässä voi ensimmäisen ottelun jälkeen aloittaa ottelun laittamatta yhtään gladiaattoria kentälle
+- Hahmot eivät käänny kohti hyökkäyksen kohdetta
 
-### Varusteet
+## Varasuunnitelmia, mikäli asiat olisivat menneet pahasti metsään
 
-- Buffaa attribuutteja
-- Antaa erikoiskykyjä, millaisia?
-- Buffaa lähellä olevia
-- Taunttaa automaattisesti lähellä olevat
-- Ekstrarahaa taistelun lopussa
-
-### Varasuunnitelmat mikäli asiat menee metsään
-
-- Vain yksi rotu
+- Vain yksi hahmoluokka
 - Ei käyttöliittymää, vain ottelun aloittaminen
 - Satunnaiset gladiaattorit jokaiseen otteluun
